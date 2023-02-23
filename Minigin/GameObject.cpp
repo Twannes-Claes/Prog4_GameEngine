@@ -2,26 +2,39 @@
 #include "GameObject.h"
 #include "ResourceManager.h"
 #include "Renderer.h"
+#include "UpdateComponent.h"
+#include "RenderComponent.h"
 
-Monke::GameObject::~GameObject() = default;
-
-void Monke::GameObject::Update()
+namespace Monke
 {
-	
-}
+	void GameObject::Update()
+	{
+		for(const auto& pComponent : m_pUpdateComponents)
+		{
+			pComponent->Update();
+		}
 
-void Monke::GameObject::Render() const
-{
-	const auto& pos = m_transform.GetPosition();
-	Renderer::GetInstance().RenderTexture(*m_texture, pos.x, pos.y);
-}
+	}
 
-void Monke::GameObject::SetTexture(const std::string& filename)
-{
-	m_texture = ResourceManager::GetInstance().LoadTexture(filename);
-}
+	void GameObject::Render() const
+	{
+		//const auto& pos = m_transform.GetPosition();
+		//Renderer::GetInstance().RenderTexture(*m_texture, pos.x, pos.y);
 
-void Monke::GameObject::SetPosition(float x, float y)
-{
-	m_transform.SetPosition(x, y, 0.0f);
+		for (const auto& pComponent : m_pRenderComponents)
+		{
+			pComponent->Render();
+		}
+
+	}
+
+	void GameObject::SetTexture(const std::string& filename)
+	{
+		m_texture = ResourceManager::GetInstance().LoadTexture(filename);
+	}
+
+	void GameObject::SetPosition(float x, float y)
+	{
+		m_transform.SetPosition(x, y, 0.0f);
+	}
 }

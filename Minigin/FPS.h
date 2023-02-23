@@ -17,6 +17,7 @@ namespace Monke
 		FPS& operator=(FPS&& other) = delete;
 
 	private:
+
 	};
 }
 

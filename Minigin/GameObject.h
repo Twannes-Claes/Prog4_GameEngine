@@ -10,25 +10,28 @@ namespace Monke
 	class UpdateComponent;
 	class RenderComponent;
 
-	// todo: this should become final.
-	class GameObject
+	class GameObject final
 	{
 	public:
+
 		virtual void Update();
 		virtual void Render() const;
 
 		void SetTexture(const std::string& filename);
 		void SetPosition(float x, float y);
 
+		//THE BIG SIX
 		GameObject() = default;
-		virtual ~GameObject();
+		virtual ~GameObject() = default;
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
 		GameObject& operator=(const GameObject& other) = delete;
 		GameObject& operator=(GameObject&& other) = delete;
 
+#pragma region Template_Component_Classes
+
 		template <class T>
-		std::shared_ptr<T> GetComponent() const;
+		std::weak_ptr<T> GetComponent() const;
 
 		template <class T>
 		std::shared_ptr<T> AddComponent();
@@ -39,7 +42,10 @@ namespace Monke
 		template <class T>
 		bool RemoveComponent();
 
+#pragma endregion
+
 	private:
+
 		Transform m_transform{};
 		// todo: mmm, every gameobject has a texture? Is that correct?
 		std::shared_ptr<Texture2D> m_texture{};
@@ -47,10 +53,13 @@ namespace Monke
 		//component vectors
 		std::vector<std::shared_ptr<UpdateComponent>> m_pUpdateComponents{};
 		std::vector<std::shared_ptr<RenderComponent>> m_pRenderComponents{};
+
 	};
 
+#pragma region Template_Component_Logic
+
 	template <class T>
-	std::shared_ptr<T> GameObject::GetComponent() const
+	std::weak_ptr<T> GameObject::GetComponent() const
 	{
 		//make shared of class
 		std::shared_ptr<T> derivedComponent{ nullptr };
@@ -166,4 +175,7 @@ namespace Monke
 		//return if the component has been removed
 		return removed;
 	}
+
+#pragma endregion
+
 }

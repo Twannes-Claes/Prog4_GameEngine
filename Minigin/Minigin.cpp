@@ -9,6 +9,7 @@
 #include "SceneManager.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
+#include  "Time.h"
 
 SDL_Window* g_window{};
 
@@ -65,6 +66,7 @@ Monke::Minigin::Minigin(const std::string &dataPath)
 	Renderer::GetInstance().Init(g_window);
 
 	ResourceManager::GetInstance().Init(dataPath);
+
 }
 
 Monke::Minigin::~Minigin()
@@ -82,14 +84,14 @@ void Monke::Minigin::Run(const std::function<void()>& load) const
 	const auto& renderer = Renderer::GetInstance();
 	const auto& sceneManager = SceneManager::GetInstance();
 	auto& input = InputManager::GetInstance();
-
-	// todo: this update loop could use some work.
+	auto& timer = Time::GetInstance();
 
 	bool doContinue = true;
 
 	while (doContinue)
 	{
 		doContinue = input.ProcessInput();
+		timer.Update();
 		sceneManager.Update();
 		renderer.Render();
 	}
