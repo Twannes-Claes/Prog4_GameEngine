@@ -7,6 +7,7 @@ namespace Monke
 	class FPS final : public BaseComponent
 	{
 	public:
+
 		//explicit FPS_Component(std::shared_ptr<GameObject>& pParent);
 
 		virtual ~FPS() override = default;

@@ -76,7 +76,7 @@ namespace Monke
 		//check if given class has been inherited form basecomponent
 		//https://stackoverflow.com/questions/5084209/check-if-template-argument-is-inherited-from-class && resharper instructing for std::is_base_v
 
-		static_assert(std::is_base_of_v<BaseComponent, T>, "The given class must be inherited from BaseComponent");
+		static_assert(std::is_base_of_v<BaseComponent, T> , "The given class must be inherited from BaseComponent");
 
 		//make the component
 		auto pComponent{ std::make_shared<T>(this) };
@@ -131,23 +131,28 @@ namespace Monke
 		//save bool to check if component has been deleted
 		bool removed = false;
 
+		//check if it is a update component
 		if constexpr (std::is_base_of_v<UpdateComponent, T>)
 		{
-			auto it = std::remove_if(m_pUpdateComponents.begin(), m_pUpdateComponents.end(),
-			[](const std::shared_ptr<BaseComponent> component)
+			//find the first component that matches the component in the vector
+			auto it = std::remove_if(m_pUpdateComponents.begin(), m_pUpdateComponents.end(), []
+			(const std::shared_ptr<BaseComponent> component)
 			{
+				//check if the component can be casted to the template type
 				return std::dynamic_pointer_cast<T>(component) != nullptr;
 			});
+			//if i components has been found erase it and turn the remove flag to true
 			if (it != m_pUpdateComponents.end())
 			{
 				m_pUpdateComponents.erase(it);
 				removed = true;
 			}
 		}
+		//check if it is a render component
 		else if constexpr (std::is_base_of_v<RenderComponent, T>)
 		{
-			auto it = std::remove_if(m_pRenderComponents.begin(), m_pRenderComponents.end(),
-			[](const std::shared_ptr<BaseComponent> component)
+			auto it = std::remove_if(m_pRenderComponents.begin(), m_pRenderComponents.end(), []
+			(const std::shared_ptr<BaseComponent> component)
 			{
 				return std::dynamic_pointer_cast<T>(component) != nullptr;
 			});
@@ -157,6 +162,8 @@ namespace Monke
 				removed = true;
 			}
 		}
+
+		//return if the component has been removed
 		return removed;
 	}
 }

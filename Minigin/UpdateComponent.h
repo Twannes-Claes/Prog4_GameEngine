@@ -6,7 +6,7 @@ namespace Monke
 {
 	class UpdateComponent : public BaseComponent
 	{
-	public:
+		public:
 
 		explicit UpdateComponent(std::weak_ptr<GameObject>& pParent);
 

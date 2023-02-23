@@ -10,7 +10,7 @@ namespace Monke
 	class BaseComponent
 	{
 
-	public:
+		public:
 
 		explicit BaseComponent(std::weak_ptr<GameObject>& pParent);
 
@@ -21,7 +21,7 @@ namespace Monke
 		BaseComponent& operator=(const BaseComponent& other) = delete;
 		BaseComponent& operator=(BaseComponent&& other) = delete;
 
-	protected:
+		protected:
 
 		std::weak_ptr<GameObject> m_pParent{};
 
