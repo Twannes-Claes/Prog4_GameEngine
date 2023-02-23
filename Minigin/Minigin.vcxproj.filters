@@ -63,6 +63,12 @@
     <ClInclude Include="Time.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="UpdateComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderComponent.h">
+      <Filter>Framework Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Scene.cpp">
@@ -109,6 +115,12 @@
     </ClCompile>
     <ClCompile Include="Time.cpp">
       <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="UpdateComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderComponent.cpp">
+      <Filter>Game Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
