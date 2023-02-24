@@ -1,7 +1,7 @@
 #include <SDL.h>
 #include "InputManager.h"
 
-bool Monke::InputManager::ProcessInput()
+bool Monke::InputManager::ProcessInput() const
 {
 	SDL_Event e;
 	while (SDL_PollEvent(&e))

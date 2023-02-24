@@ -6,9 +6,10 @@ namespace Monke
 {
 	class UpdateComponent : public BaseComponent
 	{
-		public:
 
-		explicit UpdateComponent(std::weak_ptr<GameObject>& pParent);
+	public:
+
+		explicit UpdateComponent(const std::weak_ptr<GameObject>& pParent);
 
 		virtual void Update() = 0;
 
@@ -24,5 +25,6 @@ namespace Monke
 		UpdateComponent(UpdateComponent&& other) = delete;
 		UpdateComponent& operator=(const UpdateComponent& other) = delete;
 		UpdateComponent& operator=(UpdateComponent&& other) = delete;
+
 	};
 }

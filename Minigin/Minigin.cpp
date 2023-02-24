@@ -16,7 +16,7 @@ SDL_Window* g_window{};
 void PrintSDLVersion()
 {
 	SDL_version version{};
-	SDL_VERSION(&version);
+	SDL_VERSION(&version)
 	printf("We compiled against SDL version %u.%u.%u ...\n",
 		version.major, version.minor, version.patch);
 
@@ -24,7 +24,7 @@ void PrintSDLVersion()
 	printf("We are linking against SDL version %u.%u.%u.\n",
 		version.major, version.minor, version.patch);
 
-	SDL_IMAGE_VERSION(&version);
+	SDL_IMAGE_VERSION(&version)
 	printf("We compiled against SDL_image version %u.%u.%u ...\n",
 		version.major, version.minor, version.patch);
 
@@ -77,13 +77,13 @@ Monke::Minigin::~Minigin()
 	SDL_Quit();
 }
 
-void Monke::Minigin::Run(const std::function<void()>& load) const
+void Monke::Minigin::Run(const std::function<void()>& initiliaze) const
 {
-	load();
+	initiliaze();
 
 	const auto& renderer = Renderer::GetInstance();
 	const auto& sceneManager = SceneManager::GetInstance();
-	auto& input = InputManager::GetInstance();
+	const auto& input = InputManager::GetInstance();
 	auto& timer = Time::GetInstance();
 
 	bool doContinue = true;

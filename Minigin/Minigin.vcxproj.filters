@@ -25,12 +25,12 @@
     <Filter Include="4_Components\Components">
       <UniqueIdentifier>{fc9e4e7c-d1a9-4718-a6e5-a5d5a5520a6c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="4_Components\Error_Handling">
+      <UniqueIdentifier>{b01e2c3e-ceb5-4a1f-9da2-53c4d6e1a2d3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Texture2D.h">
-      <Filter>3_Framework Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Transform.h">
       <Filter>3_Framework Files</Filter>
     </ClInclude>
     <ClInclude Include="Font.h">
@@ -78,7 +78,16 @@
     <ClInclude Include="FPS.h">
       <Filter>4_Components\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Transform_Component.h">
+    <ClInclude Include="Transform.h">
+      <Filter>4_Components\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="DataComponent.h">
+      <Filter>4_Components\BaseComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Errors.h">
+      <Filter>4_Components\Error_Handling</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
       <Filter>4_Components\Components</Filter>
     </ClInclude>
   </ItemGroup>
@@ -96,9 +105,6 @@
       <Filter>3_Framework Files</Filter>
     </ClCompile>
     <ClCompile Include="Texture2D.cpp">
-      <Filter>3_Framework Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Transform.cpp">
       <Filter>3_Framework Files</Filter>
     </ClCompile>
     <ClCompile Include="BaseComponent.cpp">
@@ -134,7 +140,13 @@
     <ClCompile Include="FPS.cpp">
       <Filter>4_Components\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Transform_Component.cpp">
+    <ClCompile Include="Transform.cpp">
+      <Filter>4_Components\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="DataComponent.cpp">
+      <Filter>4_Components\BaseComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
       <Filter>4_Components\Components</Filter>
     </ClCompile>
   </ItemGroup>

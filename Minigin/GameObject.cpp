@@ -28,13 +28,8 @@ namespace Monke
 
 	}
 
-	void GameObject::SetTexture(const std::string& filename)
-	{
-		m_texture = ResourceManager::GetInstance().LoadTexture(filename);
-	}
-
-	void GameObject::SetPosition(float x, float y)
-	{
-		m_transform.SetPosition(x, y, 0.0f);
-	}
+	//void GameObject::SetTexture(const std::string& filename)
+	//{
+	//	//m_texture = ResourceManager::GetInstance().LoadTexture(filename);
+	//}
 }

@@ -5,9 +5,10 @@ namespace Monke
 {
 	class RenderComponent : public BaseComponent
 	{
-		public:
 
-		explicit RenderComponent(std::weak_ptr<GameObject>& pParent);
+	public:
+
+		explicit RenderComponent(const std::weak_ptr<GameObject>& pParent);
 
 		virtual void Render() const = 0;
 

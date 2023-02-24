@@ -6,19 +6,20 @@
 #include "Renderer.h"
 #include "Texture2D.h"
 #include "RenderComponent.h"
+#include "Transform.h"
+#include "Errors.h"
 
 namespace Monke
 {
-	Text::Text(std::weak_ptr<GameObject>& pParent, std::string text, std::shared_ptr<Font> font)
-	: RenderComponent(pParent),
-	  m_Text(std::move(text)),
-	  m_pFont(std::move(font)),
-	  m_pTextTexture(nullptr)
+	Text::Text(const std::weak_ptr<GameObject>& pParent)
+	:
+	RenderComponent(pParent),
+	//m_Text (std::move(text)),
+	//m_pFont(std::move(font)),
+	m_pTextTexture(nullptr)
 	{
-		SetText(m_Text);
-		SetFont(m_pFont);
-
-		//pComp = pParent.lock()->GetComponent<TextComponent>();
+		// todo add addcomponent(transform)
+		m_pTransform = pParent.lock()->GetComponent<Transform>();
 	}
 
 	void Text::ChangeTextTexture()
@@ -41,10 +42,17 @@ namespace Monke
 	{
 		if (m_pTextTexture != nullptr)
 		{
-			// todo weakpointer is expired check
-			
-			//const auto& pos = m_transform.GetPosition();
-			Renderer::GetInstance().RenderTexture(*m_pTextTexture, 0,0);
+			if (m_pTransform.expired())
+			{
+				const auto yes = Expired_Weak_Ptr("Stopped rendering the text;\n");
+
+				Renderer::GetInstance().RenderTexture(*m_pTextTexture, 0, 0);
+				return;
+			}
+
+			const glm::vec3 pos{ m_pTransform.lock()->GetPosition() };
+
+			Renderer::GetInstance().RenderTexture(*m_pTextTexture, pos.x, pos.y);
 		}
 	}
 }

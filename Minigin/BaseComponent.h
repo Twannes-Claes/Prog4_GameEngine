@@ -10,11 +10,13 @@ namespace Monke
 	class BaseComponent
 	{
 
-		public:
+	public:
 
-		explicit BaseComponent(std::weak_ptr<GameObject>& pParent);
+		explicit BaseComponent(const std::weak_ptr<GameObject>& pParent);
 
 		virtual ~BaseComponent() = default;
+
+
 
 		BaseComponent(const BaseComponent& other) = delete;
 		BaseComponent(BaseComponent&& other) = delete;
@@ -23,7 +25,7 @@ namespace Monke
 
 		// todo: MAKE A SET PARENT FUNCTION SO YOU DONT HAVE TO KEEP USING THE INHERITED CONSTRUCTOR FOR THE PARENT
 
-		protected:
+	protected:
 
 		std::weak_ptr<GameObject> m_pParent{};
 

@@ -1,27 +1,32 @@
 #pragma once
 #include <memory>
 #include <vector>
-#include "Transform.h"
+#include <string>
+
+#include "UpdateComponent.h"
+#include "RenderComponent.h"
+#include "BaseComponent.h"
+#include "DataComponent.h"
 
 namespace Monke
 {
 	class Texture2D;
-	class BaseComponent;
-	class UpdateComponent;
-	class RenderComponent;
+	//class BaseComponent;
+	//class UpdateComponent;
+	//class DataComponent;
+	//class RenderComponent;
 
-	class GameObject final
+	class GameObject final : public std::enable_shared_from_this<GameObject>
 	{
+
 	public:
 
-		virtual void Update();
-		virtual void Render() const;
-
-		void SetTexture(const std::string& filename);
-		void SetPosition(float x, float y);
+		void Update();
+		void Render() const;
 
 		//THE BIG SIX
 		GameObject() = default;
+
 		virtual ~GameObject() = default;
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
@@ -46,13 +51,10 @@ namespace Monke
 
 	private:
 
-		Transform m_transform{};
-		// todo: mmm, every gameobject has a texture? Is that correct?
-		std::shared_ptr<Texture2D> m_texture{};
-
 		//component vectors
 		std::vector<std::shared_ptr<UpdateComponent>> m_pUpdateComponents{};
 		std::vector<std::shared_ptr<RenderComponent>> m_pRenderComponents{};
+		std::vector<std::shared_ptr<DataComponent>> m_pDataComponents{};
 
 	};
 
@@ -75,6 +77,11 @@ namespace Monke
 		{
 			if ((derivedComponent = std::dynamic_pointer_cast<T>(pComponent))) return derivedComponent;
 		}
+		//loop over all data components and check if it has the given one
+		for (const std::shared_ptr<DataComponent>& pComponent : m_pDataComponents)
+		{
+			if ((derivedComponent = std::dynamic_pointer_cast<T>(pComponent))) return derivedComponent;
+		}
 
 		return derivedComponent;
 	}
@@ -88,21 +95,28 @@ namespace Monke
 		static_assert(std::is_base_of_v<BaseComponent, T> , "The given class must be inherited from BaseComponent");
 
 		//make the component
-		auto pComponent{ std::make_shared<T>(this) };
+		//https://en.cppreference.com/w/cpp/memory/enable_shared_from_this
+		auto pComponent{ std::make_shared<T>( weak_from_this()) };
 
 		//check if component is an updatable or render component, if so add them to the vector
-		if(std::is_base_of_v<UpdateComponent, T>)
+		if constexpr (std::is_base_of_v<UpdateComponent, T>)
 		{
 			//https://yunmingzhang.wordpress.com/2020/07/14/casting-shared-pointers-in-c/
 			auto pUpdateComponent = std::dynamic_pointer_cast<UpdateComponent>(pComponent);
 
 			m_pUpdateComponents.push_back(pUpdateComponent);
 		}
-		else if(std::is_base_of_v<RenderComponent, T>)
+		else if constexpr (std::is_base_of_v<RenderComponent, T>)
 		{
 			auto pRenderComponent = std::dynamic_pointer_cast<RenderComponent>(pComponent);
 
-			m_pUpdateComponents.push_back(pRenderComponent);
+			m_pRenderComponents.push_back(pRenderComponent);
+		}
+		else if constexpr (std::is_base_of_v<DataComponent, T>)
+		{
+			auto pDataComponent = std::dynamic_pointer_cast<DataComponent>(pComponent);
+
+			m_pDataComponents.push_back(pDataComponent);
 		}
 
 		//return the component
@@ -122,6 +136,11 @@ namespace Monke
 		}
 		//loop over all render components and check if it has the given one
 		for (const std::shared_ptr<RenderComponent>& pComponent : m_pRenderComponents)
+		{
+			if ((derivedComponent = std::dynamic_pointer_cast<T>(pComponent))) return true;
+		}
+		//loop over all data components and check if it has the given one
+		for (const std::shared_ptr<DataComponent>& pComponent : m_pDataComponents)
 		{
 			if ((derivedComponent = std::dynamic_pointer_cast<T>(pComponent))) return true;
 		}
@@ -145,7 +164,7 @@ namespace Monke
 		{
 			//find the first component that matches the component in the vector
 			auto it = std::remove_if(m_pUpdateComponents.begin(), m_pUpdateComponents.end(), []
-			(const std::shared_ptr<BaseComponent> component)
+			(const std::shared_ptr<BaseComponent>& component)
 			{
 				//check if the component can be casted to the template type
 				return std::dynamic_pointer_cast<T>(component) != nullptr;
@@ -161,13 +180,27 @@ namespace Monke
 		else if constexpr (std::is_base_of_v<RenderComponent, T>)
 		{
 			auto it = std::remove_if(m_pRenderComponents.begin(), m_pRenderComponents.end(), []
-			(const std::shared_ptr<BaseComponent> component)
+			(const std::shared_ptr<BaseComponent>& component)
 			{
 				return std::dynamic_pointer_cast<T>(component) != nullptr;
 			});
 			if (it != m_pRenderComponents.end())
 			{
 				m_pRenderComponents.erase(it);
+				removed = true;
+			}
+		}
+		//check if it is a data component
+		else if constexpr (std::is_base_of_v<DataComponent, T>)
+		{
+			auto it = std::remove_if(m_pDataComponents.begin(), m_pDataComponents.end(), []
+			(const std::shared_ptr<DataComponent>& component)
+				{
+					return std::dynamic_pointer_cast<T>(component) != nullptr;
+				});
+			if (it != m_pDataComponents.end())
+			{
+				m_pDataComponents.erase(it);
 				removed = true;
 			}
 		}

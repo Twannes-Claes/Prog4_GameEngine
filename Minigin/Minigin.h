@@ -9,7 +9,7 @@ namespace Monke
 	public:
 		explicit Minigin(const std::string& dataPath);
 		~Minigin();
-		void Run(const std::function<void()>& load) const;
+		void Run(const std::function<void()>& initiliaze) const;
 
 		Minigin(const Minigin& other) = delete;
 		Minigin(Minigin&& other) = delete;

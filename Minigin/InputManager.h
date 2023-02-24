@@ -6,7 +6,7 @@ namespace Monke
 	class InputManager final : public Singleton<InputManager>
 	{
 	public:
-		bool ProcessInput();
+		bool ProcessInput() const;
 	};
 
 }

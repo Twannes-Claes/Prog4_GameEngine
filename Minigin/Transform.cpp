@@ -1,8 +1,12 @@
 #include "Transform.h"
 
-void Monke::Transform::SetPosition(const float x, const float y, const float z)
+#include <utility>
+
+namespace Monke
 {
-	m_position.x = x;
-	m_position.y = y;
-	m_position.z = z;
+	Transform::Transform(const std::weak_ptr<GameObject>& pParent)
+	:
+	DataComponent(pParent)
+	//m_Position(pos)
+	{}
 }
