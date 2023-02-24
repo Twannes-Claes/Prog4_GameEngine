@@ -21,7 +21,7 @@ namespace Monke
 
 	public:
 
-		void Update();
+		void Update() const;
 		void Render() const;
 
 		//THE BIG SIX
