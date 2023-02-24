@@ -4,6 +4,7 @@
 #include "Text.h"
 #include "FPS.h"
 #include "Time.h"
+#include "Errors.h"
 
 namespace  Monke
 {
@@ -11,14 +12,11 @@ namespace  Monke
 	:
 	UpdateComponent(pParent)
 	{
-		//todo: move add component(Text) in the FPS
 		m_pText = pParent.lock()->GetComponent<Text>();
 	}
 
 	void FPS::Update()
 	{
-		
-
 		const float deltaTime{ Time::GetInstance().GetElapsed() };
 
 		m_ResetTimer += deltaTime;
@@ -37,6 +35,7 @@ namespace  Monke
 
 			if (m_pText.expired())
 			{
+				const auto error = Expired_Weak_Ptr(__FILE__, __LINE__);
 				return;
 			}
 

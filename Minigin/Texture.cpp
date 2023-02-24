@@ -22,9 +22,9 @@ namespace Monke
 		{
 			if (m_pTransform.expired())
 			{
-				const auto yes = Expired_Weak_Ptr(" stop texture");
+				const auto error = Expired_Weak_Ptr( __FILE__, __LINE__);
 
-				//Renderer::GetInstance().RenderTexture(*m_pTexture, 0, 0);
+				Renderer::GetInstance().RenderTexture(*m_pTexture, 0, 0);
 				return;
 			}
 
