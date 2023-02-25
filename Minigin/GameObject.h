@@ -256,7 +256,7 @@ namespace Monke
 		static_assert(std::is_base_of_v<BaseComponent, T>, "The given class must be inherited from BaseComponent");
 
 		////save bool to check if component has been deleted
-		bool removed = false;
+		//bool removed = false;
 
 		//removed = RemoveComponentCheck<T>(m_pUpdateComponents);
 

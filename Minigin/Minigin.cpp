@@ -41,7 +41,10 @@ void PrintSDLVersion()
 		version.major, version.minor, version.patch);
 }
 
-Monke::Minigin::Minigin(const std::string &dataPath)
+Monke::Minigin::Minigin(const std::string &dataPath, const float width, const float heigth)
+:
+m_WindowW{ width},
+m_WindowH{ heigth}
 {
 	PrintSDLVersion();
 	
@@ -54,8 +57,8 @@ Monke::Minigin::Minigin(const std::string &dataPath)
 		"Programming 4 assignment",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
-		640,
-		480,
+		static_cast<int>(m_WindowW),
+		static_cast<int>(m_WindowH),
 		SDL_WINDOW_OPENGL
 	);
 	if (g_window == nullptr) 
@@ -86,11 +89,11 @@ void Monke::Minigin::Run(const std::function<void()>& initiliaze) const
 	const auto& input = InputManager::GetInstance();
 	auto& timer = Time::GetInstance();
 
-	bool doContinue = true;
+	bool canContinueLoop = true;
 
-	while (doContinue)
+	while (canContinueLoop)
 	{
-		doContinue = input.ProcessInput();
+		canContinueLoop = input.ProcessInput();
 		timer.Update();
 		sceneManager.Update();
 		renderer.Render();
