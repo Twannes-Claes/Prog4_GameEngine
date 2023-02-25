@@ -22,9 +22,9 @@ namespace Monke
 		BaseComponent& operator=(const BaseComponent& other) = delete;
 		BaseComponent& operator=(BaseComponent&& other) = delete;
 
-		//todo: make a get component function so you dont have to type lock all the time
-
 		void SetParent( const std::weak_ptr<GameObject>& pParent ) { m_pParent = pParent; }
+
+		//todo: make a get component function so you dont have to type lock all the time
 
 		//template <class T>
 		//std::shared_ptr<T> GetComponent() const

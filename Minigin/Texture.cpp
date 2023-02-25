@@ -18,7 +18,7 @@ namespace Monke
 
 				if(m_pTransform.expired())
 				{
-					const auto error = Expired_Weak_Ptr(__FILE__, __LINE__);
+					const auto error = Expired_Weak_Ptr(__FILE__, __LINE__, "No transform component to draw on a given position");
 
 					Renderer::GetInstance().RenderTexture(*m_pTexture, 0, 0);
 					return;

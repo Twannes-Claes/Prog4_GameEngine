@@ -28,18 +28,23 @@ namespace  Monke
 
 			fps << " FPS";
 
-			if (m_pText.expired())
+			if(hasText)
 			{
-				m_pText = m_pParent.lock()->GetComponent<Text>();
-
 				if (m_pText.expired())
 				{
-					const auto error = Expired_Weak_Ptr(__FILE__, __LINE__);
-					return;
+					m_pText = m_pParent.lock()->GetComponent<Text>();
+
+					if (m_pText.expired())
+					{
+						const auto error = Expired_Weak_Ptr(__FILE__, __LINE__, "No text component found to display FPS as text");
+						hasText = false;
+						return;
+					}
 				}
+
+				m_pText.lock()->SetText(fps.str());
 			}
 
-			m_pText.lock()->SetText(fps.str());
 
 		}
 	}

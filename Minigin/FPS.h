@@ -25,6 +25,8 @@ namespace Monke
 
 	private:
 
+		bool hasText{ true };
+
 		std::weak_ptr<Text> m_pText{};
 
 		const float m_TimeToUpdate{ 0.1f };
