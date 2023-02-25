@@ -8,7 +8,7 @@ namespace Monke
 	{
 	public:
 
-		explicit Transform(const std::weak_ptr<GameObject>& pParent);
+		Transform() = default;
 		virtual ~Transform() override = default;
 
 

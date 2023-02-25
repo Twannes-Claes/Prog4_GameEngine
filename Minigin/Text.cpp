@@ -11,17 +11,6 @@
 
 namespace Monke
 {
-	Text::Text(const std::weak_ptr<GameObject>& pParent)
-	:
-	RenderComponent(pParent),
-	//m_Text (std::move(text)),
-	//m_pFont(std::move(font)),
-	m_pTextTexture(nullptr)
-	{
-		// todo add addcomponent(transform)
-		m_pTransform = pParent.lock()->GetComponent<Transform>();
-	}
-
 	void Text::ChangeTextTexture()
 	{
 		const auto surf = TTF_RenderText_Blended(m_pFont->GetFont(), m_Text.c_str(), m_Color);
@@ -44,10 +33,15 @@ namespace Monke
 		{
 			if (m_pTransform.expired())
 			{
-				const auto error = Expired_Weak_Ptr(__FILE__, __LINE__);
+				m_pTransform = m_pParent.lock()->GetComponent<Transform>();
 
-				Renderer::GetInstance().RenderTexture(*m_pTextTexture, 0, 0);
-				return;
+				if(m_pTransform.expired())
+				{
+					const auto error = Expired_Weak_Ptr(__FILE__, __LINE__);
+
+					Renderer::GetInstance().RenderTexture(*m_pTextTexture, 0, 0);
+					return;
+				}
 			}
 
 			const glm::vec3 pos{ m_pTransform.lock()->GetPosition() };

@@ -16,7 +16,8 @@ namespace Monke
 	{
 	public:
 
-		explicit Text(const std::weak_ptr<GameObject>& pParent);
+		// todo add addcomponent(transform)
+		Text() = default;
 		virtual ~Text() override = default;
 
 
@@ -40,7 +41,9 @@ namespace Monke
 		void ChangeTextTexture();
 
 		//weak pointer of the transform to draw the text on the right position
-		std::weak_ptr<Transform> m_pTransform{};
+		//https://www.geeksforgeeks.org/c-mutable-keyword/
+		//todo: ask alex
+		std::weak_ptr<Transform> mutable m_pTransform{};
 
 		std::string m_Text{" "};
 

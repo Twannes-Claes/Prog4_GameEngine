@@ -9,7 +9,7 @@ namespace Monke
 
 	public:
 
-		explicit UpdateComponent(const std::weak_ptr<GameObject>& pParent);
+		UpdateComponent() = default;
 
 		virtual void Update() = 0;
 

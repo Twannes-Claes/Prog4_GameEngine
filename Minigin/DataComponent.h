@@ -9,7 +9,7 @@ namespace Monke
 
 	public:
 
-		explicit DataComponent(const std::weak_ptr<GameObject>& pParent);
+		DataComponent() = default;
 
 		virtual ~DataComponent() override = default;
 

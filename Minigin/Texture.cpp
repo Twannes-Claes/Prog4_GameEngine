@@ -8,24 +8,21 @@
 
 namespace Monke
 {
-	Texture::Texture(const std::weak_ptr<GameObject>& pParent)
-	:
-	RenderComponent(pParent)
-	//m_pTexture(std::move(pTexture))
-	{
-		m_pTransform = pParent.lock()->GetComponent<Transform>();
-	}
-
 	void Texture::Render() const
 	{
 		if (m_pTexture != nullptr)
 		{
 			if (m_pTransform.expired())
 			{
-				const auto error = Expired_Weak_Ptr( __FILE__, __LINE__);
+				m_pTransform = m_pParent.lock()->GetComponent<Transform>();
 
-				Renderer::GetInstance().RenderTexture(*m_pTexture, 0, 0);
-				return;
+				if(m_pTransform.expired())
+				{
+					const auto error = Expired_Weak_Ptr(__FILE__, __LINE__);
+
+					Renderer::GetInstance().RenderTexture(*m_pTexture, 0, 0);
+					return;
+				}
 			}
 
 			const glm::vec3 pos{ m_pTransform.lock()->GetPosition() };

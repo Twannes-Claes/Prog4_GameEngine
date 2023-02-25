@@ -8,13 +8,6 @@
 
 namespace  Monke
 {
-	FPS::FPS(const std::weak_ptr<GameObject>& pParent)
-	:
-	UpdateComponent(pParent)
-	{
-		m_pText = pParent.lock()->GetComponent<Text>();
-	}
-
 	void FPS::Update()
 	{
 		const float deltaTime{ Time::GetInstance().GetElapsed() };
@@ -30,13 +23,20 @@ namespace  Monke
 			std::stringstream fps{};
 
 			fps << m_FPS;
+
 			if (m_FPS < 1000) fps << ' ';
+
 			fps << " FPS";
 
 			if (m_pText.expired())
 			{
-				const auto error = Expired_Weak_Ptr(__FILE__, __LINE__);
-				return;
+				m_pText = m_pParent.lock()->GetComponent<Text>();
+
+				if (m_pText.expired())
+				{
+					const auto error = Expired_Weak_Ptr(__FILE__, __LINE__);
+					return;
+				}
 			}
 
 			m_pText.lock()->SetText(fps.str());

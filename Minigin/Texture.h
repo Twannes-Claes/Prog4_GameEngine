@@ -11,9 +11,9 @@ namespace Monke
 
 	public:
 
-		explicit Texture(const std::weak_ptr<GameObject>& pParent);
-		virtual ~Texture() override = default;
+		Texture() = default;
 
+		virtual ~Texture() override = default;
 
 		void Render() const override;
 
@@ -27,7 +27,7 @@ namespace Monke
 	private:
 
 		//weak pointer of the transform to draw the text on the right position
-		std::weak_ptr<Transform> m_pTransform{};
+		std::weak_ptr<Transform> mutable m_pTransform{};
 
 		//texture pointers
 		std::shared_ptr<Texture2D> m_pTexture{};

@@ -8,6 +8,9 @@ namespace Monke
 	{
 		friend Scene& SceneManager::CreateScene(const std::string& name);
 	public:
+
+		std::shared_ptr<GameObject> MakeGameObject();
+
 		void Add(std::shared_ptr<GameObject> object);
 		void Remove(const std::shared_ptr<GameObject>& object);
 		void RemoveAll();

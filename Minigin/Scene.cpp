@@ -9,6 +9,15 @@ Scene::Scene(std::string name) : m_name(std::move(name)) {}
 
 Scene::~Scene() = default;
 
+std::shared_ptr<GameObject> Scene::MakeGameObject()
+{
+	std::shared_ptr pGameObject{ std::make_shared<GameObject>() };
+
+	Add(pGameObject);
+
+	return pGameObject;
+}
+
 void Scene::Add(std::shared_ptr<GameObject> object)
 {
 	m_objects.emplace_back(std::move(object));

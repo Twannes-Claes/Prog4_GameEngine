@@ -8,7 +8,7 @@ namespace Monke
 
 	public:
 
-		explicit RenderComponent(const std::weak_ptr<GameObject>& pParent);
+		RenderComponent() = default;
 
 		virtual void Render() const = 0;
 

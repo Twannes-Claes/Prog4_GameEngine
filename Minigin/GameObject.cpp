@@ -7,7 +7,7 @@
 
 namespace Monke
 {
-	void GameObject::Update()
+	void GameObject::Update() const
 	{
 		for(const auto& pComponent : m_pUpdateComponents)
 		{
