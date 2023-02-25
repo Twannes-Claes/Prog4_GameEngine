@@ -172,7 +172,7 @@ namespace Monke
 
 		auto pComponent{ std::make_shared<T>() };
 
-		//todo: fix SetParent results in empty parent
+		//set this pointer to weak pointer as parent
 		pComponent->SetParent(weak_from_this());
 
 		//bool hasAdded{ false };
