@@ -29,25 +29,24 @@ namespace Monke
 
 	void Text::Render() const
 	{
-		if (m_pTextTexture != nullptr)
+		if (m_pTextTexture == nullptr) return;
+		
+		if (m_pTransform.expired())
 		{
-			if (m_pTransform.expired())
+			m_pTransform = m_pParent.lock()->GetComponent<Transform>();
+
+			if(m_pTransform.expired())
 			{
-				m_pTransform = m_pParent.lock()->GetComponent<Transform>();
+				const auto error = Expired_Weak_Ptr(__FILE__, __LINE__, "No transform component to draw on a given position");
 
-				if(m_pTransform.expired())
-				{
-					const auto error = Expired_Weak_Ptr(__FILE__, __LINE__, "No transform component to draw on a given position");
-
-					Renderer::GetInstance().RenderTexture(*m_pTextTexture, 0, 0);
-					return;
-				}
+				Renderer::GetInstance().RenderTexture(*m_pTextTexture, 0, 0);
+				return;
 			}
-
-			const glm::vec3 pos{ m_pTransform.lock()->GetPosition() };
-
-			Renderer::GetInstance().RenderTexture(*m_pTextTexture, pos.x, pos.y);
 		}
+
+		const glm::vec3 pos{ m_pTransform.lock()->GetPosition() };
+
+		Renderer::GetInstance().RenderTexture(*m_pTextTexture, pos.x, pos.y);
 	}
 }
 
