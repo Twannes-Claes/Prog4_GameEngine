@@ -42,6 +42,7 @@ namespace Monke
 				Renderer::GetInstance().RenderTexture(*m_pTextTexture, 0, 0);
 				return;
 			}
+			//todo: maybe add green text on adding succeded
 		}
 
 		const glm::vec3 pos{ m_pTransform.lock()->GetPosition() };

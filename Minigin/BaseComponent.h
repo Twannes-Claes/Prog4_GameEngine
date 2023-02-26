@@ -22,7 +22,6 @@ namespace Monke
 		BaseComponent& operator=(const BaseComponent& other) = delete;
 		BaseComponent& operator=(BaseComponent&& other) = delete;
 
-		void SetParent( const std::weak_ptr<GameObject>& pParent ) { m_pParent = pParent; }
 
 		//todo: make a get component function so you dont have to type lock all the time
 
@@ -38,9 +37,12 @@ namespace Monke
 
 	protected:
 
-		std::weak_ptr<GameObject> m_pParent{};
+		void SetParent( const std::weak_ptr<GameObject>& pParent ) { m_pParent = pParent; }
 
-	private:
+		//setted gameobject as a friend so in the addcomponet gameobject can call SetParent
+		friend class GameObject;
+
+		std::weak_ptr<GameObject> m_pParent{};
 
 	};
 

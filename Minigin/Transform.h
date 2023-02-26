@@ -13,7 +13,7 @@ namespace Monke
 
 
 		void SetPosition(const glm::vec3& pos) { m_Position = pos; }
-		void SetPosition(const int x, const int y, const int z = 0) { m_Position = { x,y,z }; }
+		void SetPosition(const float x, const float y, const float z = 0) { m_Position = { x,y,z }; }
 
 		glm::vec3 GetPosition() const { return m_Position; }
 
