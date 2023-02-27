@@ -29,7 +29,7 @@ namespace Monke
 
 		std::weak_ptr<Text> m_pText{};
 
-		const float m_TimeToUpdate{ 0.1f };
+		const float m_TimeToUpdate{ 0.15f };
 
 		float m_ResetTimer{};
 
