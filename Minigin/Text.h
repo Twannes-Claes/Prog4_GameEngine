@@ -42,7 +42,7 @@ namespace Monke
 
 		//weak pointer of the transform to draw the text on the right position
 		//https://www.geeksforgeeks.org/c-mutable-keyword/
-		//todo: ask alex
+		//todo: ask alex, mayba a late update function?
 		std::weak_ptr<Transform> mutable m_pTransform{};
 
 		std::string m_Text{" "};
