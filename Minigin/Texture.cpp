@@ -14,7 +14,7 @@ namespace Monke
 
 		if (m_pTransform.expired())
 		{
-			m_pTransform = m_pParent.lock()->GetComponent<Transform>();
+			m_pTransform = GetParent().lock()->GetComponent<Transform>();
 
 			if(m_pTransform.expired())
 			{

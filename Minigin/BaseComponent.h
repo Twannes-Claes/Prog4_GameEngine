@@ -37,11 +37,14 @@ namespace Monke
 
 	protected:
 
-		std::weak_ptr<GameObject> m_pParent{};
+		std::weak_ptr<GameObject> GetParent() const { return m_pParent; }
 
 	private:
 
 		void SetParent( const std::weak_ptr<GameObject>& pParent ) { m_pParent = pParent; }
+
+		std::weak_ptr<GameObject> m_pParent{};
+
 
 		//setted gameobject as a friend so in the addcomponet gameobject can call SetParent
 		friend class GameObject;

@@ -32,7 +32,7 @@ namespace  Monke
 			{
 				if (m_pText.expired())
 				{
-					m_pText = m_pParent.lock()->GetComponent<Text>();
+					m_pText = GetParent().lock()->GetComponent<Text>();
 
 					if (m_pText.expired())
 					{
