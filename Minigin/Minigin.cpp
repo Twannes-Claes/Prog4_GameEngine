@@ -41,10 +41,10 @@ void PrintSDLVersion()
 		version.major, version.minor, version.patch);
 }
 
-Monke::Minigin::Minigin(const std::string &dataPath, const float width, const float heigth)
+Monke::Minigin::Minigin(const std::string &dataPath, const int width, const int heigth)
 :
-m_WindowW{ width},
-m_WindowH{ heigth}
+m_WindowW{ static_cast<float>(width)},
+m_WindowH{ static_cast<float>(heigth) } 
 {
 	PrintSDLVersion();
 	
@@ -57,8 +57,8 @@ m_WindowH{ heigth}
 		"Programming 4 assignment",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
-		static_cast<int>(m_WindowW),
-		static_cast<int>(m_WindowH),
+		width,
+		heigth,
 		SDL_WINDOW_OPENGL
 	);
 	if (g_window == nullptr) 

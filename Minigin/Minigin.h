@@ -7,8 +7,9 @@ namespace Monke
 	class Minigin
 	{
 	public:
-		explicit Minigin(const std::string& dataPath, const float width, const float heigth);
+		explicit Minigin(const std::string& dataPath, const int width, const int heigth);
 		~Minigin();
+
 		void Run(const std::function<void()>& initiliaze) const;
 
 		Minigin(const Minigin& other) = delete;
