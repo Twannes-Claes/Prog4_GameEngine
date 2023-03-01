@@ -28,7 +28,7 @@ namespace Monke
 
 		//weak pointer of the transform to draw the text on the right position
 		std::weak_ptr<Transform> mutable m_pTransform{};
-
+		
 		//texture pointers
 		std::shared_ptr<Texture2D> m_pTexture{};
 
