@@ -11,10 +11,10 @@ namespace Monke
 	public:
 
 		RenderComponent() = default;
-
-		virtual void Render() const = 0;
-
 		virtual ~RenderComponent() override = default;
+
+		virtual void Initialize() override = 0;
+		virtual void Render() const = 0;
 
 		RenderComponent(const RenderComponent& other) = delete;
 		RenderComponent(RenderComponent&& other) = delete;

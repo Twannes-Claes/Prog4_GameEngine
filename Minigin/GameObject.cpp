@@ -7,6 +7,22 @@
 
 namespace Monke
 {
+	void GameObject::Initialize() const
+	{
+		for (const auto& pComponent : m_pUpdateComponents)
+		{
+			pComponent->Initialize();
+		}
+		for (const auto& pComponent : m_pRenderComponents)
+		{
+			pComponent->Initialize();
+		}
+		for (const auto& pComponent : m_pDataComponents)
+		{
+			pComponent->Initialize();
+		}
+	}
+
 	void GameObject::Update() const
 	{
 		for(const auto& pComponent : m_pUpdateComponents)

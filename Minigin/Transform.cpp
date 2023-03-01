@@ -4,5 +4,8 @@
 
 namespace Monke
 {
-
+	void Transform::Initialize()
+	{
+		
+	}
 }

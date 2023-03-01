@@ -12,6 +12,8 @@ namespace Monke
 		virtual ~Transform() override = default;
 
 
+		virtual void Initialize() override;
+
 		void SetPosition(const glm::vec3& pos) { m_Position = pos; }
 		void SetPosition(const float x, const float y, const float z = 0) { m_Position = { x,y,z }; }
 

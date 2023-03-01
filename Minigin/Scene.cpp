@@ -33,6 +33,14 @@ void Scene::RemoveAll()
 	m_objects.clear();
 }
 
+void Scene::Initialize() const
+{
+	for (auto& object : m_objects)
+	{
+		object->Initialize();
+	}
+}
+
 void Scene::Update() const
 {
 	for(auto& object : m_objects)

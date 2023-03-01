@@ -10,8 +10,9 @@ namespace Monke
 	public:
 
 		DataComponent() = default;
-
 		virtual ~DataComponent() override = default;
+
+		virtual void Initialize() override = 0;
 
 		DataComponent(const DataComponent& other) = delete;
 		DataComponent(DataComponent&& other) = delete;

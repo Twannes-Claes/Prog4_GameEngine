@@ -15,6 +15,7 @@ namespace Monke
 		void Remove(const std::shared_ptr<GameObject>& object);
 		void RemoveAll();
 
+		void Initialize() const;
 		void Update() const;
 		void Render() const;
 

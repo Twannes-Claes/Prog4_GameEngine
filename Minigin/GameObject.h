@@ -11,16 +11,13 @@
 namespace Monke
 {
 	class Texture2D;
-	//class BaseComponent;
-	//class UpdateComponent;
-	//class DataComponent;
-	//class RenderComponent;
 
 	class GameObject final : public std::enable_shared_from_this<GameObject>
 	{
 
 	public:
 
+		void Initialize() const;
 		void Update() const;
 		void Render() const;
 

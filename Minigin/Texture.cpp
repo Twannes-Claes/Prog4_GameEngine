@@ -8,21 +8,24 @@
 
 namespace Monke
 {
+	void Texture::Initialize()
+	{
+		m_pTransform = GetParent().lock()->GetComponent<Transform>();
+
+		if (m_pTransform.expired())
+		{
+			const auto error = Expired_Weak_Ptr(__FILE__, __LINE__, "No transform component to draw on a given position");
+		}
+	}
+
 	void Texture::Render() const
 	{
 		if (m_pTexture == nullptr) return;
 
 		if (m_pTransform.expired())
 		{
-			m_pTransform = GetParent().lock()->GetComponent<Transform>();
-
-			if(m_pTransform.expired())
-			{
-				const auto error = Expired_Weak_Ptr(__FILE__, __LINE__, "No transform component to draw on a given position");
-
-				Renderer::GetInstance().RenderTexture(*m_pTexture, m_DefaultDrawPos.x, m_DefaultDrawPos.y);
-				return;
-			}
+			Renderer::GetInstance().RenderTexture(*m_pTexture, m_DefaultDrawPos.x, m_DefaultDrawPos.y);
+			return;
 		}
 
 		const glm::vec3 pos{ m_pTransform.lock()->GetPosition() };

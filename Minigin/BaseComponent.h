@@ -22,9 +22,12 @@ namespace Monke
 		BaseComponent& operator=(const BaseComponent& other) = delete;
 		BaseComponent& operator=(BaseComponent&& other) = delete;
 
-		//todo add an initialize
-		//todo: make a get component function so you dont have to type lock all the time
+		virtual void Initialize() = 0;
 
+		//todo add an initialize
+
+		//todo: make a get component function so you dont have to type lock all the time
+#pragma region TryGetComponent
 		//template <class T>
 		//std::shared_ptr<T> GetComponent() const
 		//{
@@ -34,6 +37,7 @@ namespace Monke
 		//
 		//	return m_pParent.lock()->GetComponent<T>();
 		//}
+#pragma endregion
 
 	protected:
 

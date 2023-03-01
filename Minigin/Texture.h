@@ -12,9 +12,9 @@ namespace Monke
 	public:
 
 		Texture() = default;
-
 		virtual ~Texture() override = default;
 
+		virtual void Initialize() override;
 		void Render() const override;
 
 		void SetTexture(const std::shared_ptr<Texture2D>& pTexture);

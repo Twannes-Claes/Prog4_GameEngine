@@ -20,7 +20,7 @@ namespace Monke
 		Text() = default;
 		virtual ~Text() override = default;
 
-
+		virtual void Initialize() override;
 		void Render() const override;
 
 		void SetText(const std::string& text) { m_Text = text; ChangeTextTexture(); }

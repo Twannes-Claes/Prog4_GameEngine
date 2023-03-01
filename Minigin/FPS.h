@@ -6,7 +6,7 @@
 
 namespace Monke
 {
-
+	class Time;
 	class Text;
 
 	class FPS final : public UpdateComponent
@@ -16,6 +16,7 @@ namespace Monke
 		FPS() = default;
 		virtual ~FPS() override = default;
 
+		virtual void Initialize() override;
 		virtual void Update() override;
 
 		int GetFPS() const { return m_FPS; }
@@ -26,8 +27,6 @@ namespace Monke
 		FPS& operator=(FPS&& other) = delete;
 
 	private:
-
-		bool hasText{ true };
 
 		std::weak_ptr<Text> m_pText{};
 
@@ -41,5 +40,3 @@ namespace Monke
 
 	};
 }
-
-

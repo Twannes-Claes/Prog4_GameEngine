@@ -96,7 +96,7 @@ void Monke::Minigin::Run(const std::function<void()>& initiliaze) const
 
 	bool canContinueLoop = true;
 
-
+	sceneManager.Initialize();
 
 	while (canContinueLoop)
 	{

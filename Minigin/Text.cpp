@@ -11,6 +11,19 @@
 
 namespace Monke
 {
+	void Text::Initialize()
+	{
+
+		//todo : make this a function
+		m_pTransform = GetParent().lock()->GetComponent<Transform>();
+
+		if (m_pTransform.expired())
+		{
+			const auto error = Expired_Weak_Ptr(__FILE__, __LINE__, "No transform component to draw on a given position");
+		}
+		
+	}
+
 	void Text::ChangeTextTexture()
 	{
 		const auto surf = TTF_RenderText_Blended(m_pFont->GetFont(), m_Text.c_str(), m_Color);
@@ -31,18 +44,10 @@ namespace Monke
 	{
 		if (m_pTextTexture == nullptr) return;
 		
-		if (m_pTransform.expired())
+		if(m_pTransform.expired())
 		{
-			//todo : make this a function
-			m_pTransform = GetParent().lock()->GetComponent<Transform>();
-
-			if(m_pTransform.expired())
-			{
-				const auto error = Expired_Weak_Ptr(__FILE__, __LINE__, "No transform component to draw on a given position");
-
-				Renderer::GetInstance().RenderTexture(*m_pTextTexture, m_DefaultDrawPos.x, m_DefaultDrawPos.y);
-				return;
-			}
+			Renderer::GetInstance().RenderTexture(*m_pTextTexture, m_DefaultDrawPos.x, m_DefaultDrawPos.y);
+			return;
 		}
 
 		const glm::vec3 pos{ m_pTransform.lock()->GetPosition() };
