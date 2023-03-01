@@ -33,6 +33,7 @@ namespace Monke
 		
 		if (m_pTransform.expired())
 		{
+			//todo : make this a function
 			m_pTransform = GetParent().lock()->GetComponent<Transform>();
 
 			if(m_pTransform.expired())
@@ -42,7 +43,6 @@ namespace Monke
 				Renderer::GetInstance().RenderTexture(*m_pTextTexture, 0, 0);
 				return;
 			}
-			//todo: maybe add green text on adding succeded
 		}
 
 		const glm::vec3 pos{ m_pTransform.lock()->GetPosition() };

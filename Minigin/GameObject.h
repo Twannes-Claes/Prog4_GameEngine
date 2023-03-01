@@ -99,10 +99,10 @@ namespace Monke
 				//find the first component that matches the component in the vector
 				auto it = std::remove_if(vector.begin(), vector.end(), []
 				(const std::shared_ptr<BaseComponent>& component)
-					{
-						//check if the component can be casted to the template type
-						return std::dynamic_pointer_cast<T>(component) != nullptr;
-					});
+				{
+					//check if the component can be casted to the template type
+					return std::dynamic_pointer_cast<T>(component) != nullptr;
+				});
 				//if i components has been found erase it and turn the remove flag to true
 				if (it != vector.end())
 				{
