@@ -20,14 +20,6 @@ namespace  Monke
 
 			m_FPS = static_cast<int>(1.0f / deltaTime);
 
-			std::stringstream fps{};
-
-			fps << m_FPS;
-
-			if (m_FPS < 1000) fps << ' ';
-
-			fps << " FPS";
-
 			if(hasText)
 			{
 				if (m_pText.expired())
@@ -42,9 +34,16 @@ namespace  Monke
 					}
 				}
 
-				m_pText.lock()->SetText(fps.str());
-			}
+				m_StreamFPS << m_FPS;
 
+				if (m_FPS < 1000) m_StreamFPS << ' ';
+
+				m_StreamFPS << " FPS";
+
+				m_pText.lock()->SetText(m_StreamFPS.str());
+
+				m_StreamFPS.str("");
+			}
 
 		}
 	}

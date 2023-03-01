@@ -41,10 +41,11 @@ void PrintSDLVersion()
 		version.major, version.minor, version.patch);
 }
 
-Monke::Minigin::Minigin(const std::string &dataPath, const int width, const int heigth)
+Monke::Minigin::Minigin(const std::string &dataPath, const int width, const int heigth, const int desiredFPS)
 :
 m_WindowW{ static_cast<float>(width)},
-m_WindowH{ static_cast<float>(heigth) } 
+m_WindowH{ static_cast<float>(heigth)},
+m_DesiredFPS(desiredFPS)
 {
 	PrintSDLVersion();
 	
@@ -89,6 +90,8 @@ void Monke::Minigin::Run(const std::function<void()>& initiliaze) const
 	const auto& input = InputManager::GetInstance();
 	auto& timer = Time::GetInstance();
 
+	//const float fpsTime{ ( 1000.f / static_cast<float>(m_DesiredFPS)) };
+
 	bool canContinueLoop = true;
 
 	while (canContinueLoop)
@@ -97,5 +100,10 @@ void Monke::Minigin::Run(const std::function<void()>& initiliaze) const
 		timer.Update();
 		sceneManager.Update();
 		renderer.Render();
+
+		//maybe add a sleep for desired fps
+		//const auto sleeptime = timer.GetLastTime() + std::chrono::milliseconds(fpsTime) - std::chrono::high_resolution_clock::now();
+		//std::this_thread::sleep_for(sleeptime);
+
 	}
 }

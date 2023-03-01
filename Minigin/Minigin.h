@@ -7,7 +7,7 @@ namespace Monke
 	class Minigin
 	{
 	public:
-		explicit Minigin(const std::string& dataPath, const int width, const int heigth);
+		explicit Minigin(const std::string& dataPath, const int width, const int heigth, const int desiredFPS = 60);
 		~Minigin();
 
 		void Run(const std::function<void()>& initiliaze) const;
@@ -24,6 +24,8 @@ namespace Monke
 
 		const float m_WindowW{};
 		const float m_WindowH{};
+
+		const int m_DesiredFPS{};
 
 	};
 }

@@ -16,6 +16,8 @@ namespace Monke
 		float GetElapsed() const { return m_DeltaTime; }
 		float GetTotal() const { return m_TotalTime; }
 
+		std::chrono::steady_clock::time_point GetLastTime() const { return m_LastTime; }
+
 		virtual ~Time() override = default;
 		Time(const Time& other) = delete;
 		Time(Time&& other) = delete;

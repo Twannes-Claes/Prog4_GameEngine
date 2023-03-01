@@ -1,5 +1,7 @@
 #pragma once
 
+#include <sstream>
+
 #include "UpdateComponent.h"
 
 namespace Monke
@@ -34,6 +36,8 @@ namespace Monke
 		float m_ResetTimer{};
 
 		int m_FPS{};
+
+		std::stringstream m_StreamFPS{};
 
 	};
 }

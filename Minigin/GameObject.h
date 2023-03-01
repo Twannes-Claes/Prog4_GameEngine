@@ -264,7 +264,8 @@ namespace Monke
 		if constexpr (std::is_base_of_v<UpdateComponent, T>)
 		{
 			//find the first component that matches the component in the vector
-			auto it = std::remove_if(m_pUpdateComponents.begin(), m_pUpdateComponents.end(), []
+			auto it = std::remove_if(m_pUpdateComponents.begin(), m_pUpdateComponents.end(), 
+			[]
 			(const std::shared_ptr<BaseComponent>& component)
 			{
 				//check if the component can be casted to the template type
