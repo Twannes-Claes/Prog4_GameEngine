@@ -20,6 +20,7 @@ namespace  Monke
 
 			m_FPS = static_cast<int>(1.0f / deltaTime);
 
+			//if no text component is available return
 			if (hasText == false) return;
 			
 			if (m_pText.expired())
@@ -34,6 +35,7 @@ namespace  Monke
 				}
 			}
 
+			//make stream to pass onto textcomponent
 			m_StreamFPS << m_FPS;
 
 			if (m_FPS < 1000) m_StreamFPS << ' ';

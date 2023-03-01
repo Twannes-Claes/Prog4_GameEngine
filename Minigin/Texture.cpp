@@ -20,7 +20,7 @@ namespace Monke
 			{
 				const auto error = Expired_Weak_Ptr(__FILE__, __LINE__, "No transform component to draw on a given position");
 
-				Renderer::GetInstance().RenderTexture(*m_pTexture, 0, 0);
+				Renderer::GetInstance().RenderTexture(*m_pTexture, m_DefaultDrawPos.x, m_DefaultDrawPos.y);
 				return;
 			}
 		}

@@ -1,4 +1,6 @@
 #pragma once
+#include <glm/vec3.hpp>
+
 #include "BaseComponent.h"
 
 namespace Monke
@@ -18,6 +20,10 @@ namespace Monke
 		RenderComponent(RenderComponent&& other) = delete;
 		RenderComponent& operator=(const RenderComponent& other) = delete;
 		RenderComponent& operator=(RenderComponent&& other) = delete;
+
+	protected:
+
+		glm::vec3 m_DefaultDrawPos{};
 
 	};
 }
