@@ -22,7 +22,7 @@ namespace Monke
 		BaseComponent& operator=(const BaseComponent& other) = delete;
 		BaseComponent& operator=(BaseComponent&& other) = delete;
 
-
+		//todo add an initialize
 		//todo: make a get component function so you dont have to type lock all the time
 
 		//template <class T>

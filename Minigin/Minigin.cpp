@@ -96,10 +96,12 @@ void Monke::Minigin::Run(const std::function<void()>& initiliaze) const
 
 	bool canContinueLoop = true;
 
+
+
 	while (canContinueLoop)
 	{
-		canContinueLoop = input.ProcessInput();
 		timer.Update();
+		canContinueLoop = input.ProcessInput();
 		sceneManager.Update();
 		renderer.Render();
 

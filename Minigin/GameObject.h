@@ -118,7 +118,6 @@ namespace Monke
 		std::vector<std::shared_ptr<UpdateComponent>> m_pUpdateComponents{};
 		std::vector<std::shared_ptr<RenderComponent>> m_pRenderComponents{};
 		std::vector<std::shared_ptr<DataComponent>> m_pDataComponents{};
-
 	};
 
 #pragma region Template_Component_Logic
