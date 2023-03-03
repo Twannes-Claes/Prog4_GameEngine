@@ -13,7 +13,7 @@ namespace Monke
 	{
 	public:
 
-		FPS() = default;
+		explicit FPS(std::weak_ptr<GameObject> parent);
 		virtual ~FPS() override = default;
 
 		virtual void Initialize() override;

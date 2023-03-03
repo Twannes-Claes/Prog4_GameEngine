@@ -5,12 +5,15 @@
 
 namespace Monke
 {
+	class Texture2D;
+	class Transform;
+
 	class RenderComponent : public BaseComponent
 	{
 
 	public:
 
-		RenderComponent() = default;
+		explicit RenderComponent(std::weak_ptr<GameObject> parent);
 		virtual ~RenderComponent() override = default;
 
 		virtual void Initialize() override = 0;
@@ -23,7 +26,9 @@ namespace Monke
 
 	protected:
 
-		glm::vec3 m_DefaultDrawPos{};
+		virtual void RenderTexture(const std::weak_ptr<Transform>& pTransform, const std::shared_ptr<Texture2D>& pTexture) const;
+
+		const glm::vec3 m_DefaultDrawPos{};
 
 	};
 }

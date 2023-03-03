@@ -5,21 +5,35 @@
 
 #include "UpdateComponent.h"
 #include "RenderComponent.h"
-#include "BaseComponent.h"
+//#include "BaseComponent.h"
 #include "DataComponent.h"
 
 namespace Monke
 {
 	class Texture2D;
 
+	class BaseComponent;
+	//class RenderComponent;
+	//class UpdateComponent;
+	//class DataComponent;
+
 	class GameObject final : public std::enable_shared_from_this<GameObject>
 	{
 
 	public:
 
+		//scene manager functions
 		void Initialize() const;
 		void Update() const;
 		void Render() const;
+
+		//scenegraph functions
+		void SetParent(const std::weak_ptr<GameObject>& parent, const bool keepWorldPosition = false);
+		void AddChild(const std::weak_ptr<GameObject>& child);
+		void RemoveChild(const std::weak_ptr<GameObject>& child);
+
+		std::weak_ptr<GameObject> GetParent() const { return m_pParent; }
+		const std::vector<std::weak_ptr<GameObject>>& GetAllChildren() const { return m_pChildren; }
 
 		//THE BIG SIX
 		GameObject() = default;
@@ -48,68 +62,74 @@ namespace Monke
 
 	private:
 
+#pragma region Template_ComponentCheck_Functions
 		//private functions to make less code
-		template<typename T, typename V>
-		bool GetComponentCheck(std::shared_ptr<T> derivedComponent, std::vector<std::shared_ptr<V>>& vector)
-		{
-			for (const std::shared_ptr<V>& pComponent : vector)
-			{
-				//https://yunmingzhang.wordpress.com/2020/07/14/casting-shared-pointers-in-c/
-				if ((derivedComponent = std::dynamic_pointer_cast<T>(pComponent))) return true;
-			}
+		//template<typename T, typename V>
+		//bool GetComponentCheck(std::shared_ptr<T> derivedComponent, std::vector<std::shared_ptr<V>>& vector)
+		//{
+		//	for (const std::shared_ptr<V>& pComponent : vector)
+		//	{
+		//		//https://yunmingzhang.wordpress.com/2020/07/14/casting-shared-pointers-in-c/
+		//		if ((derivedComponent = std::dynamic_pointer_cast<T>(pComponent))) return true;
+		//	}
+		//
+		//	return false;
+		//}
+		//
+		//template<typename T, typename V>
+		//bool AddComponentCheck(std::shared_ptr<T> derivedComponent, std::vector<std::shared_ptr<V>>& vector)
+		//{
+		//	if constexpr (std::is_base_of_v<V, T>)
+		//	{
+		//		//https://yunmingzhang.wordpress.com/2020/07/14/casting-shared-pointers-in-c/
+		//		auto pVComponent = std::dynamic_pointer_cast<V>(derivedComponent);
+		//
+		//		vector.push_back(pVComponent);
+		//		return true;
+		//	}
+		//
+		//	return false;
+		//}
+		//
+		//template<typename T, typename V>
+		//bool HasComponentCheck(std::shared_ptr<T> derivedComponent, std::vector<std::shared_ptr<V>>& vector)
+		//{
+		//	for (const std::shared_ptr<V>& component : vector)
+		//	{
+		//		//https://yunmingzhang.wordpress.com/2020/07/14/casting-shared-pointers-in-c/
+		//		if ((derivedComponent = std::dynamic_pointer_cast<T>(component))) return true;
+		//	}
+		//
+		//	return false;
+		//}
+		//
+		//template<typename T, typename V>
+		//bool RemoveComponentCheck(std::vector<std::shared_ptr<V>>& vector)
+		//{
+		//	if constexpr (std::is_base_of_v<V, T>)
+		//	{
+		//		//find the first component that matches the component in the vector
+		//		auto it = std::remove_if(vector.begin(), vector.end(), []
+		//		(const std::shared_ptr<BaseComponent>& component)
+		//			{
+		//				//check if the component can be casted to the template type
+		//				return std::dynamic_pointer_cast<T>(component) != nullptr;
+		//			});
+		//		//if i components has been found erase it and turn the remove flag to true
+		//		if (it != vector.end())
+		//		{
+		//			vector.erase(it);
+		//			return true;
+		//		}
+		//	}
+		//
+		//	return false;
+		//}
+#pragma endregion
 
-			return false;
-		}
-
-		template<typename T, typename V>
-		bool AddComponentCheck(std::shared_ptr<T> derivedComponent, std::vector<std::shared_ptr<V>>& vector)
-		{
-			if constexpr (std::is_base_of_v<V, T>)
-			{
-				//https://yunmingzhang.wordpress.com/2020/07/14/casting-shared-pointers-in-c/
-				auto pVComponent = std::dynamic_pointer_cast<V>(derivedComponent);
-
-				vector.push_back(pVComponent);
-				return true;
-			}
-
-			return false;
-		}
-
-		template<typename T, typename V>
-		bool HasComponentCheck(std::shared_ptr<T> derivedComponent, std::vector<std::shared_ptr<V>>& vector)
-		{
-			for (const std::shared_ptr<V>& component : vector)
-			{
-				//https://yunmingzhang.wordpress.com/2020/07/14/casting-shared-pointers-in-c/
-				if ((derivedComponent = std::dynamic_pointer_cast<T>(component))) return true;
-			}
-
-			return false;
-		}
-
-		template<typename T, typename V>
-		bool RemoveComponentCheck(std::vector<std::shared_ptr<V>>& vector)
-		{
-			if constexpr (std::is_base_of_v<V, T>)
-			{
-				//find the first component that matches the component in the vector
-				auto it = std::remove_if(vector.begin(), vector.end(), []
-				(const std::shared_ptr<BaseComponent>& component)
-				{
-					//check if the component can be casted to the template type
-					return std::dynamic_pointer_cast<T>(component) != nullptr;
-				});
-				//if i components has been found erase it and turn the remove flag to true
-				if (it != vector.end())
-				{
-					vector.erase(it);
-					return true;
-				}
-			}
-
-			return false;
-		}
+		//parent and children for scenegraph
+		std::weak_ptr<GameObject> m_pParent{};
+		std::vector< std::weak_ptr<GameObject> > m_pChildren{};
 
 		//component vectors
 		std::vector<std::shared_ptr<UpdateComponent>> m_pUpdateComponents{};
@@ -166,10 +186,7 @@ namespace Monke
 		//make the component
 		//https://en.cppreference.com/w/cpp/memory/enable_shared_from_this
 
-		auto pComponent{ std::make_shared<T>() };
-
-		//set this pointer to weak pointer as parent
-		pComponent->SetParent(weak_from_this());
+		auto pComponent{ std::make_shared<T>(weak_from_this()) };
 
 		//bool hasAdded{ false };
 

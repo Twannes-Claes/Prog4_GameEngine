@@ -9,7 +9,7 @@ namespace Monke
 
 	public:
 
-		UpdateComponent() = default;
+		explicit UpdateComponent(std::weak_ptr<GameObject> parent);
 		virtual ~UpdateComponent() override = default;
 
 		virtual void Initialize() override = 0;

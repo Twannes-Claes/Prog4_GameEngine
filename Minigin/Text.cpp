@@ -11,16 +11,23 @@
 
 namespace Monke
 {
+	Text::Text(std::weak_ptr<GameObject> parent)
+	:RenderComponent(parent)
+	{
+	}
+
 	void Text::Initialize()
 	{
 
 		//todo : make this a function
-		m_pTransform = GetParent().lock()->GetComponent<Transform>();
-
+		m_pTransform = GetOwner().lock()->GetComponent<Transform>();
+		
 		if (m_pTransform.expired())
 		{
 			const auto error = Expired_Weak_Ptr(__FILE__, __LINE__, "No transform component to draw on a given position");
 		}
+
+		//GetComponentCheck(m_pTransform, "No transform component to draw on a given position");
 		
 	}
 
@@ -42,17 +49,7 @@ namespace Monke
 
 	void Text::Render() const
 	{
-		if (m_pTextTexture == nullptr) return;
-		
-		if(m_pTransform.expired())
-		{
-			Renderer::GetInstance().RenderTexture(*m_pTextTexture, m_DefaultDrawPos.x, m_DefaultDrawPos.y);
-			return;
-		}
-
-		const glm::vec3 pos{ m_pTransform.lock()->GetPosition() };
-
-		Renderer::GetInstance().RenderTexture(*m_pTextTexture, pos.x, pos.y);
+		RenderTexture(m_pTransform, m_pTextTexture);
 	}
 }
 

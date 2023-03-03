@@ -48,9 +48,6 @@
     <ClInclude Include="RenderComponent.h">
       <Filter>4_Components\BaseComponents</Filter>
     </ClInclude>
-    <ClInclude Include="UpdateComponent.h">
-      <Filter>4_Components\BaseComponents</Filter>
-    </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>2_Singletons</Filter>
     </ClInclude>
@@ -88,6 +85,12 @@
       <Filter>4_Components\Error_Handling</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
+      <Filter>4_Components\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="UpdateComponent.h">
+      <Filter>4_Components\BaseComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Orbit.h">
       <Filter>4_Components\Components</Filter>
     </ClInclude>
   </ItemGroup>
@@ -147,6 +150,9 @@
       <Filter>4_Components\BaseComponents</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
+      <Filter>4_Components\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Orbit.cpp">
       <Filter>4_Components\Components</Filter>
     </ClCompile>
   </ItemGroup>

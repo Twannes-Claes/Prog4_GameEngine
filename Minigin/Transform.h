@@ -8,17 +8,26 @@ namespace Monke
 	{
 	public:
 
-		Transform() = default;
+		explicit Transform(std::weak_ptr<GameObject> parent);
 		virtual ~Transform() override = default;
 
 
 		virtual void Initialize() override;
 
-		void SetPosition(const glm::vec3& pos) { m_Position = pos; }
-		void SetPosition(const float x, const float y, const float z = 0) { m_Position = { x,y,z }; }
 
-		glm::vec3 GetPosition() const { return m_Position; }
+		const glm::vec3& GetLocalPosition() const { return m_LocalPosition; }
+		const glm::vec3& GetWorldPosition();
 
+		//void SetWorldPosition(const glm::vec3& pos) { m_WorldPosition = pos; }
+		//void SetWorldPosition(const float x, const float y, const float z = 0) { m_WorldPosition = { x,y,z }; }
+
+		void SetPosition(const glm::vec3& pos) { m_LocalPosition = pos; SetTransformDirty(); }
+		void SetPosition(const float x, const float y, const float z = 0) { m_LocalPosition = { x,y,z }; SetTransformDirty(); }
+
+		void SetLocalPosition(const glm::vec3& pos) { m_LocalPosition = pos; SetTransformDirty(); }
+		void SetLocalPosition(const float x, const float y, const float z = 0) { m_LocalPosition = { x,y,z }; SetTransformDirty(); }
+
+		void SetTransformDirty();
 
 		Transform(const Transform& other) = delete;
 		Transform(Transform&& other) = delete;
@@ -27,7 +36,13 @@ namespace Monke
 
 	private:
 
-		glm::vec3 m_Position{};
+		void UpdateWorldPosition();
+
+		glm::vec3 m_WorldPosition{};
+		glm::vec3 m_LocalPosition{};
+
+		//Dirty flag
+		bool m_IsDirty{ true };
 
 	};
 }

@@ -1,6 +1,10 @@
 #pragma once
 
+//#include "GameObject.h"
+
 #include <memory>
+#include <string>
+#include "Errors.h"
 
 namespace Monke
 {
@@ -12,7 +16,6 @@ namespace Monke
 
 	public:
 
-		BaseComponent() = default;
 
 		virtual ~BaseComponent() = default;
 
@@ -24,10 +27,29 @@ namespace Monke
 
 		virtual void Initialize() = 0;
 
-		//todo add an initialize
-
 		//todo: make a get component function so you dont have to type lock all the time
 #pragma region TryGetComponent
+		
+#pragma endregion
+
+	protected:
+
+		friend class GameObject;
+		explicit BaseComponent( std::weak_ptr<GameObject> parent);
+		std::weak_ptr<GameObject> GetOwner() const { return m_pParent; }
+		//template <class T>
+		//void CacheComponent(std::weak_ptr<T>& pComponent, const std::string& text)
+		//{
+		//	static_assert(std::is_base_of_v<BaseComponent, T>(), "The given class must be inherited from BaseComponent");
+		//
+		//	pComponent = GetParent().lock()->GetComponent<T>();
+		//
+		//	if (pComponent.expired())
+		//	{
+		//		const auto error = Expired_Weak_Ptr(__FILE__, __LINE__, text);
+		//	}
+		//}
+		//
 		//template <class T>
 		//std::shared_ptr<T> GetComponent() const
 		//{
@@ -37,24 +59,14 @@ namespace Monke
 		//
 		//	return m_pParent.lock()->GetComponent<T>();
 		//}
-#pragma endregion
-
-	protected:
-
-		std::weak_ptr<GameObject> GetParent() const { return m_pParent; }
 
 	private:
 
-		void SetParent( const std::weak_ptr<GameObject>& pParent ) { m_pParent = pParent; }
 
 		std::weak_ptr<GameObject> m_pParent{};
 
-
 		//setted gameobject as a friend so in the addcomponet gameobject can call SetParent
-		friend class GameObject;
 
 	};
-
-	
 
 }

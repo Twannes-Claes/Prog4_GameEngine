@@ -1,5 +1,5 @@
 
-#include <utility>
+
 #include "GameObject.h"
 #include "Text.h"
 #include "FPS.h"
@@ -8,15 +8,22 @@
 
 namespace  Monke
 {
+	FPS::FPS(std::weak_ptr<GameObject> parent)
+	:UpdateComponent(parent)
+	{
+	}
+
 	void FPS::Initialize()
 	{
 
-		m_pText = GetParent().lock()->GetComponent<Text>();
-
+		m_pText = GetOwner().lock()->GetComponent<Text>();
+		
 		if (m_pText.expired())
 		{
 			const auto error = Expired_Weak_Ptr(__FILE__, __LINE__, "No text component found to display FPS as text");
 		}
+
+		//GetComponentCheck(m_pText, "No text component found to display FPS as text");
 		
 	}
 

@@ -8,29 +8,26 @@
 
 namespace Monke
 {
+	Texture::Texture(std::weak_ptr<GameObject> parent)
+	:RenderComponent(parent)
+	{
+	}
+
 	void Texture::Initialize()
 	{
-		m_pTransform = GetParent().lock()->GetComponent<Transform>();
-
+		m_pTransform = GetOwner().lock()->GetComponent<Transform>();
+		
 		if (m_pTransform.expired())
 		{
 			const auto error = Expired_Weak_Ptr(__FILE__, __LINE__, "No transform component to draw on a given position");
 		}
+
+		//GetComponentCheck(m_pTransform, "No transform component to draw on a given position");
 	}
 
 	void Texture::Render() const
 	{
-		if (m_pTexture == nullptr) return;
-
-		if (m_pTransform.expired())
-		{
-			Renderer::GetInstance().RenderTexture(*m_pTexture, m_DefaultDrawPos.x, m_DefaultDrawPos.y);
-			return;
-		}
-
-		const glm::vec3 pos{ m_pTransform.lock()->GetPosition() };
-
-		Renderer::GetInstance().RenderTexture(*m_pTexture, pos.x, pos.y);
+		RenderTexture(m_pTransform, m_pTexture);
 	}
 
 	void Texture::SetTexture(const std::shared_ptr<Texture2D>& pTexture)
