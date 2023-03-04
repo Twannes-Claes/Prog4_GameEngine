@@ -4,15 +4,16 @@
 #include <SDL_pixels.h>
 #include <glm/vec3.hpp>
 
-#include "RenderComponent.h"
+#include "UpdateComponent.h"
 
 namespace Monke
 {
+	class Texture;
 	class Font;
 	class Texture2D;
 	class Transform;
 
-	class Text final : public RenderComponent
+	class Text final : public UpdateComponent
 	{
 	public:
 
@@ -21,14 +22,14 @@ namespace Monke
 		virtual ~Text() override = default;
 
 		virtual void Initialize() override;
-		void Render() const override;
+		virtual void Update() override;
 
-		void SetText(const std::string& text) { m_Text = text; m_NeedsUpdate = true; ChangeTextTexture(); }
-		void SetFont(const std::shared_ptr<Font>& font) { m_pFont = font; m_NeedsUpdate = true; ChangeTextTexture(); }
+		void SetText(const std::string& text) { m_Text = text; m_NeedsUpdate = true; }
+		void SetFont(const std::shared_ptr<Font>& font) { m_pFont = font; m_NeedsUpdate = true; }
 
-		void SetColor(const Uint8 r, const Uint8 g, const Uint8 b, const Uint8 a = 255) { m_Color = { r, g, b, a }; m_NeedsUpdate = true; ChangeTextTexture(); }
-		void SetColor(const int r, const int g, const int b, const int a = 255) { m_Color = { static_cast<Uint8>(r), static_cast<Uint8>(g), static_cast<Uint8>(b), static_cast<Uint8>(a)}; m_NeedsUpdate = true; ChangeTextTexture(); }
-		void SetColor(const SDL_Color& color) { m_Color = color; m_NeedsUpdate = true; ChangeTextTexture(); }
+		void SetColor(const Uint8 r, const Uint8 g, const Uint8 b, const Uint8 a = 255) { m_Color = { r, g, b, a }; m_NeedsUpdate = true; }
+		void SetColor(const int r, const int g, const int b, const int a = 255) { m_Color = { static_cast<Uint8>(r), static_cast<Uint8>(g), static_cast<Uint8>(b), static_cast<Uint8>(a)}; m_NeedsUpdate = true; }
+		void SetColor(const SDL_Color& color) { m_Color = color; m_NeedsUpdate = true; }
 
 
 		Text(const Text& other) = delete;
@@ -43,7 +44,8 @@ namespace Monke
 		bool m_NeedsUpdate{ true };
 
 		//weak pointer of the transform to draw the text on the right position
-		std::weak_ptr<Transform> m_pTransform{};
+		std::weak_ptr<Transform> m_pTransformComp{};
+		std::weak_ptr<Texture> m_pTextureComp{};
 
 		std::string m_Text{" "};
 
