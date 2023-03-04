@@ -33,18 +33,24 @@ namespace Monke
 
 	void Text::ChangeTextTexture()
 	{
-		const auto surf = TTF_RenderText_Blended(m_pFont->GetFont(), m_Text.c_str(), m_Color);
-		if (surf == nullptr)
+
+		if(m_NeedsUpdate)
 		{
-			throw std::runtime_error(std::string("Render text failed: ") + SDL_GetError());
+			const auto surf = TTF_RenderText_Blended(m_pFont->GetFont(), m_Text.c_str(), m_Color);
+			if (surf == nullptr)
+			{
+				throw std::runtime_error(std::string("Render text failed: ") + SDL_GetError());
+			}
+			auto texture = SDL_CreateTextureFromSurface(Renderer::GetInstance().GetSDLRenderer(), surf);
+			if (texture == nullptr)
+			{
+				throw std::runtime_error(std::string("Create text texture from surface failed: ") + SDL_GetError());
+			}
+			SDL_FreeSurface(surf);
+			m_pTextTexture = std::make_shared<Texture2D>(texture);
+			m_NeedsUpdate = false;
 		}
-		auto texture = SDL_CreateTextureFromSurface(Renderer::GetInstance().GetSDLRenderer(), surf);
-		if (texture == nullptr)
-		{
-			throw std::runtime_error(std::string("Create text texture from surface failed: ") + SDL_GetError());
-		}
-		SDL_FreeSurface(surf);
-		m_pTextTexture = std::make_shared<Texture2D>(texture);
+
 	}
 
 	void Text::Render() const

@@ -23,12 +23,12 @@ namespace Monke
 		virtual void Initialize() override;
 		void Render() const override;
 
-		void SetText(const std::string& text) { m_Text = text; ChangeTextTexture(); }
-		void SetFont(const std::shared_ptr<Font>& font) { m_pFont = font; ChangeTextTexture(); }
+		void SetText(const std::string& text) { m_Text = text; m_NeedsUpdate = true; ChangeTextTexture(); }
+		void SetFont(const std::shared_ptr<Font>& font) { m_pFont = font; m_NeedsUpdate = true; ChangeTextTexture(); }
 
-		void SetColor(const Uint8 r, const Uint8 g, const Uint8 b, const Uint8 a = 255) { m_Color = { r, g, b, a }; ChangeTextTexture(); }
-		void SetColor(const int r, const int g, const int b, const int a = 255) { m_Color = { static_cast<Uint8>(r), static_cast<Uint8>(g), static_cast<Uint8>(b), static_cast<Uint8>(a)}; ChangeTextTexture(); }
-		void SetColor(const SDL_Color& color) { m_Color = color; ChangeTextTexture(); }
+		void SetColor(const Uint8 r, const Uint8 g, const Uint8 b, const Uint8 a = 255) { m_Color = { r, g, b, a }; m_NeedsUpdate = true; ChangeTextTexture(); }
+		void SetColor(const int r, const int g, const int b, const int a = 255) { m_Color = { static_cast<Uint8>(r), static_cast<Uint8>(g), static_cast<Uint8>(b), static_cast<Uint8>(a)}; m_NeedsUpdate = true; ChangeTextTexture(); }
+		void SetColor(const SDL_Color& color) { m_Color = color; m_NeedsUpdate = true; ChangeTextTexture(); }
 
 
 		Text(const Text& other) = delete;
@@ -39,6 +39,8 @@ namespace Monke
 	private:
 
 		void ChangeTextTexture();
+
+		bool m_NeedsUpdate{ true };
 
 		//weak pointer of the transform to draw the text on the right position
 		std::weak_ptr<Transform> m_pTransform{};

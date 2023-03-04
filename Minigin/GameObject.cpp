@@ -45,7 +45,6 @@ namespace Monke
 
 	void GameObject::SetParent(const std::weak_ptr<GameObject>& parent, const bool keepWorldPosition)
 	{
-
 		//lock the parent
 		const auto lParent{ m_pParent.lock() };
 
@@ -80,7 +79,6 @@ namespace Monke
 		}
 		else
 		{
-
 			if (keepWorldPosition)
 			{
 				// Set the local position to be the difference between the local position and worlposition
