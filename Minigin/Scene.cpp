@@ -41,12 +41,18 @@ void Scene::Initialize() const
 	}
 }
 
-void Scene::Update() const
+void Scene::Update()
 {
-	for(auto& object : m_objects)
+	for (const auto& object : m_objects)
 	{
 		object->Update();
 	}
+
+	std::erase_if(m_objects, 
+	[](const std::shared_ptr<GameObject>& obj) {
+	return obj->IsMarkedDead();
+	});
+
 }
 
 void Scene::Render() const

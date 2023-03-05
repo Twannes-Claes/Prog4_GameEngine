@@ -40,11 +40,11 @@ namespace  Monke
 			m_ResetTimer -= m_TimeToUpdate;
 
 			//calculate fps
-			const int newFps = static_cast<int>(1.0f / deltaTime);
+			m_NewFPS = static_cast<int>(1.0f / deltaTime);
 
-			if (newFps == m_FPS) return;
+			if (m_NewFPS == m_FPS) return;
 
-			m_FPS = newFps;
+			m_FPS = m_NewFPS;
 
 			//check if m_pText is valid
 			if (m_pText.expired()) return;

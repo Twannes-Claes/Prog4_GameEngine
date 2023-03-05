@@ -36,6 +36,8 @@ namespace Monke
 
 		int m_FPS{};
 
+		int m_NewFPS{};
+
 		std::stringstream m_StreamFPS{};
 
 	};

@@ -24,12 +24,16 @@ namespace Monke
 		}
 	}
 
-	void GameObject::Update() const
+	void GameObject::Update()
 	{
 		for(const auto& pComponent : m_pUpdateComponents)
 		{
 			pComponent->Update();
 		}
+
+		CleanUpVector(m_pUpdateComponents);
+		CleanUpVector(m_pRenderComponents);
+		CleanUpVector(m_pDataComponents);
 
 	}
 
@@ -126,6 +130,19 @@ namespace Monke
 		{
 			(*it).lock()->SetParent(std::weak_ptr<GameObject>(), false);
 			m_pChildren.erase(it);
+		}
+	}
+
+	void GameObject::Destroy()
+	{
+		m_IsMarkedDead = true;
+
+		//Destroy all children
+		for (const auto& child : m_pChildren)
+		{
+			if (child.expired()) continue;
+
+			child.lock()->Destroy();
 		}
 	}
 }

@@ -5,14 +5,14 @@
 
 #include "UpdateComponent.h"
 #include "RenderComponent.h"
-//#include "BaseComponent.h"
+#include "BaseComponent.h"
 #include "DataComponent.h"
 
 namespace Monke
 {
 	class Texture2D;
 
-	class BaseComponent;
+	//class BaseComponent;
 	//class RenderComponent;
 	//class UpdateComponent;
 	//class DataComponent;
@@ -24,7 +24,7 @@ namespace Monke
 
 		//scene manager functions
 		void Initialize() const;
-		void Update() const;
+		void Update();
 		void Render() const;
 
 		//scenegraph functions
@@ -34,6 +34,9 @@ namespace Monke
 
 		std::weak_ptr<GameObject> GetParent() const { return m_pParent; }
 		const std::vector<std::weak_ptr<GameObject>>& GetAllChildren() const { return m_pChildren; }
+
+		void Destroy();
+		bool IsMarkedDead() const { return m_IsMarkedDead; }
 
 		//THE BIG SIX
 		GameObject() = default;
@@ -127,6 +130,34 @@ namespace Monke
 		//}
 #pragma endregion
 
+		template <class T>
+		void CleanUpVector(std::vector<std::shared_ptr<T>>& v)
+		{
+
+			static_assert(std::is_base_of_v<BaseComponent, T>, "The given class must be inherited from BaseComponent");
+
+			//auto it = std::remove_if(v.begin(), v.end(),
+			//[]
+			//(const std::shared_ptr<BaseComponent>& component)
+			//{
+			//	//check if the component can be casted to the template type
+			//	return component->IsMarkedDead();
+			//});
+			////if i components has been found erase it and turn the remove flag to true
+			//if (it != v.end())
+			//{
+			//	v.erase(it);
+			//}
+
+			//remove all elements from the vector if is marked as dead
+
+			v.erase(std::remove_if(begin(v), end(v), [](auto pComponent)
+			{
+				return pComponent->IsMarkedDead();
+			}), end(v));
+
+		}
+
 		//parent and children for scenegraph
 		std::weak_ptr<GameObject> m_pParent{};
 		std::vector< std::weak_ptr<GameObject> > m_pChildren{};
@@ -135,6 +166,8 @@ namespace Monke
 		std::vector<std::shared_ptr<UpdateComponent>> m_pUpdateComponents{};
 		std::vector<std::shared_ptr<RenderComponent>> m_pRenderComponents{};
 		std::vector<std::shared_ptr<DataComponent>> m_pDataComponents{};
+
+		bool m_IsMarkedDead{ false };
 	};
 
 #pragma region Template_Component_Logic
@@ -287,7 +320,8 @@ namespace Monke
 			//if i components has been found erase it and turn the remove flag to true
 			if (it != m_pUpdateComponents.end())
 			{
-				m_pUpdateComponents.erase(it);
+				//m_pUpdateComponents.erase(it);
+				(*it)->Destroy();
 				return true;
 			}
 		}
@@ -305,7 +339,7 @@ namespace Monke
 			});
 			if (it != m_pRenderComponents.end())
 			{
-				m_pRenderComponents.erase(it);
+				(*it)->Destroy();
 				return true;
 			}
 		}
@@ -317,13 +351,13 @@ namespace Monke
 		else if constexpr (std::is_base_of_v<DataComponent, T>)
 		{
 			auto it = std::remove_if(m_pDataComponents.begin(), m_pDataComponents.end(), []
-			(const std::shared_ptr<DataComponent>& component)
+			(const std::shared_ptr<BaseComponent>& component)
 				{
 					return std::dynamic_pointer_cast<T>(component) != nullptr;
 				});
 			if (it != m_pDataComponents.end())
 			{
-				m_pDataComponents.erase(it);
+				(*it)->Destroy();
 				return true;
 			}
 		}

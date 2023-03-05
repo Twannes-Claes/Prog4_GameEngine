@@ -31,9 +31,13 @@ namespace Monke
 #pragma region TryGetComponent
 		
 #pragma endregion
+		void Destroy() { m_IsMarkedDead = true; }
+
+		bool IsMarkedDead() const { return m_IsMarkedDead; }
 
 	protected:
 
+		//setted gameobject as a friend so in the addcomponet gameobject can call SetParent
 		friend class GameObject;
 		explicit BaseComponent( std::weak_ptr<GameObject> parent);
 		std::weak_ptr<GameObject> GetOwner() const { return m_pParent; }
@@ -62,10 +66,10 @@ namespace Monke
 
 	private:
 
-
+		
 		std::weak_ptr<GameObject> m_pParent{};
 
-		//setted gameobject as a friend so in the addcomponet gameobject can call SetParent
+		bool m_IsMarkedDead{ false };
 
 	};
 

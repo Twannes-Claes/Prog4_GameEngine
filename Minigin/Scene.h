@@ -16,7 +16,7 @@ namespace Monke
 		void RemoveAll();
 
 		void Initialize() const;
-		void Update() const;
+		void Update();
 		void Render() const;
 
 		~Scene();
