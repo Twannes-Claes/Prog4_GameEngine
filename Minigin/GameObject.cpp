@@ -47,19 +47,26 @@ namespace Monke
 
 	}
 
-	void GameObject::SetParent(const std::weak_ptr<GameObject>& parent, const bool keepWorldPosition)
+	void GameObject::SetParent(const std::weak_ptr<GameObject>& newParent, const bool keepWorldPosition)
 	{
-		//lock the parent
-		const auto lParent{ m_pParent.lock() };
+		//lock/chache the parent
+		const auto originalParent{ m_pParent.lock()};
 
 		//Remove itself as a child from the previous parent (if any)
 		if (m_pParent.expired() == false)
 		{
+			//chech if parents are not the same
+			if (originalParent == newParent.lock()) return;
+
 			m_pParent.lock()->RemoveChild(weak_from_this());
+		}
+		else
+		{
+			if (newParent.expired()) return;
 		}
 
 		//Set the given parent on itself
-		m_pParent = parent;
+		m_pParent = newParent;
 
 		//Add itself as a child to the given parent
 		if (m_pParent.expired() == false)
@@ -86,7 +93,7 @@ namespace Monke
 			if (keepWorldPosition)
 			{
 				// Set the local position to be the difference between the local position and worlposition
-				ltransform->SetLocalPosition(ltransform->GetLocalPosition() - parent.lock()->GetComponent<Transform>().lock()->GetWorldPosition());
+				ltransform->SetLocalPosition(ltransform->GetLocalPosition() - newParent.lock()->GetComponent<Transform>().lock()->GetWorldPosition());
 			}
 
 			// Mark the transform as dirty, indicating that it has been modified
@@ -115,7 +122,7 @@ namespace Monke
 		m_pChildren.push_back(child);
 	}
 
-	void GameObject::RemoveChild(const std::weak_ptr<GameObject>& child)
+	void GameObject::RemoveChild(std::weak_ptr<GameObject> child)
 	{
 		//find the child that matches the child in the vector
 		//if a child has been found erase it
@@ -128,20 +135,23 @@ namespace Monke
 	    
 	    }); it != m_pChildren.end())
 		{
-			(*it).lock()->SetParent(std::weak_ptr<GameObject>(), false);
+			//set the parent to an empty gameobject
+			//(*it).lock()->SetParent(std::weak_ptr<GameObject>(), true);
+			(*it).lock()->m_pParent = std::weak_ptr<GameObject>();
 			m_pChildren.erase(it);
 		}
 	}
 
 	void GameObject::Destroy()
 	{
+		//set marked as dead
 		m_IsMarkedDead = true;
 
 		//Destroy all children
 		for (const auto& child : m_pChildren)
 		{
 			if (child.expired()) continue;
-
+			//mark all other children as dead
 			child.lock()->Destroy();
 		}
 	}

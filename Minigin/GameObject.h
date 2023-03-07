@@ -28,9 +28,9 @@ namespace Monke
 		void Render() const;
 
 		//scenegraph functions
-		void SetParent(const std::weak_ptr<GameObject>& parent, const bool keepWorldPosition = false);
+		void SetParent(const std::weak_ptr<GameObject>& newParent, const bool keepWorldPosition = false);
 		void AddChild(const std::weak_ptr<GameObject>& child);
-		void RemoveChild(const std::weak_ptr<GameObject>& child);
+		void RemoveChild(std::weak_ptr<GameObject> child);
 
 		std::weak_ptr<GameObject> GetParent() const { return m_pParent; }
 		const std::vector<std::weak_ptr<GameObject>>& GetAllChildren() const { return m_pChildren; }
