@@ -85,12 +85,12 @@ void Monke::Minigin::Run(const std::function<void()>& initiliaze) const
 {
 	initiliaze();
 
-	const auto& renderer = Renderer::GetInstance();
+	auto& renderer = Renderer::GetInstance();
 	const auto& sceneManager = SceneManager::GetInstance();
 	const auto& input = InputManager::GetInstance();
 	auto& timer = Time::GetInstance();
 
-	const auto desiredFPSTime{ std::chrono::milliseconds( 1000 / m_DesiredFPS ) };
+	const auto desiredFPSTime{ std::chrono::milliseconds( 1'000 / m_DesiredFPS ) };
 
 	bool canContinueLoop = true;
 
@@ -106,6 +106,5 @@ void Monke::Minigin::Run(const std::function<void()>& initiliaze) const
 		//sleep to let the cpu rest between frames
 		const auto sleeptime =   timer.GetLastTime() + desiredFPSTime - std::chrono::high_resolution_clock::now();
 		std::this_thread::sleep_for(sleeptime);
-
 	}
 }

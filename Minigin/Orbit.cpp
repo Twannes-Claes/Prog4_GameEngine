@@ -21,8 +21,10 @@ void Monke::Orbit::Initialize()
 
 void Monke::Orbit::Update()
 {
-
 	m_Rotation += Time::GetInstance().GetElapsed() * m_RotSpeed;
-	m_pTransform.lock()->SetLocalPosition(m_Center.x + m_Radius * cos(glm::radians(m_Rotation)), m_Center.y + m_Radius * sin(glm::radians(m_Rotation)) );
 
+	m_pTransform.lock()->SetLocalPosition(
+		m_Center.x + m_Radius * cos(glm::radians(m_Rotation)),
+		m_Center.y + m_Radius * sin(glm::radians(m_Rotation)) 
+	);
 }
