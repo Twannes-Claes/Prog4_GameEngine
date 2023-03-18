@@ -47,6 +47,14 @@ namespace Monke
 
 	}
 
+	void GameObject::OnGUI()
+	{
+		for (const auto& pComponent : m_pRenderComponents)
+		{
+			pComponent->OnGUI();
+		}
+	}
+
 	void GameObject::SetParent(const std::weak_ptr<GameObject>& newParent, const bool keepWorldPosition)
 	{
 		//lock/chache the parent

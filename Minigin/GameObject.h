@@ -26,6 +26,7 @@ namespace Monke
 		void Initialize() const;
 		void Update();
 		void Render() const;
+		void OnGUI();
 
 		//scenegraph functions
 		void SetParent(const std::weak_ptr<GameObject>& newParent, const bool keepWorldPosition = false);

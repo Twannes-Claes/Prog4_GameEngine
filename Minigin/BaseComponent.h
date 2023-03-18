@@ -27,6 +27,8 @@ namespace Monke
 
 		virtual void Initialize() = 0;
 
+		virtual void OnGUI() {}
+
 		//todo: make a get component function so you dont have to type lock all the time
 #pragma region TryGetComponent
 		

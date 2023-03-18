@@ -15,6 +15,7 @@ namespace Monke
 		void Initialize() const;
 		void Update() const;
 		void Render() const;
+		void OnGUI();
 
 	private:
 		friend class Singleton<SceneManager>;

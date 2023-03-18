@@ -18,6 +18,7 @@ namespace Monke
 		void Initialize() const;
 		void Update();
 		void Render() const;
+		void OnGUI();
 
 		~Scene();
 		Scene(const Scene& other) = delete;

@@ -48,6 +48,8 @@ void Monke::Renderer::Render()
 	ImGui_ImplSDL2_NewFrame(m_Window);
 	ImGui::NewFrame();
 
+	SceneManager::GetInstance().OnGUI();
+
 	// hint: something should come here :)
 
 	if (m_ShowDemo)

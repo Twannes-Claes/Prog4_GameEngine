@@ -63,3 +63,11 @@ void Scene::Render() const
 	}
 }
 
+void Scene::OnGUI()
+{
+	for (const auto& object : m_objects)
+	{
+		object->OnGUI();
+	}
+}
+

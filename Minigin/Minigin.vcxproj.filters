@@ -120,6 +120,12 @@
     <ClInclude Include="..\3rdParty\imgui\backends\imgui_impl_sdl2.h">
       <Filter>ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="TrashTheCache.h">
+      <Filter>4_Components\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\3rdParty\imgui\imgui_plot.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Scene.cpp">
@@ -201,6 +207,12 @@
       <Filter>ImGui</Filter>
     </ClCompile>
     <ClCompile Include="..\3rdParty\imgui\backends\imgui_impl_sdl2.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="TrashTheCache.cpp">
+      <Filter>4_Components\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\3rdParty\imgui\imgui_plot.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
   </ItemGroup>
