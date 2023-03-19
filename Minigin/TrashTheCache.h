@@ -58,7 +58,7 @@ namespace Monke
 			int ID{};
 		};
 
-		int m_AmountTimesEx1{ 100 };
+		int m_AmountTimesEx1{ 10 };
 		int m_AmountTimesEx2{ 10 };
 
 		const unsigned int m_AmountSamples{ 10'000'000 };

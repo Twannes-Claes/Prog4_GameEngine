@@ -23,9 +23,9 @@ namespace Monke
 	{
         m_TimesEx1.clear();
 
-        const unsigned int size{ m_AmountSamples };
+        const unsigned int size{ m_AmountSamples * 10 };
 
-        int* buffer = new int[size];
+        int* buffer = new int[size]{};
 
         for (int stepSize{ 1 }; stepSize <= 1024; stepSize *= 2)
         {
@@ -55,7 +55,7 @@ namespace Monke
             }
 
             //average
-            const float average = std::accumulate(vTemp.begin(), vTemp.end(), 0.f) / vTemp.size();
+            const float average = std::accumulate(vTemp.begin(), vTemp.end(), 0.f) / static_cast<float>(vTemp.size());
             m_TimesEx1.push_back(average);
         }
 
@@ -98,7 +98,7 @@ namespace Monke
             }
 
             //average
-            const float average = std::accumulate(vTemp.begin(), vTemp.end(), 0.f) / vTemp.size();
+            const float average = std::accumulate(vTemp.begin(), vTemp.end(), 0.f) / static_cast<float>(vTemp.size());
             m_TimesEx2.push_back(average);
         }
 
@@ -141,7 +141,7 @@ namespace Monke
             }
 
             //average
-            const float average = std::accumulate(vTemp.begin(), vTemp.end(), 0.f) / vTemp.size();
+            const float average = std::accumulate(vTemp.begin(), vTemp.end(), 0.f) / static_cast<float>(vTemp.size());
             m_TimesEx2_NoPointer.push_back(average);
         }
 
@@ -171,7 +171,7 @@ namespace Monke
 
         if (!m_TimesEx1.empty())
         {
-            RenderPlot(m_TimesEx1, 4);
+            RenderPlot(m_TimesEx1, 5);
         }
 
         ImGui::End();
