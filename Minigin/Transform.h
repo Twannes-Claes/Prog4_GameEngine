@@ -24,6 +24,8 @@ namespace Monke
 		void SetPosition(const glm::vec3& pos) { m_LocalPosition = pos; SetTransformDirty(); }
 		void SetPosition(const float x, const float y, const float z = 0) { m_LocalPosition = { x,y,z }; SetTransformDirty(); }
 
+		//todo make a function to add to localposition
+
 		void SetLocalPosition(const glm::vec3& pos) { m_LocalPosition = pos; SetTransformDirty(); }
 		void SetLocalPosition(const float x, const float y, const float z = 0) { m_LocalPosition = { x,y,z }; SetTransformDirty(); }
 
@@ -37,6 +39,8 @@ namespace Monke
 	private:
 
 		void UpdateWorldPosition();
+
+		//todo make vec3 ==> vec2
 
 		glm::vec3 m_WorldPosition{};
 		glm::vec3 m_LocalPosition{};

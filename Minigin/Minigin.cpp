@@ -87,7 +87,7 @@ void Monke::Minigin::Run(const std::function<void()>& initiliaze) const
 
 	auto& renderer = Renderer::GetInstance();
 	const auto& sceneManager = SceneManager::GetInstance();
-	const auto& input = InputManager::GetInstance();
+	auto& input = InputManager::GetInstance();
 	auto& timer = Time::GetInstance();
 
 	const auto desiredFPSTime{ std::chrono::milliseconds( 1'000 / m_DesiredFPS ) };
@@ -107,4 +107,6 @@ void Monke::Minigin::Run(const std::function<void()>& initiliaze) const
 		const auto sleeptime =   timer.GetLastTime() + desiredFPSTime - std::chrono::high_resolution_clock::now();
 		std::this_thread::sleep_for(sleeptime);
 	}
+
+	//save data
 }

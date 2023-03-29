@@ -50,8 +50,6 @@ void Monke::Renderer::Render()
 
 	SceneManager::GetInstance().OnGUI();
 
-	// hint: something should come here :)
-
 	if (m_ShowDemo)
 	{
 		ImGui::ShowDemoWindow(&m_ShowDemo);
@@ -88,7 +86,7 @@ void Monke::Renderer::RenderTexture(const Texture2D& texture, const float x, con
 
 void Monke::Renderer::RenderTexture(const Texture2D& texture, const float x, const float y, const float width, const float height) const
 {
-	SDL_Rect dst{};
+	SDL_Rect dst;
 	dst.x = static_cast<int>(x);
 	dst.y = static_cast<int>(y);
 	dst.w = static_cast<int>(width);

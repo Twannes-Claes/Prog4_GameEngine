@@ -31,6 +31,9 @@
     <Filter Include="ImGui">
       <UniqueIdentifier>{60a0704c-5731-460e-83c0-d9ca124c88b2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Singletons\Input">
+      <UniqueIdentifier>{fac56c78-22b8-4b8c-80b1-f2d605dd2d08}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Texture2D.h">
@@ -55,9 +58,6 @@
       <Filter>2_Singletons</Filter>
     </ClInclude>
     <ClInclude Include="ResourceManager.h">
-      <Filter>2_Singletons</Filter>
-    </ClInclude>
-    <ClInclude Include="InputManager.h">
       <Filter>2_Singletons</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
@@ -126,6 +126,18 @@
     <ClInclude Include="..\3rdParty\imgui\imgui_plot.h">
       <Filter>ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>2_Singletons\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Gamepad.h">
+      <Filter>2_Singletons\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>2_Singletons\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandClasses.h">
+      <Filter>2_Singletons\Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Scene.cpp">
@@ -156,9 +168,6 @@
       <Filter>2_Singletons</Filter>
     </ClCompile>
     <ClCompile Include="ResourceManager.cpp">
-      <Filter>2_Singletons</Filter>
-    </ClCompile>
-    <ClCompile Include="InputManager.cpp">
       <Filter>2_Singletons</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
@@ -214,6 +223,18 @@
     </ClCompile>
     <ClCompile Include="..\3rdParty\imgui\imgui_plot.cpp">
       <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>2_Singletons\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Gamepad.cpp">
+      <Filter>2_Singletons\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Command.cpp">
+      <Filter>2_Singletons\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandClasses.cpp">
+      <Filter>2_Singletons\Input</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

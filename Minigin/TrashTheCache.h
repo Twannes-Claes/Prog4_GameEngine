@@ -8,6 +8,7 @@ namespace Monke
 	class TrashTheCache final : public RenderComponent
 	{
 	public:
+
 		explicit TrashTheCache(std::weak_ptr<GameObject> parent);
 		virtual ~TrashTheCache() override = default;
 
@@ -61,7 +62,7 @@ namespace Monke
 		int m_AmountTimesEx1{ 10 };
 		int m_AmountTimesEx2{ 10 };
 
-		const unsigned int m_AmountSamples{ 10'000'000 };
+		const unsigned int m_AmountSamples{ 1'000'000 };
 
 		std::vector<float> m_TimesEx1{};
 		std::vector<float> m_TimesEx2{};
