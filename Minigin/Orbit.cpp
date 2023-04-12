@@ -5,7 +5,7 @@
 #include "Transform.h"
 
 Monke::Orbit::Orbit(std::weak_ptr<GameObject> parent)
-:UpdateComponent(parent)
+:BaseComponent(parent)
 {
 }
 

@@ -27,6 +27,10 @@ namespace Monke
 
 		virtual void Initialize() = 0;
 
+		virtual void Update() {}
+
+		virtual void Render() const {}
+
 		virtual void OnGUI() {}
 
 		//todo: make a get component function so you dont have to type lock all the time

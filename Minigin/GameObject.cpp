@@ -2,45 +2,38 @@
 #include "GameObject.h"
 #include "ResourceManager.h"
 #include "Renderer.h"
-#include "UpdateComponent.h"
-#include "RenderComponent.h"
 #include "Transform.h"
 
 namespace Monke
 {
 	void GameObject::Initialize() const
 	{
-		for (const auto& pComponent : m_pUpdateComponents)
+		//i added a normal for loop over a range based for loop
+
+		//because in my initialize functions in my comnponents i can check if certain components dont exist, if not add the component
+
+		//but adding the component doesnt increase the range of the ranged based for loop, hence why the normal for loop
+
+		for(int i{}; i < static_cast<int>(m_pComponents.size()); ++i)
 		{
-			pComponent->Initialize();
-		}
-		for (const auto& pComponent : m_pRenderComponents)
-		{
-			pComponent->Initialize();
-		}
-		for (const auto& pComponent : m_pDataComponents)
-		{
-			pComponent->Initialize();
+			m_pComponents[i]->Initialize();
 		}
 	}
 
 	void GameObject::Update()
 	{
-		for(const auto& pComponent : m_pUpdateComponents)
+		for (int i{}; i < static_cast<int>(m_pComponents.size()); ++i)
 		{
-			pComponent->Update();
+			m_pComponents[i]->Update();
 		}
 
-		CleanUpVector(m_pUpdateComponents);
-		CleanUpVector(m_pRenderComponents);
-		CleanUpVector(m_pDataComponents);
-
+		CleanUpVector(m_pComponents);
 	}
 
 	void GameObject::Render() const
 	{
 
-		for (const auto& pComponent : m_pRenderComponents)
+		for (const auto& pComponent : m_pComponents)
 		{
 			pComponent->Render();
 		}
@@ -49,7 +42,7 @@ namespace Monke
 
 	void GameObject::OnGUI()
 	{
-		for (const auto& pComponent : m_pRenderComponents)
+		for (const auto& pComponent : m_pComponents)
 		{
 			pComponent->OnGUI();
 		}
@@ -59,38 +52,38 @@ namespace Monke
 	{
 		//lock/chache the parent
 		const auto originalParent{ m_pParent.lock()};
-
+		
 		//Remove itself as a child from the previous parent (if any)
 		if (m_pParent.expired() == false)
 		{
 			//chech if parents are not the same
 			if (originalParent == newParent.lock()) return;
-
+		
 			m_pParent.lock()->RemoveChild(weak_from_this());
 		}
 		else
 		{
 			if (newParent.expired()) return;
 		}
-
+		
 		//Set the given parent on itself
 		m_pParent = newParent;
-
+		
 		//Add itself as a child to the given parent
 		if (m_pParent.expired() == false)
 		{
 			m_pParent.lock()->m_pChildren.push_back(weak_from_this());
 		}
-
+		
 		//get transform component
 		const auto transformComp = GetComponent<Transform>();
-
+		
 		//if no transform has been found return
 		if (transformComp.expired()) return;
-
+		
 		//lock the transform
 		const auto ltransform = transformComp.lock();
-
+		
 		//if no parent set local as world position
 		if(m_pParent.expired())
 		{
@@ -103,11 +96,10 @@ namespace Monke
 				// Set the local position to be the difference between the local position and worlposition
 				ltransform->SetLocalPosition(ltransform->GetLocalPosition() - newParent.lock()->GetComponent<Transform>().lock()->GetWorldPosition());
 			}
-
+		
 			// Mark the transform as dirty, indicating that it has been modified
 			ltransform->SetTransformDirty();
 		}
-
 	}
 
 	void GameObject::AddChild(const std::weak_ptr<GameObject>& child)

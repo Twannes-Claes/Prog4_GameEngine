@@ -1,11 +1,11 @@
 #pragma once
 #include <vector>
 
-#include "RenderComponent.h"
+#include "BaseComponent.h"
 
 namespace Monke
 {
-	class TrashTheCache final : public RenderComponent
+	class TrashTheCache final : public BaseComponent
 	{
 	public:
 

@@ -1,10 +1,10 @@
 #pragma once
-#include "DataComponent.h"
 #include <glm/glm.hpp>
+#include "BaseComponent.h"
 
 namespace Monke
 {
-	class Transform final : public DataComponent
+	class Transform final : public BaseComponent
 	{
 	public:
 

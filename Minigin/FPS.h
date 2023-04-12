@@ -2,14 +2,14 @@
 
 #include <sstream>
 
-#include "UpdateComponent.h"
+#include "BaseComponent.h"
 
 namespace Monke
 {
 	class Time;
 	class Text;
 
-	class FPS final : public UpdateComponent
+	class FPS final : public BaseComponent
 	{
 	public:
 

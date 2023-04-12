@@ -2,13 +2,13 @@
 
 #include <glm/vec3.hpp>
 
-#include "UpdateComponent.h"
+#include "BaseComponent.h"
 
 namespace Monke
 {
 	class Transform;
 
-	class Orbit final : public UpdateComponent
+	class Orbit final : public BaseComponent
 	{
 
 	public:

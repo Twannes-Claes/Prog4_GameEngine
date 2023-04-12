@@ -9,7 +9,7 @@
 namespace Monke
 {
 	MoveCommand::MoveCommand(GameObject* object)
-	:AxisCommand(object)
+	:m_pObject(object)
 	{
 		m_pTranform = object->GetComponent<Transform>();
 	}

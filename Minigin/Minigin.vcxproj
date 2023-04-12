@@ -189,7 +189,6 @@
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="CommandClasses.h" />
-    <ClInclude Include="DataComponent.h" />
     <ClInclude Include="Errors.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FPS.h" />
@@ -197,7 +196,6 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Minigin.h" />
     <ClInclude Include="Orbit.h" />
-    <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
@@ -209,7 +207,6 @@
     <ClInclude Include="Time.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="TrashTheCache.h" />
-    <ClInclude Include="UpdateComponent.h" />
     <ClInclude Include="Gamepad.h" />
   </ItemGroup>
   <ItemGroup>
@@ -265,7 +262,6 @@
     <ClCompile Include="BaseComponent.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="CommandClasses.cpp" />
-    <ClCompile Include="DataComponent.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FPS.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -273,7 +269,6 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Minigin.cpp" />
     <ClCompile Include="Orbit.cpp" />
-    <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -284,7 +279,6 @@
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="TrashTheCache.cpp" />
-    <ClCompile Include="UpdateComponent.cpp" />
     <ClCompile Include="Gamepad.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

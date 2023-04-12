@@ -95,7 +95,10 @@ bool Monke::InputManager::ProcessInput()
 			m_KeysReleased.insert(key);
 			m_KeysPressed.erase(key);
 		}
-
+		if (e.type == SDL_WINDOWEVENT && e.window.event == SDL_WINDOWEVENT_FOCUS_LOST)
+		{
+			m_KeysPressed.clear();
+		}
 		//process event for IMGUI
 		ImGui_ImplSDL2_ProcessEvent(&e);
 	}

@@ -4,7 +4,7 @@
 #include <SDL_pixels.h>
 #include <glm/vec3.hpp>
 
-#include "UpdateComponent.h"
+#include "BaseComponent.h"
 
 namespace Monke
 {
@@ -13,7 +13,7 @@ namespace Monke
 	class Texture2D;
 	class Transform;
 
-	class Text final : public UpdateComponent
+	class Text final : public BaseComponent
 	{
 	public:
 

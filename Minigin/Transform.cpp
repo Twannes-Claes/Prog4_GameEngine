@@ -5,7 +5,7 @@
 namespace Monke
 {
 	Transform::Transform(std::weak_ptr<GameObject> parent)
-	:DataComponent(parent)
+	:BaseComponent(parent)
 	{
 	}
 

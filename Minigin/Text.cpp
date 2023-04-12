@@ -12,14 +12,12 @@
 namespace Monke
 {
 	Text::Text(std::weak_ptr<GameObject> parent)
-	:UpdateComponent(parent)
+	:BaseComponent(parent)
 	{
 	}
 
 	void Text::Initialize()
 	{
-
-		//todo : make this a function
 
 		const auto pOwner{ GetOwner().lock() };
 

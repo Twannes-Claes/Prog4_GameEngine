@@ -51,9 +51,6 @@
     <ClInclude Include="BaseComponent.h">
       <Filter>4_Components\BaseComponents</Filter>
     </ClInclude>
-    <ClInclude Include="RenderComponent.h">
-      <Filter>4_Components\BaseComponents</Filter>
-    </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>2_Singletons</Filter>
     </ClInclude>
@@ -81,17 +78,11 @@
     <ClInclude Include="Transform.h">
       <Filter>4_Components\Components</Filter>
     </ClInclude>
-    <ClInclude Include="DataComponent.h">
-      <Filter>4_Components\BaseComponents</Filter>
-    </ClInclude>
     <ClInclude Include="Errors.h">
       <Filter>4_Components\Error_Handling</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
       <Filter>4_Components\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="UpdateComponent.h">
-      <Filter>4_Components\BaseComponents</Filter>
     </ClInclude>
     <ClInclude Include="Orbit.h">
       <Filter>4_Components\Components</Filter>
@@ -158,12 +149,6 @@
     <ClCompile Include="BaseComponent.cpp">
       <Filter>4_Components\BaseComponents</Filter>
     </ClCompile>
-    <ClCompile Include="RenderComponent.cpp">
-      <Filter>4_Components\BaseComponents</Filter>
-    </ClCompile>
-    <ClCompile Include="UpdateComponent.cpp">
-      <Filter>4_Components\BaseComponents</Filter>
-    </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>2_Singletons</Filter>
     </ClCompile>
@@ -187,9 +172,6 @@
     </ClCompile>
     <ClCompile Include="Transform.cpp">
       <Filter>4_Components\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="DataComponent.cpp">
-      <Filter>4_Components\BaseComponents</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>4_Components\Components</Filter>

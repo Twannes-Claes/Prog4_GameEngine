@@ -1,12 +1,12 @@
 #pragma once
-#include "RenderComponent.h"
+#include "BaseComponent.h"
 
 namespace Monke
 {
 	class Transform;
 	class Texture2D;
 
-	class Texture final : public RenderComponent
+	class Texture final : public BaseComponent
 	{
 
 	public:
@@ -15,7 +15,7 @@ namespace Monke
 		virtual ~Texture() override = default;
 
 		virtual void Initialize() override;
-		void Render() const override;
+		virtual void Render() const override;
 
 		void SetTexture(const std::shared_ptr<Texture2D>& pTexture);
 

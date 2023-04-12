@@ -12,7 +12,7 @@ namespace Monke
 
 	public:
 
-		explicit Command(GameObject* object) : m_pObject(object){}
+		explicit Command() = default;
 		virtual ~Command() = default;
 
 		virtual void Execute() = 0;
@@ -24,11 +24,11 @@ namespace Monke
 
 	protected:
 
-		GameObject* GetGameObject() const { return  m_pObject; }
+		//GameObject* GetGameObject() const { return  m_pObject; }
 
 	private:
 
-		GameObject* m_pObject;
+		//GameObject* m_pObject;
 
 	};
 
@@ -37,7 +37,7 @@ namespace Monke
 
 	public:
 
-		explicit AxisCommand(GameObject* object) : Command(object){}
+		explicit AxisCommand() = default;
 		virtual ~AxisCommand() override = default;
 
 		virtual void Execute() override = 0;
@@ -53,7 +53,7 @@ namespace Monke
 
 		glm::vec2& GetInput() { return m_Input; }
 
-	private: 
+	private:
 
 		glm::vec2 m_Input{};
 

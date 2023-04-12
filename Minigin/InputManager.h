@@ -74,6 +74,8 @@ namespace Monke
 				static_cast<unsigned int>(m_Gamepads.size() - 1)
 			};
 
+			//todo fix this give a command in place of a game object
+			 
 			auto command = std::make_unique<T>(pGameObject);
 
 			auto cache = command.get();

@@ -9,7 +9,7 @@
 namespace  Monke
 {
 	FPS::FPS(std::weak_ptr<GameObject> parent)
-	:UpdateComponent(parent)
+	:BaseComponent(parent)
 	{
 	}
 
