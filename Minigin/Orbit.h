@@ -13,7 +13,7 @@ namespace Monke
 
 	public:
 
-		explicit Orbit(std::weak_ptr<GameObject> parent);
+		explicit Orbit( GameObject* parent);
 		virtual ~Orbit() override = default;
 
 		virtual void Initialize() override;
@@ -29,7 +29,7 @@ namespace Monke
 		Orbit& operator=(Orbit&& other) = delete;
 
 
-		std::weak_ptr<Transform> m_pTransform;
+		Transform* m_pTransform;
 
 		float m_Rotation{};
 

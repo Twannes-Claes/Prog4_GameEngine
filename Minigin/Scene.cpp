@@ -1,5 +1,4 @@
 #include "Scene.h"
-#include "GameObject.h"
 
 using namespace Monke;
 
@@ -9,21 +8,23 @@ Scene::Scene(std::string name) : m_name(std::move(name)) {}
 
 Scene::~Scene() = default;
 
-std::shared_ptr<GameObject> Scene::MakeGameObject()
+GameObject* Scene::MakeGameObject()
 {
-	std::shared_ptr pGameObject{ std::make_shared<GameObject>() };
+	std::unique_ptr pGameObject{ std::make_unique<GameObject>() };
 
-	Add(pGameObject);
+	GameObject* newObject = pGameObject.get();
 
-	return pGameObject;
+	Add(std::move(pGameObject));
+
+	return newObject;
 }
 
-void Scene::Add(std::shared_ptr<GameObject> object)
+void Scene::Add(std::unique_ptr<GameObject> object)
 {
 	m_objects.emplace_back(std::move(object));
 }
 
-void Scene::Remove(const std::shared_ptr<GameObject>& object)
+void Scene::Remove(const std::unique_ptr<GameObject> object)
 {
 	std::erase(m_objects, object);
 }
@@ -49,7 +50,7 @@ void Scene::Update()
 	}
 
 	std::erase_if(m_objects, 
-	[](const std::shared_ptr<GameObject>& obj) {
+	[](const auto& obj) {
 	return obj->IsMarkedDead();
 	});
 

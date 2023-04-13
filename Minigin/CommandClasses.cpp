@@ -18,9 +18,9 @@ namespace Monke
 	{
 		glm::vec2 pos = GetInput() * m_Speed * Time::GetInstance().GetElapsed();
 
-		pos += static_cast<glm::vec2>(m_pTranform.lock()->GetLocalPosition());
+		pos += m_pTranform->GetLocalPosition();
 
-		m_pTranform.lock()->SetLocalPosition(pos.x, pos.y);
+		m_pTranform->SetLocalPosition(pos.x, pos.y);
 	}
 }
 

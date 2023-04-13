@@ -8,23 +8,14 @@
 
 namespace  Monke
 {
-	FPS::FPS(std::weak_ptr<GameObject> parent)
+	FPS::FPS( GameObject* parent)
 	:BaseComponent(parent)
 	{
 	}
 
 	void FPS::Initialize()
 	{
-
-		m_pText = GetOwner().lock()->GetComponent<Text>();
-		
-		if (m_pText.expired())
-		{
-			const auto error = Expired_Weak_Ptr(__FILE__, __LINE__, "No text component found to display FPS as text");
-		}
-
-		//GetComponentCheck(m_pText, "No text component found to display FPS as text");
-		
+		m_pText = GetOwner()->GetComponent<Text>();
 	}
 
 	void FPS::Update()
@@ -47,7 +38,7 @@ namespace  Monke
 			m_FPS = m_NewFPS;
 
 			//check if m_pText is valid
-			if (m_pText.expired()) return;
+			if (m_pText == nullptr) return;
 
 			//make stream to pass onto textcomponent
 			m_StreamFPS << m_FPS;
@@ -57,7 +48,7 @@ namespace  Monke
 			m_StreamFPS << " FPS";
 
 			//set the text to the fps counter
-			m_pText.lock()->SetText(m_StreamFPS.str());
+			m_pText->SetText(m_StreamFPS.str());
 
 			//clear the stringstream
 			m_StreamFPS.str("");

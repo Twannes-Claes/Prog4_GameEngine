@@ -11,7 +11,7 @@
 
 namespace Monke
 {
-	Text::Text(std::weak_ptr<GameObject> parent)
+	Text::Text(GameObject* parent)
 	:BaseComponent(parent)
 	{
 	}
@@ -19,18 +19,13 @@ namespace Monke
 	void Text::Initialize()
 	{
 
-		const auto pOwner{ GetOwner().lock() };
+		const auto pOwner{ GetOwner() };
 
 		m_pTransformComp = pOwner->GetComponent<Transform>();
-		
-		if (m_pTransformComp.expired())
-		{
-			const auto error = Expired_Weak_Ptr(__FILE__, __LINE__, "No transform component to draw on a given position");
-		}
 
 		m_pTextureComp = pOwner->GetComponent<Texture>();
 
-		if (m_pTextureComp.expired())
+		if(m_pTextureComp == nullptr)
 		{
 			m_pTextureComp = pOwner->AddComponent<Texture>();
 		}
@@ -39,11 +34,11 @@ namespace Monke
 
 	void Text::Update()
 	{
-		if (m_NeedsUpdate == false || m_pTextureComp.expired()) return;
+		if (m_NeedsUpdate == false || m_pTextureComp == nullptr) return;
 
 		ChangeTextTexture();
 
-		m_pTextureComp.lock()->SetTexture(m_pTextTexture);
+		m_pTextureComp->SetTexture(m_pTextTexture);
 	}
 
 	void Text::ChangeTextTexture()

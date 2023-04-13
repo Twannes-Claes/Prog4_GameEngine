@@ -7,14 +7,10 @@
 
 namespace Monke
 {
+	class Transform;
 	class Texture2D;
 
-	//class BaseComponent;
-	//class RenderComponent;
-	//class UpdateComponent;
-	//class DataComponent;
-
-	class GameObject final : public std::enable_shared_from_this<GameObject>
+	class GameObject final
 	{
 
 	public:
@@ -26,18 +22,18 @@ namespace Monke
 		void OnGUI();
 
 		//scenegraph functions
-		void SetParent(const std::weak_ptr<GameObject>& newParent, const bool keepWorldPosition = false);
-		void AddChild(const std::weak_ptr<GameObject>& child);
-		void RemoveChild(std::weak_ptr<GameObject> child);
+		void SetParent(GameObject* newParent, const bool keepWorldPosition = false);
+		GameObject* GetParent() const { return m_pParent; }
 
-		std::weak_ptr<GameObject> GetParent() const { return m_pParent; }
-		const std::vector<std::weak_ptr<GameObject>>& GetAllChildren() const { return m_pChildren; }
+		const std::vector<GameObject*>& GetAllChildren() const { return m_pChildren; }
+
+		Transform* GetTransform() const { return m_pTransform; }
 
 		void Destroy();
 		bool IsMarkedDead() const { return m_IsMarkedDead; }
 
 		//THE BIG SIX
-		GameObject() = default;
+		GameObject();
 
 		~GameObject() = default;
 		GameObject(const GameObject& other) = delete;
@@ -48,10 +44,10 @@ namespace Monke
 #pragma region Template_Component_Classes
 
 		template <class T>
-		std::weak_ptr<T> GetComponent() const;
+		T* GetComponent() const;
 
 		template <class T>
-		std::shared_ptr<T> AddComponent();
+		T* AddComponent();
 
 		template <class T>
 		bool HasComponent() const;
@@ -129,7 +125,7 @@ namespace Monke
 #pragma endregion
 
 		template <class T>
-		void CleanUpVector(std::vector<std::shared_ptr<T>>& v)
+		void CleanUpVector(std::vector<std::unique_ptr<T>>& v)
 		{
 
 			static_assert(std::is_base_of_v<BaseComponent, T>, "The given class must be inherited from BaseComponent");
@@ -149,17 +145,20 @@ namespace Monke
 
 			//remove all elements from the vector if is marked as dead
 
-			v.erase(std::remove_if(begin(v), end(v), [](auto pComponent)
+			v.erase(std::remove_if(begin(v), end(v), [](const auto& pComponent)
 			{
 				return pComponent->IsMarkedDead();
 			}), end(v));
 
 		}
 
-		std::weak_ptr<GameObject> m_pParent{};
-		std::vector< std::weak_ptr<GameObject> > m_pChildren{};
+		Transform* m_pTransform{};
 
-		std::vector<std::shared_ptr<BaseComponent>> m_pComponents{};
+		GameObject* m_pParent{};
+
+		std::vector< GameObject* > m_pChildren{};
+
+		std::vector<std::unique_ptr< BaseComponent >> m_pComponents{};
 
 		bool m_IsMarkedDead{ false };
 	};
@@ -167,61 +166,70 @@ namespace Monke
 #pragma region Template_Component_Logic
 
 	template <class T>
-	std::weak_ptr<T> GameObject::GetComponent() const
+	T* GameObject::GetComponent() const
 	{
-
 		static_assert(std::is_base_of_v<BaseComponent, T>, "The given class must be inherited from BaseComponent");
 
-		//make shared of class
-		std::shared_ptr<T> derivedComponent{ nullptr };
+		//make pointer
+		T* derivedComponent{ nullptr };
 
-		for (const std::shared_ptr<BaseComponent>& pComponent : m_pComponents)
+		//go trough all and return if it has found one
+		for (const auto& pComponent : m_pComponents)
 		{
-			//https://yunmingzhang.wordpress.com/2020/07/14/casting-shared-pointers-in-c/
-			if ((derivedComponent = std::dynamic_pointer_cast<T>(pComponent))) return derivedComponent;
+			if(derivedComponent = dynamic_cast<T*>(pComponent.get()); derivedComponent != nullptr)
+			{
+				return derivedComponent;
+			}
 		}
 
-		return derivedComponent;
+		return nullptr;
 	}
 
 	template<class T>
-	std::shared_ptr<T> GameObject::AddComponent()
+	T* GameObject::AddComponent()
 	{
 		//check if given class has been inherited form basecomponent
 		//https://stackoverflow.com/questions/5084209/check-if-template-argument-is-inherited-from-class && resharper instructing for std::is_base_v
 
 		static_assert(std::is_base_of_v<BaseComponent, T> , "The given class must be inherited from BaseComponent");
 
-		//make the component
-		//https://en.cppreference.com/w/cpp/memory/enable_shared_from_this
-
-		auto pComponent{ std::make_shared<T>(weak_from_this()) };
-
-		//check if component is an updatable or render component, if so add them to the vector
-		//hasAdded = AddComponentCheck(pComponent, m_pUpdateComponents);
-		if constexpr (std::is_base_of_v<BaseComponent, T>)
+		//compiler gives error when this is not constexpr because cant convert Transform to T*
+		if constexpr (std::is_same<Transform, T>())
 		{
-			//https://yunmingzhang.wordpress.com/2020/07/14/casting-shared-pointers-in-c/
-			auto pUpdateComponent = std::dynamic_pointer_cast<BaseComponent>(pComponent);
-		
-			m_pComponents.push_back(pUpdateComponent);
-			return pComponent;
+			if (GetComponent<Transform>())
+			{
+				//todo make a warning logger
+				return m_pTransform;
+			}
 		}
 
-		//return the component
-		return pComponent;
+		//make the component
+
+		auto pComponent{ std::make_unique<T>( this ) };
+
+		auto newComponent =  pComponent.get();
+
+		m_pComponents.push_back(std::move(pComponent));
+
+		//return pointer of the component
+		return newComponent;
 	}
 
 	template <class T>
 	bool GameObject::HasComponent() const
 	{
-		std::shared_ptr<T> derivedComponent{ nullptr };
+		static_assert(std::is_base_of_v<BaseComponent, T>, "The given class must be inherited from BaseComponent");
 
-		//loop over all render components and check if it has the given one
-		for (const std::shared_ptr<BaseComponent>& pComponent : m_pComponents)
+		//make pointer
+		T* derivedComponent{ nullptr };
+
+		//go trough all and return if it has found one
+		for (const auto& pComponent : m_pComponents)
 		{
-			//https://yunmingzhang.wordpress.com/2020/07/14/casting-shared-pointers-in-c/
-			if ((derivedComponent = std::dynamic_pointer_cast<T>(pComponent))) return true;
+			if (derivedComponent = dynamic_cast<T*>(pComponent.get()); derivedComponent != nullptr)
+			{
+				return true;
+			}
 		}
 
 		return false;
@@ -234,23 +242,28 @@ namespace Monke
 		//https://stackoverflow.com/questions/5084209/check-if-template-argument-is-inherited-from-class && resharper instructing for std::is_base_v
 		
 		static_assert(std::is_base_of_v<BaseComponent, T>, "The given class must be inherited from BaseComponent");
+		static_assert(std::is_same<Transform, T>(), "Cannon remove a transform");
 
-		//if (removed) return removed;
-		if constexpr (std::is_base_of_v<BaseComponent, T>)
+		////find the first component that matches the component in the vector
+		//auto it = std::remove_if(m_pComponents.begin(), m_pComponents.end(),[]
+		//(const std::shared_ptr<BaseComponent>& component)
+		//{
+		//	//check if the component can be casted to the template type
+		//	return std::dynamic_pointer_cast<T>(component) != nullptr;
+		//});
+		////if i components has been found erase it and turn the remove flag to true
+		//if (it != m_pComponents.end())
+		//{
+		//	(*it)->Destroy();
+		//	return true;
+		//}
+
+		//try to get the component if so destroy
+		if (T * pRemoveComp{ GetComponent<T>() })
 		{
-			//find the first component that matches the component in the vector
-			auto it = std::remove_if(m_pComponents.begin(), m_pComponents.end(),[]
-			(const std::shared_ptr<BaseComponent>& component)
-			{
-				//check if the component can be casted to the template type
-				return std::dynamic_pointer_cast<T>(component) != nullptr;
-			});
-			//if i components has been found erase it and turn the remove flag to true
-			if (it != m_pComponents.end())
-			{
-				(*it)->Destroy();
-				return true;
-			}
+			Destroy(pRemoveComp);
+
+			return true;
 		}
 
 		//return if the component has been removed

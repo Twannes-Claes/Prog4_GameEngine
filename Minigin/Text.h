@@ -17,8 +17,7 @@ namespace Monke
 	{
 	public:
 
-		// todo add addcomponent(transform)
-		explicit Text(std::weak_ptr<GameObject> parent);
+		explicit Text( GameObject* parent);
 		virtual ~Text() override = default;
 
 		virtual void Initialize() override;
@@ -43,9 +42,9 @@ namespace Monke
 
 		bool m_NeedsUpdate{ true };
 
-		//weak pointer of the transform to draw the text on the right position
-		std::weak_ptr<Transform> m_pTransformComp{};
-		std::weak_ptr<Texture> m_pTextureComp{};
+		//pointer of the transform to draw the text on the right position
+		Transform* m_pTransformComp{};
+		Texture* m_pTextureComp{};
 
 		std::string m_Text{" "};
 

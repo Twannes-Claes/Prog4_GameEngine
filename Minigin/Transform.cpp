@@ -4,7 +4,7 @@
 
 namespace Monke
 {
-	Transform::Transform(std::weak_ptr<GameObject> parent)
+	Transform::Transform(GameObject* parent)
 	:BaseComponent(parent)
 	{
 	}
@@ -14,7 +14,7 @@ namespace Monke
 		
 	}
 
-	const glm::vec3& Transform::GetWorldPosition()
+	const glm::vec2& Transform::GetWorldPosition()
 	{
 		if (m_IsDirty)
 		{
@@ -25,19 +25,11 @@ namespace Monke
 
 	void Transform::SetTransformDirty()
 	{
-		//todo: maybe cache this with initialize function but changing parent will break that
-		const auto vChildren = GetOwner().lock()->GetAllChildren();
-
-		for ( const auto& child : vChildren)
+		for (const auto vChildren = GetOwner()->GetAllChildren(); const auto& child : vChildren)
 		{
-			auto transformComp = child.lock()->GetComponent<Transform>();
+			const auto transformComp = child->GetComponent<Transform>();
 
-			if (transformComp.expired())
-			{
-				continue;
-			}
-
-			transformComp.lock()->SetTransformDirty();
+			transformComp->SetTransformDirty();
 		}
 
 		m_IsDirty = true;
@@ -45,13 +37,13 @@ namespace Monke
 
 	void Transform::UpdateWorldPosition()
 	{
-		if (const auto OwnerParent{ GetOwner().lock()->GetParent() }; OwnerParent.expired())
+		if (const auto OwnerParent{ GetOwner()->GetParent() }; OwnerParent == nullptr)
 		{
 			m_WorldPosition = m_LocalPosition;
 		}
 		else
 		{
-			const auto transformParentComp = OwnerParent.lock()->GetComponent<Transform>().lock();
+			const auto transformParentComp = OwnerParent->GetComponent<Transform>();
 			m_WorldPosition = transformParentComp->GetWorldPosition() + m_LocalPosition;
 		}
 

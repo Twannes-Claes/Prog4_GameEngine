@@ -8,26 +8,23 @@ namespace Monke
 	{
 	public:
 
-		explicit Transform(std::weak_ptr<GameObject> parent);
+		explicit Transform(GameObject* parent);
 		virtual ~Transform() override = default;
 
 
 		virtual void Initialize() override;
 
 
-		const glm::vec3& GetLocalPosition() const { return m_LocalPosition; }
-		const glm::vec3& GetWorldPosition();
+		const glm::vec2& GetLocalPosition() const { return m_LocalPosition; }
+		const glm::vec2& GetWorldPosition();
 
-		//void SetWorldPosition(const glm::vec3& pos) { m_WorldPosition = pos; }
-		//void SetWorldPosition(const float x, const float y, const float z = 0) { m_WorldPosition = { x,y,z }; }
-
-		void SetPosition(const glm::vec3& pos) { m_LocalPosition = pos; SetTransformDirty(); }
-		void SetPosition(const float x, const float y, const float z = 0) { m_LocalPosition = { x,y,z }; SetTransformDirty(); }
+		void SetPosition(const glm::vec2& pos) { m_LocalPosition = pos; SetTransformDirty(); }
+		void SetPosition(const float x, const float y) { m_LocalPosition = { x,y }; SetTransformDirty(); }
 
 		//todo make a function to add to localposition
 
-		void SetLocalPosition(const glm::vec3& pos) { m_LocalPosition = pos; SetTransformDirty(); }
-		void SetLocalPosition(const float x, const float y, const float z = 0) { m_LocalPosition = { x,y,z }; SetTransformDirty(); }
+		void SetLocalPosition(const glm::vec2& pos) { m_LocalPosition = pos; SetTransformDirty(); }
+		void SetLocalPosition(const float x, const float y) { m_LocalPosition = { x,y }; SetTransformDirty(); }
 
 		void SetTransformDirty();
 
@@ -40,10 +37,8 @@ namespace Monke
 
 		void UpdateWorldPosition();
 
-		//todo make vec3 ==> vec2
-
-		glm::vec3 m_WorldPosition{};
-		glm::vec3 m_LocalPosition{};
+		glm::vec2 m_WorldPosition{};
+		glm::vec2 m_LocalPosition{};
 
 		//Dirty flag
 		bool m_IsDirty{ true };

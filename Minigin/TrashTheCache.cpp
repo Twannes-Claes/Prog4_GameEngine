@@ -7,8 +7,8 @@
 
 namespace Monke
 {
-	Monke::TrashTheCache::TrashTheCache(std::weak_ptr<GameObject> parent)
-		:BaseComponent(parent)
+	Monke::TrashTheCache::TrashTheCache(GameObject* parent)
+	:BaseComponent(parent)
 	{
 
 	}

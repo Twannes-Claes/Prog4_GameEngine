@@ -9,7 +9,7 @@ namespace Monke
 	{
 	public:
 
-		explicit TrashTheCache(std::weak_ptr<GameObject> parent);
+		explicit TrashTheCache(GameObject* parent);
 		virtual ~TrashTheCache() override = default;
 
 		virtual void Initialize() override {}

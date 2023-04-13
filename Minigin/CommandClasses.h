@@ -28,7 +28,7 @@ namespace Monke
 
 		GameObject* m_pObject;
 
-		std::weak_ptr<Transform> m_pTranform{};
+		Transform* m_pTranform{};
 
 		float m_Speed{ 10.f };
 

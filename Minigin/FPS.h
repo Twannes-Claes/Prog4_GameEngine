@@ -13,7 +13,7 @@ namespace Monke
 	{
 	public:
 
-		explicit FPS(std::weak_ptr<GameObject> parent);
+		explicit FPS( GameObject* parent);
 		virtual ~FPS() override = default;
 
 		virtual void Initialize() override;
@@ -28,7 +28,7 @@ namespace Monke
 
 	private:
 
-		std::weak_ptr<Text> m_pText{};
+		Text* m_pText{};
 
 		const float m_TimeToUpdate{ 0.15f };
 

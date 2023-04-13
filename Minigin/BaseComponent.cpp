@@ -2,7 +2,7 @@
 
 namespace Monke
 {
-	BaseComponent::BaseComponent( std::weak_ptr<GameObject> parent)
+	BaseComponent::BaseComponent( GameObject* parent)
 	:m_pParent(parent)
 	{
 	}

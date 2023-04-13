@@ -1,18 +1,20 @@
 #pragma once
 #include "SceneManager.h"
+#include "GameObject.h"
 
 namespace Monke
 {
-	class GameObject;
+
 	class Scene final
 	{
 		friend Scene& SceneManager::CreateScene(const std::string& name);
+
 	public:
 
-		std::shared_ptr<GameObject> MakeGameObject();
+		GameObject* MakeGameObject();
 
-		void Add(std::shared_ptr<GameObject> object);
-		void Remove(const std::shared_ptr<GameObject>& object);
+		void Add(std::unique_ptr<GameObject> object);
+		void Remove(const std::unique_ptr<GameObject> object);
 		void RemoveAll();
 
 		void Initialize() const;
@@ -30,7 +32,7 @@ namespace Monke
 		explicit Scene(std::string name);
 
 		std::string m_name;
-		std::vector < std::shared_ptr<GameObject>> m_objects{};
+		std::vector < std::unique_ptr<GameObject> > m_objects{};
 
 		static unsigned int m_idCounter; 
 	};
