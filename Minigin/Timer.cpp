@@ -1,14 +1,14 @@
-#include "Time.h"
+#include "Timer.h"
 
 namespace Monke
 {
-	Time::Time()
+	Timer::Timer()
 	{
 		//set the start time
 		m_LastTime = std::chrono::high_resolution_clock::now();
 	}
 
-	void Time::Update()
+	void Timer::Update()
 	{
 		//get the current time
 		const auto currentTime{ std::chrono::high_resolution_clock::now() };

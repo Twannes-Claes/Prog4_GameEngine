@@ -1,7 +1,7 @@
 #include "Orbit.h"
 
 #include "GameObject.h"
-#include "Time.h"
+#include "Timer.h"
 #include "Transform.h"
 
 Monke::Orbit::Orbit(GameObject* parent)
@@ -16,7 +16,7 @@ void Monke::Orbit::Initialize()
 
 void Monke::Orbit::Update()
 {
-	m_Rotation += Time::GetInstance().GetElapsed() * m_RotSpeed;
+	m_Rotation += Timer::GetInstance().GetElapsed() * m_RotSpeed;
 
 	m_pTransform->SetLocalPosition
 	(

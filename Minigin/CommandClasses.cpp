@@ -3,7 +3,7 @@
 #include <iostream>
 
 #include "GameObject.h"
-#include "Time.h"
+#include "Timer.h"
 #include "Transform.h"
 
 namespace Monke
@@ -17,7 +17,7 @@ namespace Monke
 
 	void MoveCommand::Execute()
 	{
-		glm::vec2 pos = GetInput() * m_Speed * Time::GetInstance().GetElapsed();
+		glm::vec2 pos = GetInput() * m_Speed * Timer::GetInstance().GetElapsed();
 
 		pos += m_pTranform->GetLocalPosition();
 

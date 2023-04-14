@@ -248,7 +248,7 @@ xcopy "$(SolutionDir)3rdParty\steam\steam_appid.txt" "$(OutputPath)" /Y</Command
     <ClInclude Include="Text.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Texture2D.h" />
-    <ClInclude Include="Time.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="TrashTheCache.h" />
     <ClInclude Include="Gamepad.h" />
@@ -320,7 +320,7 @@ xcopy "$(SolutionDir)3rdParty\steam\steam_appid.txt" "$(OutputPath)" /Y</Command
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Texture2D.cpp" />
-    <ClCompile Include="Time.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="TrashTheCache.cpp" />
     <ClCompile Include="Gamepad.cpp" />

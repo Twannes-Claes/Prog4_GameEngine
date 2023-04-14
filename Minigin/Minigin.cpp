@@ -12,7 +12,7 @@
 #include "SceneManager.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
-#include  "Time.h"
+#include  "Timer.h"
 
 SDL_Window* g_window{};
 
@@ -91,7 +91,7 @@ void Monke::Minigin::Run(const std::function<void()>& initiliaze) const
 	auto& renderer = Renderer::GetInstance();
 	const auto& sceneManager = SceneManager::GetInstance();
 	auto& input = InputManager::GetInstance();
-	auto& timer = Time::GetInstance();
+	auto& timer = Timer::GetInstance();
 
 	const auto desiredFPSTime{ std::chrono::milliseconds( 1'000 / m_DesiredFPS ) };
 

@@ -3,7 +3,7 @@
 #include "GameObject.h"
 #include "Text.h"
 #include "FPS.h"
-#include "Time.h"
+#include "Timer.h"
 #include "Errors.h"
 
 namespace  Monke
@@ -21,7 +21,7 @@ namespace  Monke
 	void FPS::Update()
 	{
 		//get deltatime
-		const float deltaTime{ Time::GetInstance().GetElapsed() };
+		const float deltaTime{ Timer::GetInstance().GetElapsed() };
 
 		//calculate timer and check if updatetime has been hit
 		m_ResetTimer += deltaTime;

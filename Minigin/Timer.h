@@ -5,11 +5,11 @@
 
 namespace Monke
 {
-	class Time final : public Singleton<Time>
+	class Timer final : public Singleton<Timer>
 	{
 	public:
 
-		Time();
+		Timer();
 
 		void Update();
 
@@ -18,11 +18,11 @@ namespace Monke
 
 		std::chrono::steady_clock::time_point GetLastTime() const { return m_LastTime; }
 
-		virtual ~Time() override = default;
-		Time(const Time& other) = delete;
-		Time(Time&& other) = delete;
-		Time& operator=(const Time& other) = delete;
-		Time& operator=(Time&& other) = delete;
+		virtual ~Timer() override = default;
+		Timer(const Timer& other) = delete;
+		Timer(Timer&& other) = delete;
+		Timer& operator=(const Timer& other) = delete;
+		Timer& operator=(Timer&& other) = delete;
 
 	private:
 
