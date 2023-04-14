@@ -5,6 +5,9 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include "Minigin.h"
+
+#include <steam_api_common.h>
+
 #include "InputManager.h"
 #include "SceneManager.h"
 #include "Renderer.h"
@@ -102,6 +105,8 @@ void Monke::Minigin::Run(const std::function<void()>& initiliaze) const
 		canContinueLoop = input.ProcessInput();
 		sceneManager.Update();
 		renderer.Render();
+
+		SteamAPI_RunCallbacks();
 
 		//sleep to let the cpu rest between frames
 		const auto sleeptime =   timer.GetLastTime() + desiredFPSTime - std::chrono::high_resolution_clock::now();
