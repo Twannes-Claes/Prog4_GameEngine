@@ -8,8 +8,9 @@
 
 namespace Monke
 {
-	MoveCommand::MoveCommand(GameObject* object)
-	:m_pObject(object)
+	MoveCommand::MoveCommand(GameObject* object, const float speed)
+	:m_pObject(object),
+	m_Speed(speed)
 	{
 		m_pTranform = object->GetComponent<Transform>();
 	}

@@ -10,9 +10,7 @@ namespace Monke
 
 	public:
 
-		//TODO GIVE TRANSFORM AND SPEED TROUGH CONSTRUCTOR
-
-		explicit MoveCommand(GameObject* object);
+		explicit MoveCommand(GameObject* object, const float speed);
 		virtual ~MoveCommand() override = default;
 
 		virtual void Execute() override;

@@ -29,7 +29,7 @@ namespace Monke
 
 		//controller addcommand
 		template <class T>
-		T* AddCommand(const unsigned int id, Gamepad::GamepadButton button, InputType inputType, GameObject* pGameObject)
+		T* AddCommand(const unsigned int id, Gamepad::GamepadButton button, InputType inputType, std::unique_ptr<T> pCommand)
 		{
 			static_assert(std::is_base_of<Command, T>(), "T needs to be derived from command");
 
@@ -45,19 +45,15 @@ namespace Monke
 				static_cast<unsigned int>(m_Gamepads.size()-1)
 			};
 
-			//todo do constructor shit here
+			auto cache = pCommand.get();
 
-			auto command = std::make_unique<T>(pGameObject);
-
-			auto cache = command.get();
-
-			m_ControllerCommands.emplace(controller, std::move(command));
+			m_ControllerCommands.emplace(controller, std::move(pCommand));
 
 			return cache;
 		}
 
 		template <class T>
-		T* AddCommand(const unsigned int id, Gamepad::GamepadButton up, Gamepad::GamepadButton right, Gamepad::GamepadButton bottom, Gamepad::GamepadButton left, GameObject* pGameObject)
+		T* AddCommand(const unsigned int id, Gamepad::GamepadButton up, Gamepad::GamepadButton right, Gamepad::GamepadButton bottom, Gamepad::GamepadButton left, std::unique_ptr<T> pCommand)
 		{
 
 			static_assert(std::is_base_of<AxisCommand, T>(), "T needs to be derived from axiscommand");
@@ -76,18 +72,16 @@ namespace Monke
 
 			//todo fix this give a command in place of a game object
 			 
-			auto command = std::make_unique<T>(pGameObject);
+			auto cache = pCommand.get();
 
-			auto cache = command.get();
-
-			m_ControllerCommands.emplace(controller, std::move(command));
+			m_ControllerCommands.emplace(controller, std::move(pCommand));
 
 			return cache;
 		}
 
 		//keyboard addcommand
 		template <class T>
-		T* AddCommand(const unsigned int keyValue, InputType inputType, GameObject* pGameObject)
+		T* AddCommand(const unsigned int keyValue, InputType inputType, std::unique_ptr<T> pCommand)
 		{
 			static_assert(std::is_base_of<Command, T>(), "T needs to be derived from command");
 
@@ -96,25 +90,21 @@ namespace Monke
 				throw std::invalid_argument("Cannot use axis with one value in AddCommand on keyboard");
 			}
 
-			auto command = std::make_unique<T>(pGameObject);
+			auto cache = pCommand.get();
 
-			auto cache = command.get();
-
-			m_KeyboardCommands.emplace(inputType, std::make_pair(std::vector{ keyValue }, std::move(command)));
+			m_KeyboardCommands.emplace(inputType, std::make_pair(std::vector{ keyValue }, std::move(pCommand)));
 
 			return cache;
 		}
 
 		template <class T>
-		T* AddCommand(const unsigned int keyUp, const unsigned int keyRight, const unsigned int keyDown, const unsigned int keyLeft, GameObject* pGameObject)
+		T* AddCommand(const unsigned int keyUp, const unsigned int keyRight, const unsigned int keyDown, const unsigned int keyLeft, std::unique_ptr<T> pCommand)
 		{
 			static_assert(std::is_base_of<Command, T>(), "T needs to be derived from command");
 
-			auto command = std::make_unique<T>(pGameObject);
+			auto cache = pCommand.get();
 
-			auto cache = command.get();
-
-			m_KeyboardCommands.emplace(InputType::Axis,  std::make_pair( std::vector{ keyUp, keyRight, keyDown, keyLeft }, std::move(command)));
+			m_KeyboardCommands.emplace(InputType::Axis,  std::make_pair( std::vector{ keyUp, keyRight, keyDown, keyLeft }, std::move(pCommand)));
 
 			return cache;
 		}
