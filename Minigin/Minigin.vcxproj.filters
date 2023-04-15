@@ -34,6 +34,9 @@
     <Filter Include="2_Singletons\Input">
       <UniqueIdentifier>{fac56c78-22b8-4b8c-80b1-f2d605dd2d08}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3_Framework Files\Observer">
+      <UniqueIdentifier>{408ead68-0052-437b-9879-5f185a5b887b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Texture2D.h">
@@ -128,6 +131,15 @@
     </ClInclude>
     <ClInclude Include="CommandClasses.h">
       <Filter>2_Singletons\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>3_Framework Files\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="Subject.h">
+      <Filter>3_Framework Files\Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="Achievment.h">
+      <Filter>3_Framework Files\Observer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

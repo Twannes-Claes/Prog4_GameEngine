@@ -230,6 +230,7 @@ xcopy "$(SolutionDir)3rdParty\steam\steam_appid.txt" "$(OutputPath)" /Y</Command
     <ClInclude Include="..\3rdParty\imgui\imstb_rectpack.h" />
     <ClInclude Include="..\3rdParty\imgui\imstb_textedit.h" />
     <ClInclude Include="..\3rdParty\imgui\imstb_truetype.h" />
+    <ClInclude Include="Achievment.h" />
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="CommandClasses.h" />
@@ -239,12 +240,14 @@ xcopy "$(SolutionDir)3rdParty\steam\steam_appid.txt" "$(OutputPath)" /Y</Command
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Minigin.h" />
+    <ClInclude Include="Observer.h" />
     <ClInclude Include="Orbit.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="Subject.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Texture2D.h" />
