@@ -70,15 +70,15 @@ m_DesiredFPS(desiredFPS)
 		throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
 	}
 
-	Renderer::GetInstance().Init(g_window);
+	Renderer::Get().Init(g_window);
 
-	ResourceManager::GetInstance().Init(dataPath);
+	ResourceManager::Get().Init(dataPath);
 
 }
 
 Monke::Minigin::~Minigin()
 {
-	Renderer::GetInstance().Destroy();
+	Renderer::Get().Destroy();
 	SDL_DestroyWindow(g_window);
 	g_window = nullptr;
 	SDL_Quit();
@@ -88,10 +88,10 @@ void Monke::Minigin::Run(const std::function<void()>& initiliaze) const
 {
 	initiliaze();
 
-	auto& renderer = Renderer::GetInstance();
-	const auto& sceneManager = SceneManager::GetInstance();
-	auto& input = InputManager::GetInstance();
-	auto& timer = Timer::GetInstance();
+	auto& renderer = Renderer::Get();
+	const auto& sceneManager = SceneManager::Get();
+	auto& input = InputManager::Get();
+	auto& timer = Timer::Get();
 
 	const auto desiredFPSTime{ std::chrono::milliseconds( 1'000 / m_DesiredFPS ) };
 

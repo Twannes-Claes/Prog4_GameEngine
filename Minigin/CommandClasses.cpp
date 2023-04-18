@@ -17,7 +17,7 @@ namespace Monke
 
 	void MoveCommand::Execute()
 	{
-		glm::vec2 pos = GetInput() * m_Speed * Timer::GetInstance().GetElapsed();
+		glm::vec2 pos = GetInput() * m_Speed * Timer::Get().GetElapsed();
 
 		pos += m_pTranform->GetLocalPosition();
 

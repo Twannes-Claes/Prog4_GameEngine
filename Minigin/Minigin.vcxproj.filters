@@ -141,6 +141,18 @@
     <ClInclude Include="Achievment.h">
       <Filter>3_Framework Files\Observer</Filter>
     </ClInclude>
+    <ClInclude Include="HealthComponent.h">
+      <Filter>4_Components\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="LiveDisplay.h">
+      <Filter>4_Components\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreComponent.h">
+      <Filter>4_Components\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreDisplay.h">
+      <Filter>4_Components\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Scene.cpp">
@@ -229,6 +241,18 @@
     </ClCompile>
     <ClCompile Include="CommandClasses.cpp">
       <Filter>2_Singletons\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthComponent.cpp">
+      <Filter>4_Components\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="LiveDisplay.cpp">
+      <Filter>4_Components\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreComponent.cpp">
+      <Filter>4_Components\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreDisplay.cpp">
+      <Filter>4_Components\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

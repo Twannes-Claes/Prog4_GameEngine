@@ -24,7 +24,7 @@ namespace Monke
 
 		const glm::vec2 pos{ m_pTransform->GetWorldPosition() };
 
-		Renderer::GetInstance().RenderTexture(*m_pTexture, pos.x, pos.y);
+		Renderer::Get().RenderTexture(*m_pTexture, pos.x, pos.y);
 	}
 
 	void Texture::SetTexture(const std::shared_ptr<Texture2D>& pTexture)

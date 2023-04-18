@@ -21,7 +21,7 @@ namespace  Monke
 	void FPS::Update()
 	{
 		//get deltatime
-		const float deltaTime{ Timer::GetInstance().GetElapsed() };
+		const float deltaTime{ Timer::Get().GetElapsed() };
 
 		//calculate timer and check if updatetime has been hit
 		m_ResetTimer += deltaTime;

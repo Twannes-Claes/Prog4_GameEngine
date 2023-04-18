@@ -16,7 +16,7 @@ void Monke::Orbit::Initialize()
 
 void Monke::Orbit::Update()
 {
-	m_Rotation += Timer::GetInstance().GetElapsed() * m_RotSpeed;
+	m_Rotation += Timer::Get().GetElapsed() * m_RotSpeed;
 
 	m_pTransform->SetLocalPosition
 	(

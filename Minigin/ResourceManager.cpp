@@ -19,7 +19,7 @@ void Monke::ResourceManager::Init(const std::string& filename)
 std::shared_ptr<Monke::Texture2D> Monke::ResourceManager::LoadTexture(const std::string& file) const
 {
 	const auto fullPath = m_dataPath + file;
-	auto texture = IMG_LoadTexture(Renderer::GetInstance().GetSDLRenderer(), fullPath.c_str());
+	auto texture = IMG_LoadTexture(Renderer::Get().GetSDLRenderer(), fullPath.c_str());
 	if (texture == nullptr)
 	{
 		throw std::runtime_error(std::string("Failed to load texture: ") + SDL_GetError());

@@ -42,13 +42,13 @@ void Monke::Renderer::Render()
 	SDL_SetRenderDrawColor(m_Renderer, color.r, color.g, color.b, color.a);
 	SDL_RenderClear(m_Renderer);
 
-	SceneManager::GetInstance().Render();
+	SceneManager::Get().Render();
 
 	ImGui_ImplOpenGL2_NewFrame();
 	ImGui_ImplSDL2_NewFrame(m_Window);
 	ImGui::NewFrame();
 
-	SceneManager::GetInstance().OnGUI();
+	SceneManager::Get().OnGUI();
 
 	if (m_ShowDemo)
 	{
