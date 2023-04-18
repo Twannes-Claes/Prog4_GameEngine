@@ -7,6 +7,8 @@
 #include "ResourceManager.h"
 #include "Text.h"
 
+#include "Events.h"
+
 namespace Monke
 {
 
@@ -26,9 +28,29 @@ namespace Monke
 			m_pTextComp->SetColor(255, 255, 255, 255);
 		}
 
-		if (ScoreComponent* pScoreComp = GetOwner()->GetComponent<ScoreComponent>())
+		//if (ScoreComponent* pScoreComp = GetOwner()->GetComponent<ScoreComponent>())
+		//{
+		//	pScoreComp->GetSubject()->AddObserver(this);
+		//	SetDisplayText(pScoreComp->GetScore());
+		//}
+
+		if(m_pScoreComp)
 		{
-			SetDisplayText(pScoreComp->GetScore());
+			std::cout << "I am valid\n";
+			m_pScoreComp->GetSubject()->AddObserver(this);
+			SetDisplayText(m_pScoreComp->GetScore());
+		}
+		else
+		{
+			std::cout << "I am not valid\n";
+		}
+	}
+
+	void ScoreDisplay::Notify(const unsigned eventID, ScoreComponent* object)
+	{
+		if(eventID == PlayerEvents::Score)
+		{
+			SetDisplayText(object->GetScore());
 		}
 	}
 

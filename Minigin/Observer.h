@@ -9,6 +9,6 @@ namespace Monke
 
 		virtual ~Observer() = default;
 
-		virtual void Notify(const unsigned int eventID, const T* object) = 0;
+		virtual void Notify(const unsigned int eventID, T* object) = 0;
 	};
 }

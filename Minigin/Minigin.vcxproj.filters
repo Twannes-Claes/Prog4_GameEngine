@@ -144,7 +144,7 @@
     <ClInclude Include="HealthComponent.h">
       <Filter>4_Components\Components</Filter>
     </ClInclude>
-    <ClInclude Include="LiveDisplay.h">
+    <ClInclude Include="LivesDisplay.h">
       <Filter>4_Components\Components</Filter>
     </ClInclude>
     <ClInclude Include="ScoreComponent.h">
@@ -152,6 +152,12 @@
     </ClInclude>
     <ClInclude Include="ScoreDisplay.h">
       <Filter>4_Components\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthDisplay.h">
+      <Filter>4_Components\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Events.h">
+      <Filter>3_Framework Files\Observer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -245,13 +251,16 @@
     <ClCompile Include="HealthComponent.cpp">
       <Filter>4_Components\Components</Filter>
     </ClCompile>
-    <ClCompile Include="LiveDisplay.cpp">
+    <ClCompile Include="LivesDisplay.cpp">
       <Filter>4_Components\Components</Filter>
     </ClCompile>
     <ClCompile Include="ScoreComponent.cpp">
       <Filter>4_Components\Components</Filter>
     </ClCompile>
     <ClCompile Include="ScoreDisplay.cpp">
+      <Filter>4_Components\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthDisplay.cpp">
       <Filter>4_Components\Components</Filter>
     </ClCompile>
   </ItemGroup>

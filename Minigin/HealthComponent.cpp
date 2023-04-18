@@ -7,20 +7,43 @@ namespace Monke
 	{
 	}
 
+	void HealthComponent::Initialize()
+	{
+		Reset();
+	}
+
 	void HealthComponent::Damage(const float damageAmount)
 	{
 		m_CurrentHealth -= damageAmount;
 
-		//do call to observer
+		m_Subject->Notify(PlayerEvents::Damage, this);
 
 		m_IsDead = CalculateHasDied();
 
 		if(m_IsDead)
 		{
-			//do call to observer
+			m_Subject->Notify(PlayerEvents::Died, this);
 		}
 	}
 
+	bool HealthComponent::CalculateHasDied()
+	{
+		if (m_CurrentHealth > 0) return false;
+
+		if(m_AmountOfLives > 0)
+		{
+			--m_AmountOfLives;
+			Reset();
+
+			m_Subject->Notify(PlayerEvents::Died, this);
+		}
+		else
+		{
+			return true;
+		}
+
+		return false;
+	}
 }
 
 

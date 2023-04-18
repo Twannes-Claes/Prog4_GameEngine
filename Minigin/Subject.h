@@ -23,7 +23,7 @@ namespace Monke
 			m_Observers.erase(std::ranges::find(m_Observers, observer));
 		}
 
-		void Notify(const unsigned int eventID,  const T* object)
+		void Notify(const unsigned int eventID, T* object)
 		{
 			for (const auto& observer : m_Observers)
 			{
@@ -34,5 +34,6 @@ namespace Monke
 	private:
 
 		std::vector<Observer<T>*> m_Observers{};
+
 	};
 }

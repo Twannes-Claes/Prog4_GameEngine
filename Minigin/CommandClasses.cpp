@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "GameObject.h"
+#include "ScoreComponent.h"
 #include "Timer.h"
 #include "Transform.h"
 
@@ -22,6 +23,17 @@ namespace Monke
 		pos += m_pTranform->GetLocalPosition();
 
 		m_pTranform->SetLocalPosition(pos.x, pos.y);
+	}
+
+	ScoreCommand::ScoreCommand(ScoreComponent* object, const float score)
+	:m_ScoreToAdd(score)
+	{
+		m_pScore = object;
+	}
+
+	void ScoreCommand::Execute()
+	{
+		m_pScore->AddScore(m_ScoreToAdd);
 	}
 }
 

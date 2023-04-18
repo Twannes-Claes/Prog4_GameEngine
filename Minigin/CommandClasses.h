@@ -3,6 +3,7 @@
 
 namespace Monke
 {
+	class ScoreComponent;
 	class Transform;
 
 	class MoveCommand final : public AxisCommand
@@ -30,6 +31,27 @@ namespace Monke
 
 		float m_Speed{ 10.f };
 
+	};
+
+	class ScoreCommand final : public Command
+	{
+
+	public:
+		explicit ScoreCommand(ScoreComponent* object, const float score);
+		virtual ~ScoreCommand() override = default;
+
+		virtual void Execute() override;
+
+		ScoreCommand(const ScoreCommand&) = delete;
+		ScoreCommand(ScoreCommand&&) = delete;
+		ScoreCommand& operator= (const ScoreCommand&) = delete;
+		ScoreCommand& operator= (const ScoreCommand&&) = delete;
+
+	private:
+
+		ScoreComponent* m_pScore;
+
+		const float m_ScoreToAdd;
 	};
 
 }

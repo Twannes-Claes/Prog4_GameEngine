@@ -127,7 +127,6 @@ namespace Monke
 		template <class T>
 		void CleanUpVector(std::vector<std::unique_ptr<T>>& v)
 		{
-
 			static_assert(std::is_base_of_v<BaseComponent, T>, "The given class must be inherited from BaseComponent");
 
 			//auto it = std::remove_if(v.begin(), v.end(),
@@ -149,7 +148,6 @@ namespace Monke
 			{
 				return pComponent->IsMarkedDead();
 			}), end(v));
-
 		}
 
 		Transform* m_pTransform{};

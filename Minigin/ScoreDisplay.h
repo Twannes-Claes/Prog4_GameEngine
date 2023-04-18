@@ -1,12 +1,14 @@
 #pragma once
 
 #include "BaseComponent.h"
+#include "Observer.h"
 
 namespace Monke
 {
+	class ScoreComponent;
 	class Text;
 
-	class ScoreDisplay final :public BaseComponent
+	class ScoreDisplay :public BaseComponent, public Observer<ScoreComponent>
 	{
 	public:
 
@@ -14,6 +16,10 @@ namespace Monke
 		virtual ~ScoreDisplay() override = default;
 
 		virtual void Initialize() override;
+
+		virtual void Notify(const unsigned eventID, ScoreComponent* object) override;
+
+		void SetScoreComponent(ScoreComponent* scoreCompont) { m_pScoreComp = scoreCompont; }
 
 		ScoreDisplay(const ScoreDisplay& other) = delete;
 		ScoreDisplay(ScoreDisplay&& other) = delete;
@@ -25,6 +31,8 @@ namespace Monke
 		void SetDisplayText(const float amountScore) const;
 
 		Text* m_pTextComp{};
+
+		ScoreComponent* m_pScoreComp{};
 	};
 }
 

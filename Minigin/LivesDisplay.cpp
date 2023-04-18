@@ -1,4 +1,4 @@
-#include "LiveDisplay.h"
+#include "LivesDisplay.h"
 
 #include <sstream>
 
@@ -10,11 +10,11 @@
 namespace Monke
 {
 
-	LiveDisplay::LiveDisplay(GameObject* parent)
+	LivesDisplay::LivesDisplay(GameObject* parent)
 	:BaseComponent(parent)
 	{}
 
-	void LiveDisplay::Initialize()
+	void LivesDisplay::Initialize()
 	{
 		m_pTextComp = GetOwner()->GetComponent<Text>();
 
@@ -26,16 +26,16 @@ namespace Monke
 			m_pTextComp->SetColor(255,255, 255, 255);
 		}
 
-		if(HealthComponent* pHealthComp = GetOwner()->GetComponent<HealthComponent>())
+		if(const HealthComponent* pHealthComp = GetOwner()->GetComponent<HealthComponent>())
 		{
-			SetDisplayText(pHealthComp->GetCurrentHealth());
+			SetDisplayText(pHealthComp->GetAmountLives());
 		}
 	}
 
-	void LiveDisplay::SetDisplayText(const float amountHealth) const
+	void LivesDisplay::SetDisplayText(const int amountLives) const
 	{
 		std::stringstream stream{};
-		stream << "Lives: " << amountHealth;
+		stream << "Lives: " << amountLives;
 
 		m_pTextComp->SetText(stream.str());
 	}
