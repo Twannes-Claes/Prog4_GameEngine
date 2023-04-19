@@ -31,6 +31,11 @@ namespace Monke
 			}
 		}
 
+		Subject(const Subject&) = delete;
+		Subject(Subject&&) = delete;
+		Subject& operator= (const Subject&) = delete;
+		Subject& operator= (const Subject&&) = delete;
+
 	private:
 
 		std::vector<Observer<T>*> m_Observers{};

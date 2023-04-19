@@ -7,6 +7,8 @@
 #include "ResourceManager.h"
 #include "Text.h"
 
+#include "Events.h"
+
 namespace Monke
 {
 
@@ -26,9 +28,23 @@ namespace Monke
 			m_pTextComp->SetColor(255,255, 255, 255);
 		}
 
-		if(const HealthComponent* pHealthComp = GetOwner()->GetComponent<HealthComponent>())
+		if (m_pHealthComp)
 		{
-			SetDisplayText(pHealthComp->GetAmountLives());
+			//std::cout << "I am valid\n";
+			m_pHealthComp->GetSubject()->AddObserver(this);
+			SetDisplayText(m_pHealthComp->GetAmountLives());
+		}
+		else
+		{
+			//std::cout << "I am not valid\n";
+		}
+	}
+
+	void LivesDisplay::Notify(const unsigned eventID, HealthComponent* object)
+	{
+		if(eventID == PlayerEvents::Died)
+		{
+			SetDisplayText(object->GetAmountLives());
 		}
 	}
 

@@ -3,6 +3,7 @@
 
 namespace Monke
 {
+	class HealthComponent;
 	class ScoreComponent;
 	class Transform;
 
@@ -37,6 +38,7 @@ namespace Monke
 	{
 
 	public:
+
 		explicit ScoreCommand(ScoreComponent* object, const float score);
 		virtual ~ScoreCommand() override = default;
 
@@ -52,6 +54,28 @@ namespace Monke
 		ScoreComponent* m_pScore;
 
 		const float m_ScoreToAdd;
+	};
+
+	class DamageCommand final : public Command
+	{
+
+	public:
+
+		explicit DamageCommand(HealthComponent* object, const float damageAmount);
+		virtual ~DamageCommand() override = default;
+
+		virtual void Execute() override;
+
+		DamageCommand(const ScoreCommand&) = delete;
+		DamageCommand(DamageCommand&&) = delete;
+		DamageCommand& operator= (const DamageCommand&) = delete;
+		DamageCommand& operator= (const DamageCommand&&) = delete;
+
+	private:
+
+		HealthComponent* m_pHealthComp;
+
+		const float m_DamageAmount;
 	};
 
 }

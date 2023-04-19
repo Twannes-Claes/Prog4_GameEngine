@@ -36,13 +36,13 @@ namespace Monke
 
 		if(m_pScoreComp)
 		{
-			std::cout << "I am valid\n";
+			//std::cout << "I am valid\n";
 			m_pScoreComp->GetSubject()->AddObserver(this);
 			SetDisplayText(m_pScoreComp->GetScore());
 		}
 		else
 		{
-			std::cout << "I am not valid\n";
+			//std::cout << "I am not valid\n";
 		}
 	}
 

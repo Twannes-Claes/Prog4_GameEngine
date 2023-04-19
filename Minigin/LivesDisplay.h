@@ -1,11 +1,13 @@
 #pragma once
 #include "BaseComponent.h"
+#include "Observer.h"
 
 namespace Monke
 {
+	class HealthComponent;
 	class Text;
 
-	class LivesDisplay final :public BaseComponent
+	class LivesDisplay final :public BaseComponent, public Observer<HealthComponent>
 	{
 	public:
 
@@ -13,6 +15,10 @@ namespace Monke
 		virtual ~LivesDisplay() override = default;
 
 		virtual void Initialize() override;
+
+		void SetHealthComponent(HealthComponent* pHealthComponent) { m_pHealthComp = pHealthComponent; };
+
+		virtual void Notify(const unsigned eventID, HealthComponent* object) override;
 
 		LivesDisplay(const LivesDisplay& other) = delete;
 		LivesDisplay(LivesDisplay&& other) = delete;
@@ -24,6 +30,8 @@ namespace Monke
 		void SetDisplayText(const int amountLives) const;
 
 		Text* m_pTextComp{};
+
+		HealthComponent* m_pHealthComp{};
 	};
 }
 

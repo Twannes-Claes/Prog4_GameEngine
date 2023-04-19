@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "GameObject.h"
+#include "HealthComponent.h"
 #include "ScoreComponent.h"
 #include "Timer.h"
 #include "Transform.h"
@@ -34,6 +35,17 @@ namespace Monke
 	void ScoreCommand::Execute()
 	{
 		m_pScore->AddScore(m_ScoreToAdd);
+	}
+
+	DamageCommand::DamageCommand(HealthComponent* object, const float damageAmount)
+	:m_DamageAmount(damageAmount)
+	{
+		m_pHealthComp = object;
+	}
+
+	void DamageCommand::Execute()
+	{
+		m_pHealthComp->Damage(m_DamageAmount);
 	}
 }
 
