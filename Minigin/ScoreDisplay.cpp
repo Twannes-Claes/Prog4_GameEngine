@@ -8,6 +8,7 @@
 #include "Text.h"
 
 #include "Events.h"
+#include "HealthComponent.h"
 
 namespace Monke
 {
@@ -36,14 +37,15 @@ namespace Monke
 
 		if(m_pScoreComp)
 		{
-			//std::cout << "I am valid\n";
 			m_pScoreComp->GetSubject()->AddObserver(this);
 			SetDisplayText(m_pScoreComp->GetScore());
 		}
-		else
+
+		if(m_pHealthComp)
 		{
-			//std::cout << "I am not valid\n";
+			m_pHealthComp->GetSubject()->AddObserver(this);
 		}
+
 	}
 
 	void ScoreDisplay::Notify(const unsigned eventID, ScoreComponent* object)
@@ -51,6 +53,14 @@ namespace Monke
 		if(eventID == PlayerEvents::Score)
 		{
 			SetDisplayText(object->GetScore());
+		}
+	}
+
+	void ScoreDisplay::Notify(const unsigned eventID, HealthComponent*)
+	{
+		if (eventID == PlayerEvents::Damage)
+		{
+			m_pScoreComp->AddScore(50);
 		}
 	}
 

@@ -14,6 +14,8 @@ namespace Monke
 
 	void HealthComponent::Damage(const float damageAmount)
 	{
+		if (m_IsDead) return;
+
 		m_CurrentHealth -= damageAmount;
 
 		m_Subject->Notify(PlayerEvents::Damage, this);

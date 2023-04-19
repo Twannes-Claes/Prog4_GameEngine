@@ -22,14 +22,6 @@ namespace Monke
 		Command& operator= (const Command&) = delete;
 		Command& operator= (const Command&&) = delete;
 
-	protected:
-
-		//GameObject* GetGameObject() const { return  m_pObject; }
-
-	private:
-
-		//GameObject* m_pObject;
-
 	};
 
 	class AxisCommand : public Command

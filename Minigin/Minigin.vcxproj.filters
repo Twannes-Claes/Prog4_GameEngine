@@ -37,6 +37,9 @@
     <Filter Include="3_Framework Files\Observer">
       <UniqueIdentifier>{408ead68-0052-437b-9879-5f185a5b887b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="3_Framework Files\Event">
+      <UniqueIdentifier>{2950c8cf-175e-4792-af95-921650ff444e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Texture2D.h">
@@ -159,6 +162,12 @@
     <ClInclude Include="Events.h">
       <Filter>3_Framework Files\Observer</Filter>
     </ClInclude>
+    <ClInclude Include="EventQueue.h">
+      <Filter>3_Framework Files\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="EventListener.h">
+      <Filter>3_Framework Files\Event</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Scene.cpp">
@@ -262,6 +271,9 @@
     </ClCompile>
     <ClCompile Include="HealthDisplay.cpp">
       <Filter>4_Components\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="EventQueue.cpp">
+      <Filter>3_Framework Files\Event</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

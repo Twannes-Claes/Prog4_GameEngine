@@ -5,10 +5,11 @@
 
 namespace Monke
 {
+	class HealthComponent;
 	class ScoreComponent;
 	class Text;
 
-	class ScoreDisplay :public BaseComponent, public Observer<ScoreComponent>
+	class ScoreDisplay :public BaseComponent, public Observer<ScoreComponent>, public Observer<HealthComponent>
 	{
 	public:
 
@@ -18,8 +19,10 @@ namespace Monke
 		virtual void Initialize() override;
 
 		virtual void Notify(const unsigned eventID, ScoreComponent* object) override;
+		virtual void Notify(const unsigned eventID, HealthComponent* object) override;
 
 		void SetScoreComponent(ScoreComponent* scoreCompont) { m_pScoreComp = scoreCompont; }
+		void SetHealthComponent(HealthComponent* healtComponent) { m_pHealthComp = healtComponent; }
 
 		ScoreDisplay(const ScoreDisplay& other) = delete;
 		ScoreDisplay(ScoreDisplay&& other) = delete;
@@ -33,6 +36,7 @@ namespace Monke
 		Text* m_pTextComp{};
 
 		ScoreComponent* m_pScoreComp{};
+		HealthComponent* m_pHealthComp{};
 	};
 }
 

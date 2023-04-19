@@ -7,7 +7,7 @@ namespace Monke
 	class HealthComponent;
 	class Text;
 
-	class LivesDisplay final :public BaseComponent, public Observer<HealthComponent>
+	class LivesDisplay final : public BaseComponent, public Observer<HealthComponent>
 	{
 	public:
 
@@ -16,7 +16,7 @@ namespace Monke
 
 		virtual void Initialize() override;
 
-		void SetHealthComponent(HealthComponent* pHealthComponent) { m_pHealthComp = pHealthComponent; };
+		void SetHealthComponent(HealthComponent* pHealthComponent) { m_pHealthComp = pHealthComponent; }
 
 		virtual void Notify(const unsigned eventID, HealthComponent* object) override;
 

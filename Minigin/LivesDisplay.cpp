@@ -30,13 +30,8 @@ namespace Monke
 
 		if (m_pHealthComp)
 		{
-			//std::cout << "I am valid\n";
 			m_pHealthComp->GetSubject()->AddObserver(this);
 			SetDisplayText(m_pHealthComp->GetAmountLives());
-		}
-		else
-		{
-			//std::cout << "I am not valid\n";
 		}
 	}
 
@@ -51,7 +46,16 @@ namespace Monke
 	void LivesDisplay::SetDisplayText(const int amountLives) const
 	{
 		std::stringstream stream{};
-		stream << "Lives: " << amountLives;
+		stream << "Lives: ";
+
+		if(m_pHealthComp->IsDead())
+		{
+			stream << "dead!!!";
+		}
+		else
+		{
+			stream << amountLives;
+		}
 
 		m_pTextComp->SetText(stream.str());
 	}

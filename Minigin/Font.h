@@ -16,8 +16,8 @@ namespace Monke
 
 		Font(const Font &) = delete;
 		Font(Font &&) = delete;
-		Font & operator= (const Font &) = delete;
-		Font & operator= (const Font &&) = delete;
+		Font& operator=(const Font&) = delete;
+		Font& operator=(const Font&&) = delete;
 	private:
 		_TTF_Font* m_font;
 		const unsigned int m_size;

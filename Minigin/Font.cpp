@@ -9,7 +9,7 @@ TTF_Font* Monke::Font::GetFont() const
 
 Monke::Font::Font(const std::string& fullPath, const unsigned int size) : m_font(nullptr), m_size(size)
 {
-	m_font = TTF_OpenFont(fullPath.c_str(), static_cast<unsigned int>(size));
+	m_font = TTF_OpenFont(fullPath.c_str(),static_cast<int>(m_size));
 
 	if (m_font == nullptr) 
 	{
