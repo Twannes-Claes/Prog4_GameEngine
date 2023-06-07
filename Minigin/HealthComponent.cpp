@@ -1,5 +1,7 @@
 #include  "HealthComponent.h"
 
+#include "ServiceLocator.h"
+
 namespace Monke
 {
 	HealthComponent::HealthComponent(GameObject* parent)
@@ -34,6 +36,7 @@ namespace Monke
 
 		if(m_AmountOfLives > 0)
 		{
+			ServiceLocator::GetSoundSystem().Play(0, "Sounds/Jump.wav", 100.f);
 			--m_AmountOfLives;
 			Reset();
 

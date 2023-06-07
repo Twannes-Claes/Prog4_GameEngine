@@ -40,6 +40,9 @@
     <Filter Include="3_Framework Files\Event">
       <UniqueIdentifier>{2950c8cf-175e-4792-af95-921650ff444e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2_Singletons\Audio">
+      <UniqueIdentifier>{dfcaf8ea-76c3-42e6-b8a0-f539f0a4e75a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Texture2D.h">
@@ -168,6 +171,18 @@
     <ClInclude Include="EventListener.h">
       <Filter>3_Framework Files\Event</Filter>
     </ClInclude>
+    <ClInclude Include="EventManager.h">
+      <Filter>3_Framework Files\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioSystem.h">
+      <Filter>2_Singletons\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="ServiceLocator.h">
+      <Filter>2_Singletons\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL_Audio.h">
+      <Filter>2_Singletons\Audio</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Scene.cpp">
@@ -274,6 +289,12 @@
     </ClCompile>
     <ClCompile Include="EventQueue.cpp">
       <Filter>3_Framework Files\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="EventManager.cpp">
+      <Filter>3_Framework Files\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="SDL_Audio.cpp">
+      <Filter>2_Singletons\Audio</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

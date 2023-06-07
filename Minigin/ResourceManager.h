@@ -17,6 +17,8 @@ namespace Monke
 		std::shared_ptr<Texture2D> LoadTexture(const std::string& file) const;
 		std::shared_ptr<Font> LoadFont(const std::string& file, unsigned int size) const;
 
+		const std::string& GetPath() { return m_dataPath; }
+
 	private:
 
 		friend class Singleton<ResourceManager>;
