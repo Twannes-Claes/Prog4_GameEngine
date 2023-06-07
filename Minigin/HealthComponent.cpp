@@ -12,6 +12,9 @@ namespace Monke
 	void HealthComponent::Initialize()
 	{
 		Reset();
+
+		ServiceLocator::GetSoundSystem().LoadSound(0, "Sounds/Jump.wav");
+		ServiceLocator::GetSoundSystem().LoadSound(1, "Sounds/Jump_Bubble.wav");
 	}
 
 	void HealthComponent::Damage(const float damageAmount)
@@ -36,7 +39,7 @@ namespace Monke
 
 		if(m_AmountOfLives > 0)
 		{
-			ServiceLocator::GetSoundSystem().Play(0, "Sounds/Jump.wav", 100.f);
+			ServiceLocator::GetSoundSystem().Play(0, 1.f);
 			--m_AmountOfLives;
 			Reset();
 
@@ -44,6 +47,7 @@ namespace Monke
 		}
 		else
 		{
+			ServiceLocator::GetSoundSystem().Play(1, 1.f);
 			return true;
 		}
 

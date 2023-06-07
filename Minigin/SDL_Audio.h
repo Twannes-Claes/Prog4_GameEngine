@@ -37,7 +37,7 @@ namespace Monke
 
 		void Run();
 
-		enum SDL_AudioType
+		enum SDL_AudioEventType
 		{
 			play,
 			play_name,
@@ -54,9 +54,9 @@ namespace Monke
 			load
 		};
 
-		struct SDL_AudioEvent
+		struct AudioEvent
 		{
-			SDL_AudioType type{};
+			SDL_AudioEventType type{};
 
 			SoundID ID{};
 			float volume{};
@@ -64,21 +64,20 @@ namespace Monke
 			std::string path;
 		};
 
-		struct SDL_Sound
+		struct SoundData
 		{
 			Mix_Chunk* pData{};
 
-			std::string name{};
+			std::string path{};
 		};
 
-		std::unordered_map<SoundID ,SDL_Sound> m_Sounds;
+		std::unordered_map<SoundID ,SoundData> m_Sounds;
 
 		std::jthread m_Thread{};
 		std::mutex m_Mutex{};
 		std::condition_variable m_Condition{};
 
-		std::queue<SDL_AudioEvent> m_SoundQueue{};
-
+		std::queue<AudioEvent> m_SoundQueue{};
 	};
 
 }
