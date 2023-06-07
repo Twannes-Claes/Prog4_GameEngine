@@ -28,6 +28,8 @@ namespace Monke
 
 	void GameObject::Update()
 	{
+		if (!m_IsActive) return;
+
 		for (int i{}; i < static_cast<int>(m_pComponents.size()); ++i)
 		{
 			m_pComponents[i]->Update();
@@ -38,6 +40,7 @@ namespace Monke
 
 	void GameObject::Render() const
 	{
+		if (!m_IsActive) return;
 
 		for (const auto& pComponent : m_pComponents)
 		{

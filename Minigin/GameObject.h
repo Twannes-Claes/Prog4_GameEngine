@@ -32,6 +32,10 @@ namespace Monke
 		void Destroy();
 		bool IsMarkedDead() const { return m_IsMarkedDead; }
 
+		void SetActive(const bool isActive) { m_IsActive = isActive; }
+
+		bool IsActive() const { return m_IsActive; }
+
 		//THE BIG SIX
 		GameObject();
 
@@ -159,6 +163,8 @@ namespace Monke
 		std::vector<std::unique_ptr< BaseComponent >> m_pComponents{};
 
 		bool m_IsMarkedDead{ false };
+
+		bool m_IsActive{ true };
 	};
 
 #pragma region Template_Component_Logic
