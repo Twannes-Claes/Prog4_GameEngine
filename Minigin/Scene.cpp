@@ -10,7 +10,7 @@ Scene::~Scene() = default;
 
 GameObject* Scene::MakeGameObject()
 {
-	std::unique_ptr pGameObject{ std::make_unique<GameObject>() };
+	std::unique_ptr pGameObject{ std::make_unique<GameObject>(this) };
 
 	GameObject* newObject = pGameObject.get();
 

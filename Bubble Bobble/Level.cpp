@@ -52,11 +52,12 @@ void Monke::Level::Initialize()
 								tilePos.x = currentPos[0].GetInt();
 								tilePos.y = currentPos[1].GetInt();
 
-								auto tileObject = new GameObject();
+								auto newObj = GetOwner()->AddCreateChild();
 
-								tileObject->AddComponent<Tile>()->SetTile(isBigTile, tilePos);
+								isBigTile;
+								newObj;
 
-								tileObject->SetParent(GetOwner());
+								newObj->AddComponent<Tile>()->SetTile(isBigTile, tilePos);
 							}
 						}
 					}

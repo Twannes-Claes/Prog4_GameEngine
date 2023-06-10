@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include <sstream>
 #include <vector>
 #include <string>
 
@@ -7,6 +8,7 @@
 
 namespace Monke
 {
+	class Scene;
 	class Transform;
 	class Texture2D;
 
@@ -25,6 +27,8 @@ namespace Monke
 		void SetParent(GameObject* newParent, const bool keepWorldPosition = false);
 		GameObject* GetParent() const { return m_pParent; }
 
+		GameObject* AddCreateChild();
+
 		const std::vector<GameObject*>& GetAllChildren() const { return m_pChildren; }
 
 		Transform* GetTransform() const { return m_pTransform; }
@@ -36,8 +40,10 @@ namespace Monke
 
 		bool IsActive() const { return m_IsActive; }
 
+		Scene* GetScene() const { return m_pScene; }
+
 		//THE BIG SIX
-		GameObject();
+		GameObject(Scene* pScene);
 
 		~GameObject() = default;
 		GameObject(const GameObject& other) = delete;
@@ -50,8 +56,8 @@ namespace Monke
 		template <typename T>
 		T* GetComponent() const;
 
-		template <typename T>
-		T* AddComponent();
+		template <typename T, typename... Args>
+		T* AddComponent(Args&&... args);
 
 		template <typename T>
 		bool HasComponent() const;
@@ -165,6 +171,8 @@ namespace Monke
 		bool m_IsMarkedDead{ false };
 
 		bool m_IsActive{ true };
+
+		Scene* m_pScene{};
 	};
 
 #pragma region Template_Component_Logic
@@ -189,16 +197,21 @@ namespace Monke
 		return nullptr;
 	}
 
-	template<typename  T>
-	T* GameObject::AddComponent()
+	template<typename  T, typename... Args>
+	T* GameObject::AddComponent(Args&&... args)
 	{
 		//check if given class has been inherited form basecomponent
 		//https://stackoverflow.com/questions/5084209/check-if-template-argument-is-inherited-from-class && resharper instructing for std::is_base_v
 
 		static_assert(std::is_base_of_v<BaseComponent, T> , "The given class must be inherited from BaseComponent");
 
+		//https://en.cppreference.com/w/cpp/types/is_constructible
+		//check if the class has the correct arguments for the constructor, it will always have the gameobject* to assign the owner
+
+		static_assert(std::is_constructible_v<T, GameObject*, Args...>, "Cant construct the given class with given arguments, double check to see if arguments are correct ");
+
 		//compiler gives error when this is not constexpr because cant convert Transform to T*
-		if constexpr (std::is_same<Transform, T>())
+		if constexpr  (std::is_same<Transform, T>())
 		{
 			if (GetComponent<Transform>())
 			{
@@ -207,8 +220,9 @@ namespace Monke
 			}
 		}
 
-		//make the component
-		auto pComponent{ std::make_unique<T>( this ) };
+		//make the component with the given args
+		//https://stackoverflow.com/a/31173515
+		auto pComponent{ std::make_unique<T>( this, std::forward<Args>(args)...  ) };
 
 		//get the pointer of the component
 		auto newComponent =  pComponent.get();

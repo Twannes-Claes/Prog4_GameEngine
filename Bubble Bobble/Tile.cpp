@@ -8,6 +8,11 @@
 Monke::Tile::Tile(GameObject* parent)
 :BaseComponent(parent)
 {
+	
+}
+
+void Monke::Tile::Initialize()
+{
 	m_pTexture = GetOwner()->AddComponent<Texture>();
 
 	GetOwner()->GetTransform()->SetPosition(m_Position);;
@@ -15,9 +20,4 @@ Monke::Tile::Tile(GameObject* parent)
 	const std::string texturePath = m_IsBigTile ? "Big.png" : "Small.png";
 
 	m_pTexture->SetTexture(ResourceManager::Get().LoadTexture("Levels/Level1/" + texturePath));
-}
-
-void Monke::Tile::Initialize()
-{
-	
 }

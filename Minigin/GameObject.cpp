@@ -2,12 +2,14 @@
 #include "GameObject.h"
 #include "ResourceManager.h"
 #include "Renderer.h"
+#include "Scene.h"
 #include "Transform.h"
 
 namespace Monke
 {
 
-	GameObject::GameObject()
+	GameObject::GameObject(Scene* pScene)
+	:m_pScene(pScene)
 	{
 		m_pTransform = AddComponent<Transform>();
 	}
@@ -153,6 +155,15 @@ namespace Monke
 			m_pParent->m_pChildren.emplace_back(child);
 		}
 
+	}
+
+	GameObject* GameObject::AddCreateChild()
+	{
+		auto newObject = m_pScene->MakeGameObject();
+
+		newObject->SetParent(this);
+
+		return  newObject;
 	}
 
 	void GameObject::Destroy()
