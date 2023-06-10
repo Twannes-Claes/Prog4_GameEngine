@@ -108,6 +108,5 @@ void Monke::Minigin::Run(const std::function<void()>& initiliaze) const
 		const auto sleeptime =   timer.GetLastTime() + desiredFPSTime - std::chrono::high_resolution_clock::now();
 		std::this_thread::sleep_for(sleeptime);
 	}
-
 	//save data
 }

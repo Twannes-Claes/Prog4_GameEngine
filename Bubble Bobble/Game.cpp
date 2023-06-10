@@ -25,6 +25,7 @@
 #include "Texture2D.h"
 #include "TrashTheCache.h"
 #include "InputManager.h"
+#include "Level.h"
 #include "LivesDisplay.h"
 #include "ScoreComponent.h"
 #include "ScoreDisplay.h"
@@ -186,6 +187,10 @@ void initiliaze(const Minigin& engine)
 	pExtraTextText->SetText(ss.str());
 
 	pExtraInfo->GetTransform()->SetPosition(0, 50);
+
+	const auto pLevelLoader{ scene.MakeGameObject() };
+
+	pLevelLoader->AddComponent<Level>()->SetFileName(ResourceManager::Get().GetPath() + "Levels/Level1/Level1.json");
 }
 
 int main(int, char* [])
