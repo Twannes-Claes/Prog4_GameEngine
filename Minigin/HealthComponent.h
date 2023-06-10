@@ -4,18 +4,16 @@
 #include "Subject.h"
 #include "Events.h"
 
-class GameObject;
 
 namespace Monke
 {
+
 	class HealthComponent final : public BaseComponent
 	{
 	public:
 
-		explicit HealthComponent(GameObject* parent);
+		explicit HealthComponent(GameObject* parent, float maxHealth, int amountLives);
 		virtual ~HealthComponent() override = default;
-
-		virtual void Initialize() override;
 
 		void Damage(const float damageAmount);
 

@@ -14,20 +14,6 @@ namespace Monke
 		m_pTransform = AddComponent<Transform>();
 	}
 
-	void GameObject::Initialize() const
-	{
-		//i added a normal for loop over a range based for loop
-
-		//because in my initialize functions in my comnponents i can check if certain components dont exist, if not add the component
-
-		//but adding the component doesnt increase the range of the ranged based for loop, hence why the normal for loop
-
-		for(int i{}; i < static_cast<int>(m_pComponents.size()); ++i)
-		{
-			m_pComponents[i]->Initialize();
-		}
-	}
-
 	void GameObject::Update()
 	{
 		if (!m_IsActive) return;

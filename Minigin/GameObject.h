@@ -18,7 +18,6 @@ namespace Monke
 	public:
 
 		//scene manager functions
-		void Initialize() const;
 		void Update();
 		void Render() const;
 		void OnGUI();

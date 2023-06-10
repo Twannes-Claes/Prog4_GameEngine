@@ -2,21 +2,24 @@
 
 #include <sstream>
 
+#include <memory>
+#include <SDL_pixels.h>
+
 #include "BaseComponent.h"
 
 namespace Monke
 {
 	class Time;
+	class Font;
 	class Text;
 
 	class FPS final : public BaseComponent
 	{
 	public:
 
-		explicit FPS( GameObject* parent);
+		explicit FPS( GameObject* parent, const std::shared_ptr<Font>& pFont, const SDL_Color& color);
 		virtual ~FPS() override = default;
 
-		virtual void Initialize() override;
 		virtual void Update() override;
 
 		int GetFPS() const { return m_FPS; }

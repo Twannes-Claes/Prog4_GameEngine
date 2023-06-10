@@ -12,7 +12,7 @@ namespace Monke
 	{
 	public:
 
-		explicit Tile(GameObject* parent);
+		explicit Tile(GameObject* parent, const bool isBigTile, const glm::ivec2 position, int levelID);
 
 		virtual ~Tile() override = default;
 		Tile(const Tile& other) = delete;
@@ -20,16 +20,9 @@ namespace Monke
 		Tile& operator=(const Tile& other) = delete;
 		Tile& operator=(Tile&& other) = delete;
 
-		void Initialize() override;
-
-		void SetTile(const bool isBigTile, const glm::vec2& position) { m_IsBigTile = isBigTile; m_Position = position; }
-
 	protected:
 
 	private:
-
-		bool m_IsBigTile{};
-		glm::ivec2 m_Position{};
 
 		Texture* m_pTexture{};
 	};

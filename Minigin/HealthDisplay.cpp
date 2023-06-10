@@ -11,19 +11,13 @@ namespace Monke
 {
 
 	HealthDisplay::HealthDisplay(GameObject* parent)
-		:BaseComponent(parent)
-	{}
-
-	void HealthDisplay::Initialize()
+	:BaseComponent(parent)
 	{
 		m_pTextComp = GetOwner()->GetComponent<Text>();
 
 		if (!m_pTextComp)
 		{
-			m_pTextComp = GetOwner()->AddComponent<Text>();
-			m_pTextComp->SetFont(ResourceManager::Get().LoadFont("Fonts/Lingua.otf", 24));
-			m_pTextComp->SetText("");
-			m_pTextComp->SetColor(255, 255, 255, 255);
+			m_pTextComp = GetOwner()->AddComponent<Text>(ResourceManager::Get().LoadFont("Fonts/Lingua.otf", 24), "", SDL_Color(255, 255, 255, 255));
 		}
 
 		if (HealthComponent* pHealthComp = GetOwner()->GetComponent<HealthComponent>())

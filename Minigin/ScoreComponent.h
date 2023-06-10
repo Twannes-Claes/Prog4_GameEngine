@@ -3,18 +3,16 @@
 #include "Subject.h"
 #include "Events.h"
 
-class GameObject;
 
 namespace Monke
 {
+
 	class ScoreComponent final : public BaseComponent
 	{
 	public:
 
 		explicit ScoreComponent(GameObject* parent);
 		virtual ~ScoreComponent() override = default;
-
-		virtual void Initialize() override {}
 
 		void SetScore(const float Score) { m_Score = Score; m_Subject->Notify(PlayerEvents::Score, this);}
 		void AddScore(const float amount) { m_Score += amount; m_Subject->Notify(PlayerEvents::Score, this);}

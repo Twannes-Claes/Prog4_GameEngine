@@ -5,20 +5,21 @@
 #include <fstream>
 
 #include "GameObject.h"
+#include "ResourceManager.h"
 #include "RapidJson/document.h"
 #include "RapidJson/istreamwrapper.h"
 
 #include "Tile.h"
 
-Monke::Level::Level(GameObject* parent)
+Monke::Level::Level(GameObject* parent, int levelID)
 :BaseComponent(parent)
 {
-}
+	if (levelID > 3 || levelID < 1) levelID = 1;
 
-void Monke::Level::Initialize()
-{
+	const std::string fileName = ResourceManager::Get().GetPath() + "Levels/Level" + std::to_string(levelID) + "/Level" + std::to_string(levelID) + ".json";
+
 	//opening input file stream
-	if (std::ifstream inputStream{ jsonFileName })
+	if (std::ifstream inputStream{ fileName })
 	{
 		//making variables for json reader
 		rapidjson::IStreamWrapper isw{ inputStream };
@@ -54,10 +55,7 @@ void Monke::Level::Initialize()
 
 								auto newObj = GetOwner()->AddCreateChild();
 
-								isBigTile;
-								newObj;
-
-								newObj->AddComponent<Tile>()->SetTile(isBigTile, tilePos);
+								newObj->AddComponent<Tile>(isBigTile, tilePos, levelID);
 							}
 						}
 					}
@@ -65,4 +63,6 @@ void Monke::Level::Initialize()
 			}
 		}
 	}
+
+
 }

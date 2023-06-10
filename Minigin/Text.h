@@ -17,10 +17,11 @@ namespace Monke
 	{
 	public:
 
-		explicit Text( GameObject* parent);
+		explicit Text( GameObject* parent, const std::shared_ptr<Font>& font, const std::string& text, const SDL_Color& color );
+		explicit Text( GameObject* parent, const std::shared_ptr<Font>& font, const std::string& text);
+
 		virtual ~Text() override = default;
 
-		virtual void Initialize() override;
 		virtual void Update() override;
 
 		void SetText(const std::string& text) { m_Text = text; m_NeedsUpdate = true; }

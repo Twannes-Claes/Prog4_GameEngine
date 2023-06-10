@@ -12,8 +12,6 @@ namespace Monke
 		explicit HealthDisplay(GameObject* parent);
 		virtual ~HealthDisplay() override = default;
 
-		virtual void Initialize() override;
-
 		HealthDisplay(const HealthDisplay& other) = delete;
 		HealthDisplay(HealthDisplay&& other) = delete;
 		HealthDisplay& operator=(const HealthDisplay& other) = delete;

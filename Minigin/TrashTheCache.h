@@ -12,8 +12,6 @@ namespace Monke
 		explicit TrashTheCache(GameObject* parent);
 		virtual ~TrashTheCache() override = default;
 
-		virtual void Initialize() override {}
-
 		TrashTheCache(const TrashTheCache& other) = delete;
 		TrashTheCache(TrashTheCache&& other) = delete;
 		TrashTheCache& operator=(const TrashTheCache& other) = delete;

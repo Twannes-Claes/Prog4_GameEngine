@@ -11,10 +11,8 @@ namespace Monke
 	{
 	public:
 
-		explicit LivesDisplay(GameObject* parent);
+		explicit LivesDisplay(GameObject* parent, HealthComponent* pHealthComponent);
 		virtual ~LivesDisplay() override = default;
-
-		virtual void Initialize() override;
 
 		void SetHealthComponent(HealthComponent* pHealthComponent) { m_pHealthComp = pHealthComponent; }
 

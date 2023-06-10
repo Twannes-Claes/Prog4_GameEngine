@@ -1,15 +1,6 @@
 #include "SceneManager.h"
 #include "Scene.h"
 
-
-void Monke::SceneManager::Initialize() const
-{
-	for (auto& scene : m_scenes)
-	{
-		scene->Initialize();
-	}
-}
-
 void Monke::SceneManager::Update() const
 {
 	for(auto& scene : m_scenes)

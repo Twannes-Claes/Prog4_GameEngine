@@ -63,7 +63,10 @@ bool Monke::InputManager::ProcessInput()
 			break;
 		}
 
-		if (canExecute) command.second->Execute();
+		if (canExecute)
+		{
+			command.second->Execute();
+		}
 	}
 
 	//update keyboard

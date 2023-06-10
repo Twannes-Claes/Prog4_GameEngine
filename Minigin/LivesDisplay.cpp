@@ -12,20 +12,15 @@
 namespace Monke
 {
 
-	LivesDisplay::LivesDisplay(GameObject* parent)
-	:BaseComponent(parent)
-	{}
-
-	void LivesDisplay::Initialize()
+	LivesDisplay::LivesDisplay(GameObject* parent, HealthComponent* pHealthComponent)
+	:BaseComponent(parent),
+	m_pHealthComp(pHealthComponent)
 	{
 		m_pTextComp = GetOwner()->GetComponent<Text>();
 
-		if(!m_pTextComp)
+		if (!m_pTextComp)
 		{
-			m_pTextComp = GetOwner()->AddComponent<Text>();
-			m_pTextComp->SetFont(ResourceManager::Get().LoadFont("Fonts/Lingua.otf", 24));
-			m_pTextComp->SetText("");
-			m_pTextComp->SetColor(255,255, 255, 255);
+			m_pTextComp = GetOwner()->AddComponent<Text>(ResourceManager::Get().LoadFont("Fonts/Lingua.otf", 24), "", SDL_Color(255, 255, 255, 255));
 		}
 
 		if (m_pHealthComp)

@@ -4,13 +4,12 @@
 
 namespace Monke
 {
-	HealthComponent::HealthComponent(GameObject* parent)
+	HealthComponent::HealthComponent(GameObject* parent, float maxHealth, int amountLives)
 	:BaseComponent(parent)
 	{
-	}
+		SetMaxHealth(maxHealth);
+		SetAmountLives(amountLives);
 
-	void HealthComponent::Initialize()
-	{
 		Reset();
 
 		ServiceLocator::GetSoundSystem().LoadSound(0, "Sounds/Jump.wav");

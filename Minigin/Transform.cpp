@@ -9,11 +9,6 @@ namespace Monke
 	{
 	}
 
-	void Transform::Initialize()
-	{
-		
-	}
-
 	const glm::vec2& Transform::GetWorldPosition()
 	{
 		if (m_IsDirty)

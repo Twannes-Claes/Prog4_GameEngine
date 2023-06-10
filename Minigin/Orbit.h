@@ -16,7 +16,6 @@ namespace Monke
 		explicit Orbit( GameObject* parent);
 		virtual ~Orbit() override = default;
 
-		virtual void Initialize() override;
 		virtual void Update() override;
 
 		void SetRadius(const float radius) { m_Radius = radius; }

@@ -7,10 +7,6 @@
 Monke::Orbit::Orbit(GameObject* parent)
 :BaseComponent(parent)
 {
-}
-
-void Monke::Orbit::Initialize()
-{
 	m_pTransform = GetOwner()->GetComponent<Transform>();
 }
 

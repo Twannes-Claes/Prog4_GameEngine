@@ -12,8 +12,6 @@ namespace Monke
 	public:
 		Scene& CreateScene(const std::string& name);
 
-		void Initialize() const;
-
 		void Update() const;
 		void Render() const;
 		void OnGUI();

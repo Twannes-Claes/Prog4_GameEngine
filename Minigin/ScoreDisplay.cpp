@@ -13,39 +13,28 @@
 namespace Monke
 {
 
-	ScoreDisplay::ScoreDisplay(GameObject* parent)
-	:BaseComponent(parent)
-	{}
-
-	void ScoreDisplay::Initialize()
+	ScoreDisplay::ScoreDisplay(GameObject* parent, ScoreComponent* pScoreComponent, HealthComponent* pHealthComponent)
+	:BaseComponent(parent),
+	m_pScoreComp(pScoreComponent),
+	m_pHealthComp(pHealthComponent)
 	{
 		m_pTextComp = GetOwner()->GetComponent<Text>();
 
 		if (!m_pTextComp)
 		{
-			m_pTextComp = GetOwner()->AddComponent<Text>();
-			m_pTextComp->SetFont(ResourceManager::Get().LoadFont("Fonts/Lingua.otf", 24));
-			m_pTextComp->SetText("");
-			m_pTextComp->SetColor(255, 255, 255, 255);
+			m_pTextComp = GetOwner()->AddComponent<Text>(ResourceManager::Get().LoadFont("Fonts/Lingua.otf", 24), "", SDL_Color(255, 255, 255, 255));
 		}
 
-		//if (ScoreComponent* pScoreComp = GetOwner()->GetComponent<ScoreComponent>())
-		//{
-		//	pScoreComp->GetSubject()->AddObserver(this);
-		//	SetDisplayText(pScoreComp->GetScore());
-		//}
-
-		if(m_pScoreComp)
+		if (m_pScoreComp)
 		{
 			m_pScoreComp->GetSubject()->AddObserver(this);
 			SetDisplayText(m_pScoreComp->GetScore());
 		}
 
-		if(m_pHealthComp)
+		if (m_pHealthComp)
 		{
 			m_pHealthComp->GetSubject()->AddObserver(this);
 		}
-
 	}
 
 	void ScoreDisplay::Notify(const unsigned eventID, ScoreComponent* object)

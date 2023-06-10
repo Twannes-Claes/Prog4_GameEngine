@@ -8,14 +8,10 @@
 
 namespace  Monke
 {
-	FPS::FPS( GameObject* parent)
+	FPS::FPS( GameObject* parent, const std::shared_ptr<Font>& pFont, const SDL_Color& color)
 	:BaseComponent(parent)
 	{
-	}
-
-	void FPS::Initialize()
-	{
-		m_pText = GetOwner()->GetComponent<Text>();
+		m_pText = GetOwner()->AddComponent<Text>(pFont, "", color);
 	}
 
 	void FPS::Update()

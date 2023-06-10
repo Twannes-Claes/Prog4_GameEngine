@@ -24,7 +24,7 @@ namespace Monke
 		BaseComponent& operator=(const BaseComponent& other) = delete;
 		BaseComponent& operator=(BaseComponent&& other) = delete;
 
-		virtual void Initialize() = 0;
+		//virtual void Initialize() = 0;
 
 		virtual void Update() {}
 

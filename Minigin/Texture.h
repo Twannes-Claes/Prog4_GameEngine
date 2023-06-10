@@ -11,13 +11,12 @@ namespace Monke
 
 	public:
 
-		explicit Texture(GameObject* parent);
+		explicit Texture(GameObject* parent, const std::shared_ptr<Texture2D>& pTexture);
 		virtual ~Texture() override = default;
 
-		virtual void Initialize() override;
 		virtual void Render() const override;
 
-		void SetTexture(const std::shared_ptr<Texture2D>& pTexture);
+		void SetTexture(const std::shared_ptr<Texture2D>& pTexture) { m_pTexture = pTexture; }
 
 		Texture(const Texture& other) = delete;
 		Texture(Texture&& other) = delete;

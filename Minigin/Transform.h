@@ -12,9 +12,6 @@ namespace Monke
 		virtual ~Transform() override = default;
 
 
-		virtual void Initialize() override;
-
-
 		const glm::vec2& GetLocalPosition() const { return m_LocalPosition; }
 		const glm::vec2& GetWorldPosition();
 

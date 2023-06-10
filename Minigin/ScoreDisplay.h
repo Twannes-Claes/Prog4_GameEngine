@@ -13,16 +13,11 @@ namespace Monke
 	{
 	public:
 
-		explicit ScoreDisplay(GameObject* parent);
+		explicit ScoreDisplay(GameObject* parent, ScoreComponent* pScoreComponent, HealthComponent* pHealthComponent);
 		virtual ~ScoreDisplay() override = default;
-
-		virtual void Initialize() override;
 
 		virtual void Notify(const unsigned eventID, ScoreComponent* object) override;
 		virtual void Notify(const unsigned eventID, HealthComponent* object) override;
-
-		void SetScoreComponent(ScoreComponent* scoreCompont) { m_pScoreComp = scoreCompont; }
-		void SetHealthComponent(HealthComponent* healtComponent) { m_pHealthComp = healtComponent; }
 
 		ScoreDisplay(const ScoreDisplay& other) = delete;
 		ScoreDisplay(ScoreDisplay&& other) = delete;

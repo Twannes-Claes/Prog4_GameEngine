@@ -10,7 +10,7 @@ namespace Monke
 	class Level final : public Monke::BaseComponent
 	{
 	public:
-		explicit Level(GameObject* parent);
+		explicit Level(GameObject* parent, int levelID);
 
 		virtual ~Level() override = default;
 		Level(const Level& other) = delete;
@@ -18,15 +18,9 @@ namespace Monke
 		Level& operator=(const Level& other) = delete;
 		Level& operator=(Level&& other) = delete;
 
-		void SetFileName(const std::string& fileName) { jsonFileName = fileName; }
-
-		void Initialize() override;
-
 	protected:
 
 	private:
-
-		std::string jsonFileName{};
 
 	};
 }
