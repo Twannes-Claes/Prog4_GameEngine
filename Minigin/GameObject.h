@@ -47,16 +47,16 @@ namespace Monke
 
 #pragma region Template_Component_Classes
 
-		template <class T>
+		template <typename T>
 		T* GetComponent() const;
 
-		template <class T>
+		template <typename T>
 		T* AddComponent();
 
-		template <class T>
+		template <typename T>
 		bool HasComponent() const;
 
-		template <class T>
+		template <typename T>
 		bool RemoveComponent();
 
 #pragma endregion
@@ -128,7 +128,7 @@ namespace Monke
 		//}
 #pragma endregion
 
-		template <class T>
+		template <typename T>
 		void CleanUpVector(std::vector<std::unique_ptr<T>>& v)
 		{
 			static_assert(std::is_base_of_v<BaseComponent, T>, "The given class must be inherited from BaseComponent");
@@ -169,7 +169,7 @@ namespace Monke
 
 #pragma region Template_Component_Logic
 
-	template <class T>
+	template <typename T>
 	T* GameObject::GetComponent() const
 	{
 		static_assert(std::is_base_of_v<BaseComponent, T>, "The given class must be inherited from BaseComponent");
@@ -189,7 +189,7 @@ namespace Monke
 		return nullptr;
 	}
 
-	template<class T>
+	template<typename  T>
 	T* GameObject::AddComponent()
 	{
 		//check if given class has been inherited form basecomponent
@@ -208,18 +208,19 @@ namespace Monke
 		}
 
 		//make the component
-
 		auto pComponent{ std::make_unique<T>( this ) };
 
+		//get the pointer of the component
 		auto newComponent =  pComponent.get();
 
+		//add the unique to the components
 		m_pComponents.push_back(std::move(pComponent));
 
 		//return pointer of the component
 		return newComponent;
 	}
 
-	template <class T>
+	template <typename T>
 	bool GameObject::HasComponent() const
 	{
 		static_assert(std::is_base_of_v<BaseComponent, T>, "The given class must be inherited from BaseComponent");
@@ -239,7 +240,7 @@ namespace Monke
 		return false;
 	}
 
-	template <class T>
+	template <typename T>
 	bool GameObject::RemoveComponent()
 	{
 		//check if given class has been inherited form basecomponent

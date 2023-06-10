@@ -19,7 +19,6 @@ namespace Monke
 
 		virtual ~BaseComponent() = default;
 
-
 		BaseComponent(const BaseComponent& other) = delete;
 		BaseComponent(BaseComponent&& other) = delete;
 		BaseComponent& operator=(const BaseComponent& other) = delete;
@@ -39,7 +38,7 @@ namespace Monke
 
 	protected:
 
-		//setted gameobject as a friend so in the addcomponet gameobject can call SetParent
+		//setted gameobject as a friend so in the addcomponet gameobject can call the constructor (set parent)
 		friend class GameObject;
 		explicit BaseComponent( GameObject* parent);
 

@@ -188,9 +188,9 @@ void initiliaze(const Minigin& engine)
 
 	pExtraInfo->GetTransform()->SetPosition(0, 50);
 
-	const auto pLevelLoader{ scene.MakeGameObject() };
-
-	pLevelLoader->AddComponent<Level>()->SetFileName(ResourceManager::Get().GetPath() + "Levels/Level1/Level1.json");
+	//const auto pLevelLoader{ scene.MakeGameObject() };
+	//
+	//pLevelLoader->AddComponent<Level>()->SetFileName(ResourceManager::Get().GetPath() + "Levels/Level1/Level1.json");
 }
 
 int main(int, char* [])
