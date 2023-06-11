@@ -235,7 +235,6 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget)\*.dll" "$(OutputPat
     <ClInclude Include="AudioSystem.h" />
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="Command.h" />
-    <ClInclude Include="CommandClasses.h" />
     <ClInclude Include="Errors.h" />
     <ClInclude Include="EventListener.h" />
     <ClInclude Include="EventManager.h" />
@@ -322,7 +321,6 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget)\*.dll" "$(OutputPat
     <ClCompile Include="AnimationTexture.cpp" />
     <ClCompile Include="BaseComponent.cpp" />
     <ClCompile Include="Command.cpp" />
-    <ClCompile Include="CommandClasses.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="EventQueue.cpp" />
     <ClCompile Include="Font.cpp" />

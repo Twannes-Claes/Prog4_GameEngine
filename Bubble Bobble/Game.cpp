@@ -133,15 +133,35 @@ void initiliaze(const Minigin&)
 
 	pLevelLoader->AddComponent<Level>(1, 2);
 
-	const auto functionLambda = []()
-	{
-		const auto scene = SceneManager::Get().AddCreateScene("Level2");
-
-		const auto pLevelLoader{ scene->MakeGameObject() };
-		pLevelLoader->AddComponent<Level>(2, 2);
-	};
-
-	InputManager::Get().AddCommand(SDLK_ESCAPE, InputManager::InputType::OnRelease, std::make_unique<FunctionCommand>(functionLambda));
+	//const auto functionLambda = []()
+	//{
+	//	const auto scene = SceneManager::Get().AddCreateScene("Level1");
+	//
+	//	const auto pLevelLoader{ scene->MakeGameObject() };
+	//	pLevelLoader->AddComponent<Level>(1, 2);
+	//};
+	//
+	//InputManager::Get().AddCommand(SDLK_F1, InputManager::InputType::OnRelease, std::make_unique<FunctionCommand>(functionLambda));
+	//
+	//const auto functionLambda2 = []()
+	//{
+	//	const auto scene = SceneManager::Get().AddCreateScene("Level2");
+	//
+	//	const auto pLevelLoader{ scene->MakeGameObject() };
+	//	pLevelLoader->AddComponent<Level>(2, 2);
+	//};
+	//
+	//InputManager::Get().AddCommand(SDLK_F2, InputManager::InputType::OnRelease, std::make_unique<FunctionCommand>(functionLambda2));
+	//
+	//const auto functionLambda3 = []()
+	//{
+	//	const auto scene = SceneManager::Get().AddCreateScene("Level3");
+	//
+	//	const auto pLevelLoader{ scene->MakeGameObject() };
+	//	pLevelLoader->AddComponent<Level>(3, 2);
+	//};
+	//
+	//InputManager::Get().AddCommand(SDLK_F3, InputManager::InputType::OnRelease, std::make_unique<FunctionCommand>(functionLambda3));
 }
 
 int main(int, char* [])

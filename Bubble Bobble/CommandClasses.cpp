@@ -4,9 +4,14 @@
 
 #include "GameObject.h"
 #include "HealthComponent.h"
+#include "InputManager.h"
+#include "Scene.h"
+#include "SceneManager.h"
 #include "ScoreComponent.h"
 #include "Timer.h"
 #include "Transform.h"
+
+#include "Level.h"
 
 namespace Monke
 {
@@ -46,6 +51,20 @@ namespace Monke
 	void DamageCommand::Execute()
 	{
 		m_pHealthComp->Damage(m_DamageAmount);
+	}
+
+	void SwitchSceneCommand::Execute()
+	{
+		int newLevelID = m_LevelID + 1;
+		
+		if (newLevelID > 3) newLevelID = 3;
+		
+		const auto scene = SceneManager::Get().AddCreateScene("Level" + std::to_string(newLevelID));
+		
+		const auto pLevelLoader{ scene->MakeGameObject() };
+		pLevelLoader->AddComponent<Level>(newLevelID, m_Gamemode);
+
+		InputManager::Get().ClearCommands();
 	}
 }
 

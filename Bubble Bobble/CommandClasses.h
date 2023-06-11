@@ -1,8 +1,11 @@
 #pragma once
+#include <string>
+
 #include "Command.h"
 
 namespace Monke
 {
+	class Scene;
 	class HealthComponent;
 	class ScoreComponent;
 	class Transform;
@@ -76,6 +79,26 @@ namespace Monke
 		HealthComponent* m_pHealthComp;
 
 		const float m_DamageAmount;
+	};
+
+	class SwitchSceneCommand final : public Command
+	{
+	public:
+
+		explicit SwitchSceneCommand(const int levelID, const int gamemode):m_LevelID(levelID),m_Gamemode(gamemode){}
+		virtual ~SwitchSceneCommand() override = default;
+
+		virtual void Execute() override;
+
+		SwitchSceneCommand(const SwitchSceneCommand&) = delete;
+		SwitchSceneCommand(SwitchSceneCommand&&) = delete;
+		SwitchSceneCommand& operator= (const SwitchSceneCommand&) = delete;
+		SwitchSceneCommand& operator= (const SwitchSceneCommand&&) = delete;
+
+	private:
+
+		const int m_LevelID{};
+		const int m_Gamemode{};
 	};
 
 }

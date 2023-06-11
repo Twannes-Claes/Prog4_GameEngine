@@ -27,6 +27,8 @@ namespace Monke
 
 		bool ProcessInput();
 
+		void ClearCommands();
+
 		//controller addcommand
 		template <class T>
 		T* AddCommand(const unsigned int id, Gamepad::GamepadButton button, InputType inputType, std::unique_ptr<T> pCommand)

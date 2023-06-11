@@ -18,6 +18,8 @@
 
 #include "SDL_keycode.h"
 
+#include "CommandClasses.h"
+
 Monke::Level::Level(GameObject* parent, int levelID, int gamemode)
 :BaseComponent(parent)
 {
@@ -104,5 +106,7 @@ Monke::Level::Level(GameObject* parent, int levelID, int gamemode)
 				}
 			}
 		}
+
+		InputManager::Get().AddCommand(SDLK_ESCAPE, InputManager::InputType::OnRelease, std::make_unique<SwitchSceneCommand>(levelID, gamemode));
 	}
 }

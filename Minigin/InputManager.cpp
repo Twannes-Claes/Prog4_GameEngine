@@ -152,3 +152,10 @@ bool Monke::InputManager::ProcessInput()
 
 	return true;
 }
+
+void Monke::InputManager::ClearCommands()
+{
+	m_ControllerCommands.clear();
+
+	m_KeyboardCommands.clear();
+}

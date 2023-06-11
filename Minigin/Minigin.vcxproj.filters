@@ -135,9 +135,6 @@
     <ClInclude Include="Command.h">
       <Filter>2_Singletons\Input</Filter>
     </ClInclude>
-    <ClInclude Include="CommandClasses.h">
-      <Filter>2_Singletons\Input</Filter>
-    </ClInclude>
     <ClInclude Include="Observer.h">
       <Filter>3_Framework Files\Observer</Filter>
     </ClInclude>
@@ -270,9 +267,6 @@
       <Filter>2_Singletons\Input</Filter>
     </ClCompile>
     <ClCompile Include="Command.cpp">
-      <Filter>2_Singletons\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="CommandClasses.cpp">
       <Filter>2_Singletons\Input</Filter>
     </ClCompile>
     <ClCompile Include="HealthComponent.cpp">

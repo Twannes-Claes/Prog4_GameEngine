@@ -12,6 +12,9 @@
     <Filter Include="Game Files\Components">
       <UniqueIdentifier>{e7967fdc-efc7-4e87-a498-b21570cbc45b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game Files\Commands">
+      <UniqueIdentifier>{c1901d91-9554-4db6-9fc9-848b93ec98ee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -23,6 +26,9 @@
     <ClCompile Include="Level.cpp">
       <Filter>Game Files\Components</Filter>
     </ClCompile>
+    <ClCompile Include="CommandClasses.cpp">
+      <Filter>Game Files\Commands</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Tile.h">
@@ -30,6 +36,9 @@
     </ClInclude>
     <ClInclude Include="Level.h">
       <Filter>Game Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandClasses.h">
+      <Filter>Game Files\Commands</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

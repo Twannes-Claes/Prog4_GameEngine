@@ -53,7 +53,7 @@ namespace Monke
 
 	};
 
-	class FunctionCommand final : public Command
+	class FunctionCommand : public Command
 	{
 	public:
 
