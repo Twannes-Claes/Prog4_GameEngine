@@ -8,6 +8,7 @@
 
 #include "AnimationTexture.h"
 #include "CommandClasses.h"
+#include "FPS.h"
 #include "InputManager.h"
 #include "Texture.h"
 
@@ -28,5 +29,14 @@ namespace Monke
 		InputManager::Get().AddCommand(SDLK_LEFT, InputManager::InputType::OnRelease, std::make_unique<SwitchSceneCommand>(0, 1));
 		InputManager::Get().AddCommand(SDLK_UP, InputManager::InputType::OnRelease, std::make_unique<SwitchSceneCommand>(0, 2));
 		InputManager::Get().AddCommand(SDLK_RIGHT, InputManager::InputType::OnRelease, std::make_unique<SwitchSceneCommand>(0, 3));
+
+		InputManager::Get().AddCommand(0,Gamepad::GamepadButton::DPad_Left ,InputManager::InputType::OnRelease, std::make_unique<SwitchSceneCommand>(0, 1));
+		InputManager::Get().AddCommand(0,Gamepad::GamepadButton::DPad_Up ,InputManager::InputType::OnRelease, std::make_unique<SwitchSceneCommand>(0, 2));
+		InputManager::Get().AddCommand(0,Gamepad::GamepadButton::Dpad_Right ,InputManager::InputType::OnRelease, std::make_unique<SwitchSceneCommand>(0, 3));
+
+		//FPS object
+		const auto pFPS=  GetOwner()->AddCreateChild();
+		pFPS->GetTransform()->SetPosition(-120, -15);
+		pFPS->AddComponent<FPS>(ResourceManager::Get().LoadFont("Fonts/Lingua.otf", 15), SDL_Color(255, 255, 0, 255));
 	}
 }

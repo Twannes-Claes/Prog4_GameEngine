@@ -51,11 +51,6 @@ void initiliaze(const Minigin&)
 	const auto pTextureImage1{ ResourceManager::Get().LoadTexture("Images/Fries.png") };
 	const auto pTextureImage2{ ResourceManager::Get().LoadTexture("Images/WaterMelon.png") };
 	
-	//FPS object
-	const auto pFPS{ scene->MakeGameObject() };
-	pFPS->GetTransform()->SetPosition(10, 10);
-	pFPS->AddComponent<FPS>(pFontFPS, SDL_Color(255, 255, 0, 255));
-	
 	//const glm::vec3 posImage1
 	//{
 	//	middleScreenPos.x - (pTextureImage1->GetSize().x / 2),
@@ -130,41 +125,9 @@ void initiliaze(const Minigin&)
 	//pExtraInfo->AddComponent<Text>(pFontFScore, ss.str(), SDL_Color(255, 0, 0, 255));
 	//pExtraInfo->GetTransform()->SetPosition(0, 50);
 
-	const auto pLevelLoader{ scene->MakeGameObject() };
+	const auto pMenu{ scene->MakeGameObject() };
 
-	//pLevelLoader->AddComponent<Level>(1, 2);
-
-	pLevelLoader->AddComponent<MenuUI>();
-
-	//const auto functionLambda = []()
-	//{
-	//	const auto scene = SceneManager::Get().AddCreateScene("Level1");
-	//
-	//	const auto pLevelLoader{ scene->MakeGameObject() };
-	//	pLevelLoader->AddComponent<Level>(1, 2);
-	//};
-	//
-	//InputManager::Get().AddCommand(SDLK_F1, InputManager::InputType::OnRelease, std::make_unique<FunctionCommand>(functionLambda));
-	//
-	//const auto functionLambda2 = []()
-	//{
-	//	const auto scene = SceneManager::Get().AddCreateScene("Level2");
-	//
-	//	const auto pLevelLoader{ scene->MakeGameObject() };
-	//	pLevelLoader->AddComponent<Level>(2, 2);
-	//};
-	//
-	//InputManager::Get().AddCommand(SDLK_F2, InputManager::InputType::OnRelease, std::make_unique<FunctionCommand>(functionLambda2));
-	//
-	//const auto functionLambda3 = []()
-	//{
-	//	const auto scene = SceneManager::Get().AddCreateScene("Level3");
-	//
-	//	const auto pLevelLoader{ scene->MakeGameObject() };
-	//	pLevelLoader->AddComponent<Level>(3, 2);
-	//};
-	//
-	//InputManager::Get().AddCommand(SDLK_F3, InputManager::InputType::OnRelease, std::make_unique<FunctionCommand>(functionLambda3));
+	pMenu->AddComponent<MenuUI>();
 }
 
 int main(int, char* [])

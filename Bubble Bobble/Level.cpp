@@ -4,7 +4,6 @@
 
 #include <fstream>
 
-#include "AnimationTexture.h"
 #include "GameObject.h"
 #include "InputManager.h"
 #include "ResourceManager.h"
@@ -19,6 +18,9 @@
 #include "SDL_keycode.h"
 
 #include "CommandClasses.h"
+#include "FPS.h"
+#include "Gamepad.h"
+#include "Player.h"
 
 Monke::Level::Level(GameObject* parent, int levelID, int gamemode)
 :BaseComponent(parent)
@@ -88,9 +90,7 @@ Monke::Level::Level(GameObject* parent, int levelID, int gamemode)
 
 										newObj->GetTransform()->SetPosition(worldPos);
 
-										const auto pTexture = ResourceManager::Get().LoadTexture("Player/Player" + std::to_string(playerIndex) + "_Walk.png");
-
-										newObj->AddComponent<AnimationTexture>(pTexture, 4, 1, 8);
+										newObj->AddComponent<Player>(playerIndex);
 									}
 								}
 								else
@@ -108,7 +108,16 @@ Monke::Level::Level(GameObject* parent, int levelID, int gamemode)
 		}
 
 		InputManager::Get().AddCommand(SDLK_F1, InputManager::InputType::OnRelease, std::make_unique<SwitchSceneCommand>(levelID, gamemode));
+		InputManager::Get().AddCommand(0, Gamepad::GamepadButton::Button_North, InputManager::InputType::OnRelease, std::make_unique<SwitchSceneCommand>(levelID, gamemode));
+		//InputManager::Get().AddCommand(1, Gamepad::GamepadButton::Button_North, InputManager::InputType::OnRelease, std::make_unique<SwitchSceneCommand>(levelID, gamemode));
 
 		InputManager::Get().AddCommand(SDLK_ESCAPE, InputManager::InputType::OnRelease, std::make_unique<SwitchSceneCommand>(3, gamemode));
+		InputManager::Get().AddCommand(0, Gamepad::GamepadButton::Button_East, InputManager::InputType::OnRelease, std::make_unique<SwitchSceneCommand>(3, gamemode));
+		//InputManager::Get().AddCommand(1, Gamepad::GamepadButton::Button_East, InputManager::InputType::OnRelease, std::make_unique<SwitchSceneCommand>(3, gamemode));
+
+		//FPS object
+		const auto pFPS = GetOwner()->AddCreateChild();
+		pFPS->GetTransform()->SetPosition(10, 10);
+		pFPS->AddComponent<FPS>(ResourceManager::Get().LoadFont("Fonts/Lingua.otf", 15), SDL_Color(255, 255, 0, 255));
 	}
 }

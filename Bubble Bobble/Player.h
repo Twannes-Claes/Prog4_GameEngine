@@ -7,7 +7,7 @@ namespace Monke
 	{
 	public:
 
-		Player(GameObject* pParent, int):BaseComponent(pParent){}
+		Player(GameObject* pParent, int);
 
 		virtual ~Player() override = default;
 		Player(const Player& other) = delete;
@@ -16,6 +16,7 @@ namespace Monke
 		Player& operator=(Player&& other) = delete;
 
 	private:
+
 	};
 }
 
