@@ -130,7 +130,7 @@ void initiliaze(const Minigin&)
 	//pExtraInfo->GetTransform()->SetPosition(0, 50);
 
 	const auto pLevelLoader{ scene.MakeGameObject() };
-	pLevelLoader->AddComponent<Level>(1);
+	pLevelLoader->AddComponent<Level>(1, 2);
 }
 
 int main(int, char* [])

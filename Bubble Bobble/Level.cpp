@@ -4,17 +4,20 @@
 
 #include <fstream>
 
+#include "AnimationTexture.h"
 #include "GameObject.h"
 #include "ResourceManager.h"
 #include "RapidJson/document.h"
 #include "RapidJson/istreamwrapper.h"
 
 #include "Tile.h"
+#include "Transform.h"
 
-Monke::Level::Level(GameObject* parent, int levelID)
+Monke::Level::Level(GameObject* parent, int levelID, int gamemode)
 :BaseComponent(parent)
 {
 	if (levelID > 3 || levelID < 1) levelID = 1;
+	if (gamemode > 3 || gamemode < 1) gamemode = 1;
 
 	const std::string fileName = ResourceManager::Get().GetPath() + "Levels/Level" + std::to_string(levelID) + "/Level" + std::to_string(levelID) + ".json";
 
@@ -38,10 +41,15 @@ Monke::Level::Level(GameObject* parent, int levelID)
 				{
 					const std::string tileName{ tiles["name"].GetString() };
 
+
 					bool isBigTile = tileName == "bigTile" ? true : false;
+
+					bool isPlayer = tileName == "players";
 
 					if (const rapidjson::Value& positions{ tiles["positions"] }; positions.IsArray())
 					{
+						int playerIndex{0};
+
 						for (auto posIt = positions.Begin(); posIt != positions.End(); ++posIt)
 						{
 							const rapidjson::Value& currentPos{ *posIt };
@@ -55,7 +63,23 @@ Monke::Level::Level(GameObject* parent, int levelID)
 
 								auto newObj = GetOwner()->AddCreateChild();
 
-								newObj->AddComponent<Tile>(isBigTile, tilePos, levelID);
+								if(isPlayer)
+								{
+									++playerIndex;
+
+									if(gamemode > 1 || (gamemode == 1 && playerIndex == 1))
+									{
+										newObj->GetTransform()->SetPosition(tilePos);
+
+										const auto pTexture = ResourceManager::Get().LoadTexture("Player/Player" + std::to_string(playerIndex) + "_Walk.png");
+
+										newObj->AddComponent<AnimationTexture>(pTexture, 4, 1, 8);
+									}
+								}
+								else
+								{
+									newObj->AddComponent<Tile>(isBigTile, tilePos, levelID);
+								}
 							}
 						}
 					}

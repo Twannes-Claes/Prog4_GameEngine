@@ -94,4 +94,14 @@ void Monke::Renderer::RenderTexture(const Texture2D& texture, const float x, con
 	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), nullptr, &dst);
 }
 
+void Monke::Renderer::RenderTexture(const Texture2D& texture, const SDL_Rect& srcRect, const glm::vec2& xy, const float w, const float h) const
+{
+	SDL_Rect dst{};
+	dst.x = static_cast<int>(xy.x);
+	dst.y = static_cast<int>(xy.y);
+	dst.w = static_cast<int>(w);
+	dst.h = static_cast<int>(h);
+	SDL_RenderCopy(GetSDLRenderer(), texture.GetSDLTexture(), &srcRect, &dst);
+}
+
 inline SDL_Renderer* Monke::Renderer::GetSDLRenderer() const { return m_Renderer; }

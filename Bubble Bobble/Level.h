@@ -10,7 +10,8 @@ namespace Monke
 	class Level final : public Monke::BaseComponent
 	{
 	public:
-		explicit Level(GameObject* parent, int levelID);
+
+		explicit Level(GameObject* parent, int levelID, int gamemode);
 
 		virtual ~Level() override = default;
 		Level(const Level& other) = delete;

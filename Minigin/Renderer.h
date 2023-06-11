@@ -1,5 +1,7 @@
 #pragma once
 #include <SDL.h>
+#include <glm/vec2.hpp>
+
 #include "Singleton.h"
 
 namespace Monke
@@ -23,6 +25,8 @@ namespace Monke
 
 		void RenderTexture(const Texture2D& texture, float x, float y) const;
 		void RenderTexture(const Texture2D& texture, float x, float y, float width, float height) const;
+
+		void RenderTexture(const Texture2D& texture, const SDL_Rect& srcRect, const glm::vec2& xy, const float w, const float h) const;
 
 		SDL_Renderer* GetSDLRenderer() const;
 
