@@ -7,9 +7,10 @@ namespace Monke
 
 	class Scene final
 	{
-		friend Scene& SceneManager::CreateScene(const std::string& name);
+		//friend Scene* SceneManager::CreateScene(const std::string& name);
 
 	public:
+		explicit Scene(std::string name);
 
 		GameObject* MakeGameObject();
 
@@ -17,7 +18,6 @@ namespace Monke
 		void Remove(const std::unique_ptr<GameObject> object);
 		void RemoveAll();
 
-		void Initialize() const;
 		void Update();
 		void Render() const;
 		void OnGUI();
@@ -29,7 +29,6 @@ namespace Monke
 		Scene& operator=(Scene&& other) = delete;
 
 	private: 
-		explicit Scene(std::string name);
 
 		std::string m_name;
 		std::vector < std::unique_ptr<GameObject> > m_objects{};

@@ -2,6 +2,8 @@
 #include <memory>
 #include <glm/vec2.hpp>
 
+#include <functional>
+
 namespace Monke
 {
 	class Transform;
@@ -48,6 +50,29 @@ namespace Monke
 	private:
 
 		glm::vec2 m_Input{};
+
+	};
+
+	class FunctionCommand final : public Command
+	{
+	public:
+
+		explicit FunctionCommand(const std::function<void()>& function):m_FunctionCall(function){}
+		virtual ~FunctionCommand() override = default;
+
+		virtual void Execute() override
+		{
+			m_FunctionCall();
+		}
+
+		FunctionCommand(const FunctionCommand&) = delete;
+		FunctionCommand(FunctionCommand&&) = delete;
+		FunctionCommand& operator= (const FunctionCommand&) = delete;
+		FunctionCommand& operator= (const FunctionCommand&&) = delete;
+
+	private:
+
+		std::function<void()> m_FunctionCall{};
 
 	};
 }

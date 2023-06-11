@@ -36,11 +36,11 @@ using namespace Monke;
 
 void initiliaze(const Minigin&)
 {
-	auto& scene = SceneManager::Get().CreateScene("Assignment");
+	const auto scene = SceneManager::Get().AddCreateScene("Level1");
 
 	//erviceLocator::RegisterAudioSystem(std::make_unique<dae::AudioSystemLogger>(std::move(std::make_unique<dae::AudioSystemSDL2>())));
 
-	ServiceLocator::RegisterAudioSystem<Monke::SDL_Audio>();
+	//ServiceLocator::RegisterAudioSystem<Monke::SDL_Audio>();
 
 	const auto pFont{ ResourceManager::Get().LoadFont("Fonts/Lingua.otf", 36) };
 	const auto pFontFPS{ ResourceManager::Get().LoadFont("Fonts/Lingua.otf", 15) };
@@ -51,7 +51,7 @@ void initiliaze(const Minigin&)
 	const auto pTextureImage2{ ResourceManager::Get().LoadTexture("Images/WaterMelon.png") };
 	
 	//FPS object
-	const auto pFPS{ scene.MakeGameObject() };
+	const auto pFPS{ scene->MakeGameObject() };
 	pFPS->GetTransform()->SetPosition(10, 10);
 	pFPS->AddComponent<FPS>(pFontFPS, SDL_Color(255, 255, 0, 255));
 	
@@ -129,8 +129,19 @@ void initiliaze(const Minigin&)
 	//pExtraInfo->AddComponent<Text>(pFontFScore, ss.str(), SDL_Color(255, 0, 0, 255));
 	//pExtraInfo->GetTransform()->SetPosition(0, 50);
 
-	const auto pLevelLoader{ scene.MakeGameObject() };
-	pLevelLoader->AddComponent<Level>(3, 1);
+	const auto pLevelLoader{ scene->MakeGameObject() };
+
+	pLevelLoader->AddComponent<Level>(1, 2);
+
+	const auto functionLambda = []()
+	{
+		const auto scene = SceneManager::Get().AddCreateScene("Level2");
+
+		const auto pLevelLoader{ scene->MakeGameObject() };
+		pLevelLoader->AddComponent<Level>(2, 2);
+	};
+
+	InputManager::Get().AddCommand(SDLK_ESCAPE, InputManager::InputType::OnRelease, std::make_unique<FunctionCommand>(functionLambda));
 }
 
 int main(int, char* [])

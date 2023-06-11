@@ -10,15 +10,20 @@ namespace Monke
 	class SceneManager final : public Singleton<SceneManager>
 	{
 	public:
-		Scene& CreateScene(const std::string& name);
+		Scene* AddCreateScene(const std::string& name);
 
 		void Update() const;
 		void Render() const;
 		void OnGUI();
 
+		Scene* GetCurrentScene() const { return m_CurrentScene.get(); }
+
 	private:
 		friend class Singleton<SceneManager>;
 		SceneManager() = default;
-		std::vector<std::shared_ptr<Scene>> m_scenes;
+
+		std::shared_ptr<Scene> m_CurrentScene;
+
+		//std::unique_ptr<Scene> m_CurrentScene{};
 	};
 }
