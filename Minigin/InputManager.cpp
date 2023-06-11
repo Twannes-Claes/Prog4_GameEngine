@@ -6,9 +6,9 @@ bool Monke::InputManager::ProcessInput()
 {
 
 	//update all controllers
-	for(const auto& pGamepad : m_Gamepads)
+	for (size_t i = 0; i < m_Gamepads.size(); ++i)
 	{
-		pGamepad->Update();
+		m_Gamepads[i]->Update();
 	}
 
 	for(const auto& command : m_ControllerCommands)
@@ -66,8 +66,12 @@ bool Monke::InputManager::ProcessInput()
 		if (canExecute)
 		{
 			command.second->Execute();
+
+			if (m_ClearCommands) break;
 		}
 	}
+
+	m_ClearCommands = false;
 
 	//update keyboard
 
@@ -108,7 +112,6 @@ bool Monke::InputManager::ProcessInput()
 
 	for (const auto& command : m_KeyboardCommands)
 	{
-
 		bool canExecute{};
 		switch (command.first)
 		{
@@ -148,7 +151,11 @@ bool Monke::InputManager::ProcessInput()
 		}
 
 		if (canExecute) command.second.second->Execute();
+
+		if (m_ClearCommands) break;
 	}
+
+	m_ClearCommands = false;
 
 	return true;
 }
@@ -158,4 +165,6 @@ void Monke::InputManager::ClearCommands()
 	m_ControllerCommands.clear();
 
 	m_KeyboardCommands.clear();
+
+	m_ClearCommands = true;
 }

@@ -1,5 +1,6 @@
 #include "SceneManager.h"
 
+#include "InputManager.h"
 #include "Scene.h"
 
 void Monke::SceneManager::Update() const
@@ -42,6 +43,8 @@ void Monke::SceneManager::OnGUI()
 Monke::Scene* Monke::SceneManager::AddCreateScene(const std::string& name)
 {
 	//const auto& scene = std::shared_ptr<Scene>(new Scene(name));
+	InputManager::Get().ClearCommands();
+
 	m_CurrentScene = std::make_shared<Scene>(name);
 	return m_CurrentScene.get();
 }

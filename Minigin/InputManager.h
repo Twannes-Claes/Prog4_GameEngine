@@ -138,6 +138,8 @@ namespace Monke
 
 		KeyboardCommandsMap m_KeyboardCommands{};
 
+		bool m_ClearCommands{};
+
 		std::set<unsigned int> m_KeysDown{};
 		std::set<unsigned int> m_KeysReleased{};
 		std::set<unsigned int> m_KeysPressed{};

@@ -58,13 +58,13 @@ namespace Monke
 		int newLevelID = m_LevelID + 1;
 		
 		if (newLevelID > 3) newLevelID = 3;
-		
+
+		const int newGameMode = m_Gamemode;
+
 		const auto scene = SceneManager::Get().AddCreateScene("Level" + std::to_string(newLevelID));
 		
 		const auto pLevelLoader{ scene->MakeGameObject() };
-		pLevelLoader->AddComponent<Level>(newLevelID, m_Gamemode);
-
-		InputManager::Get().ClearCommands();
+		pLevelLoader->AddComponent<Level>(newLevelID, newGameMode);
 	}
 }
 
