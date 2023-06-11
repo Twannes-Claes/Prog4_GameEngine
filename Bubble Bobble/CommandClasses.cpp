@@ -13,6 +13,7 @@
 
 #include "Level.h"
 #include "MenuUI.h"
+#include "Rigidbody.h"
 
 namespace Monke
 {
@@ -25,11 +26,9 @@ namespace Monke
 
 	void MoveCommand::Execute()
 	{
-		glm::vec2 pos = GetInput() * m_Speed * Timer::Get().GetElapsed();
+		const float displacement = GetInput().x * m_Speed * Timer::Get().GetElapsed();
 
-		pos += m_pTranform->GetLocalPosition();
-
-		m_pTranform->SetLocalPosition(pos.x, pos.y);
+		m_pTranform->SetLocalPosition(m_pTranform->GetLocalPosition().x + displacement, m_pTranform->GetLocalPosition().y);
 	}
 
 	ScoreCommand::ScoreCommand(ScoreComponent* object, const float score)
@@ -74,6 +73,11 @@ namespace Monke
 		const auto pLevelLoader{ scene->MakeGameObject() };
 
 		pLevelLoader->AddComponent<Level>(newLevelID, newGameMode);
+	}
+
+	void JumpCommand::Execute()
+	{
+		m_pRigid->AddVelocityY(m_JumpSpeed);
 	}
 }
 

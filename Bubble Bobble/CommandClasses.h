@@ -5,6 +5,7 @@
 
 namespace Monke
 {
+	class Rigidbody;
 	class Scene;
 	class HealthComponent;
 	class ScoreComponent;
@@ -99,6 +100,27 @@ namespace Monke
 
 		const int m_LevelID{};
 		const int m_Gamemode{};
+	};
+
+	class JumpCommand final : public Command
+	{
+	public:
+
+		explicit JumpCommand(const float jumpSpeed, Rigidbody* pRigid) :m_pRigid(pRigid), m_JumpSpeed(jumpSpeed){}
+		virtual ~JumpCommand() override = default;
+
+		virtual void Execute() override;
+
+		JumpCommand(const JumpCommand&) = delete;
+		JumpCommand(JumpCommand&&) = delete;
+		JumpCommand& operator= (const JumpCommand&) = delete;
+		JumpCommand& operator= (const JumpCommand&&) = delete;
+
+	private:
+
+		Rigidbody* m_pRigid{};
+
+		const float m_JumpSpeed{};
 	};
 
 }
