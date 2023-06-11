@@ -107,6 +107,8 @@ Monke::Level::Level(GameObject* parent, int levelID, int gamemode)
 			}
 		}
 
-		InputManager::Get().AddCommand(SDLK_ESCAPE, InputManager::InputType::OnRelease, std::make_unique<SwitchSceneCommand>(levelID, gamemode));
+		InputManager::Get().AddCommand(SDLK_F1, InputManager::InputType::OnRelease, std::make_unique<SwitchSceneCommand>(levelID, gamemode));
+
+		InputManager::Get().AddCommand(SDLK_ESCAPE, InputManager::InputType::OnRelease, std::make_unique<SwitchSceneCommand>(3, gamemode));
 	}
 }

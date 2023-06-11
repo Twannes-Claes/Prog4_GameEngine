@@ -12,6 +12,7 @@
 #include "Transform.h"
 
 #include "Level.h"
+#include "MenuUI.h"
 
 namespace Monke
 {
@@ -57,13 +58,21 @@ namespace Monke
 	{
 		int newLevelID = m_LevelID + 1;
 		
-		if (newLevelID > 3) newLevelID = 3;
+		if (newLevelID > 3)
+		{
+			const auto scene = SceneManager::Get().AddCreateScene("MainMenu");
+
+			const auto pLevelLoader{ scene->MakeGameObject() };
+			pLevelLoader->AddComponent<MenuUI>();
+			return;
+		}
 
 		const int newGameMode = m_Gamemode;
 
 		const auto scene = SceneManager::Get().AddCreateScene("Level" + std::to_string(newLevelID));
 		
 		const auto pLevelLoader{ scene->MakeGameObject() };
+
 		pLevelLoader->AddComponent<Level>(newLevelID, newGameMode);
 	}
 }

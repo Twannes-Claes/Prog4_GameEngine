@@ -27,6 +27,7 @@
 #include "InputManager.h"
 #include "Level.h"
 #include "LivesDisplay.h"
+#include "MenuUI.h"
 #include "ScoreComponent.h"
 #include "ScoreDisplay.h"
 #include "SDL_Audio.h"
@@ -131,7 +132,9 @@ void initiliaze(const Minigin&)
 
 	const auto pLevelLoader{ scene->MakeGameObject() };
 
-	pLevelLoader->AddComponent<Level>(1, 2);
+	//pLevelLoader->AddComponent<Level>(1, 2);
+
+	pLevelLoader->AddComponent<MenuUI>();
 
 	//const auto functionLambda = []()
 	//{

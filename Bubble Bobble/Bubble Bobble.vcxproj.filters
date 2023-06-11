@@ -29,6 +29,12 @@
     <ClCompile Include="CommandClasses.cpp">
       <Filter>Game Files\Commands</Filter>
     </ClCompile>
+    <ClCompile Include="MenuUI.cpp">
+      <Filter>Game Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Game Files\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Tile.h">
@@ -39,6 +45,12 @@
     </ClInclude>
     <ClInclude Include="CommandClasses.h">
       <Filter>Game Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuUI.h">
+      <Filter>Game Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Game Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
