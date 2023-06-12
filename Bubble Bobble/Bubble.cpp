@@ -5,12 +5,14 @@
 #include "Timer.h"
 
 #include "AnimationTexture.h"
+#include "HealthComponent.h"
 #include "Transform.h"
 
 namespace Monke
 {
-	Bubble::Bubble(GameObject* pParent, const glm::vec2)
-	:BaseComponent(pParent)
+	Bubble::Bubble(GameObject* pParent, const glm::vec2, HealthComponent* pHealth)
+	:BaseComponent(pParent),
+	m_pHealth(pHealth)
 	{
 		m_pTransform = GetOwner()->GetTransform();
 
@@ -25,6 +27,7 @@ namespace Monke
 
 		if (m_CurrentLifeTime >= m_MaxLifeTime)
 		{
+			m_pHealth->Damage(100.f);
 			GetOwner()->Destroy();
 		}
 	}

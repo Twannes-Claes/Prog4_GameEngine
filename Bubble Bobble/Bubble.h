@@ -5,6 +5,7 @@
 
 namespace Monke
 {
+	class HealthComponent;
 	class AnimationTexture;
 	class Transform;
 
@@ -12,7 +13,7 @@ namespace Monke
 	{
 	public:
 
-		explicit Bubble(GameObject* pParent, const glm::vec2 position);
+		explicit Bubble(GameObject* pParent, const glm::vec2 position, HealthComponent* pHealth);
 
 		virtual ~Bubble() override = default;
 		Bubble(const Bubble& other) = delete;
@@ -25,6 +26,8 @@ namespace Monke
 	private:
 
 		Transform* m_pTransform;
+
+		HealthComponent* m_pHealth;
 
 		AnimationTexture* m_pTexture;
 

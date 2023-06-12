@@ -47,6 +47,7 @@ namespace Monke
 		else
 		{
 			ServiceLocator::GetSoundSystem().Play(1, 1.f);
+
 			return true;
 		}
 

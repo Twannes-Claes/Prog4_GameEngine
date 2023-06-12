@@ -88,7 +88,7 @@ namespace Monke
 	{
 		const auto newOBject = m_pObject->AddCreateChild();
 
-		newOBject->AddComponent<Bubble>(m_pObject->GetTransform()->GetWorldPosition());
+		newOBject->AddComponent<Bubble>(m_pObject->GetTransform()->GetWorldPosition(), m_pHealth);
 
 		newOBject->SetParent(nullptr);
 	}

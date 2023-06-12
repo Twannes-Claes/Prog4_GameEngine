@@ -127,7 +127,7 @@ namespace Monke
 	{
 	public:
 
-		explicit BubbleShootCommand(GameObject* object):m_pObject(object) {}
+		explicit BubbleShootCommand(GameObject* object, HealthComponent* pHealth):m_pObject(object), m_pHealth(pHealth) {}
 		virtual ~BubbleShootCommand() override = default;
 
 		virtual void Execute() override;
@@ -140,6 +140,8 @@ namespace Monke
 	private:
 
 		GameObject* m_pObject{};
+
+		HealthComponent* m_pHealth{};
 	};
 
 }
