@@ -22,7 +22,7 @@
 #include "Gamepad.h"
 #include "Player.h"
 
-Monke::Level::Level(GameObject* parent, int levelID, int gamemode)
+Monke::Level::Level(GameObject* parent, int levelID, int gamemode, bool useTwoControllers)
 :BaseComponent(parent)
 {
 	//if level ID or gamemode are invalid set them to default
@@ -90,7 +90,7 @@ Monke::Level::Level(GameObject* parent, int levelID, int gamemode)
 
 										newObj->GetTransform()->SetPosition(worldPos);
 
-										newObj->AddComponent<Player>(playerIndex);
+										newObj->AddComponent<Player>(Player::PlayerControlInfo(playerIndex, gamemode, useTwoControllers));
 									}
 								}
 								else
@@ -107,13 +107,20 @@ Monke::Level::Level(GameObject* parent, int levelID, int gamemode)
 			}
 		}
 
+		//contorls for menu control
 		InputManager::Get().AddCommand(SDLK_F1, InputManager::InputType::OnRelease, std::make_unique<SwitchSceneCommand>(levelID, gamemode));
 		InputManager::Get().AddCommand(0, Gamepad::GamepadButton::Button_North, InputManager::InputType::OnRelease, std::make_unique<SwitchSceneCommand>(levelID, gamemode));
-		//InputManager::Get().AddCommand(1, Gamepad::GamepadButton::Button_North, InputManager::InputType::OnRelease, std::make_unique<SwitchSceneCommand>(levelID, gamemode));
 
 		InputManager::Get().AddCommand(SDLK_ESCAPE, InputManager::InputType::OnRelease, std::make_unique<SwitchSceneCommand>(3, gamemode));
 		InputManager::Get().AddCommand(0, Gamepad::GamepadButton::Button_East, InputManager::InputType::OnRelease, std::make_unique<SwitchSceneCommand>(3, gamemode));
-		//InputManager::Get().AddCommand(1, Gamepad::GamepadButton::Button_East, InputManager::InputType::OnRelease, std::make_unique<SwitchSceneCommand>(3, gamemode));
+
+
+
+		if(useTwoControllers)
+		{
+			InputManager::Get().AddCommand(1, Gamepad::GamepadButton::Button_North, InputManager::InputType::OnRelease, std::make_unique<SwitchSceneCommand>(levelID, gamemode));
+			InputManager::Get().AddCommand(1, Gamepad::GamepadButton::Button_East, InputManager::InputType::OnRelease, std::make_unique<SwitchSceneCommand>(3, gamemode));
+		}
 
 		//FPS object
 		const auto pFPS = GetOwner()->AddCreateChild();

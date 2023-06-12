@@ -11,7 +11,7 @@ namespace Monke
 	{
 	public:
 
-		explicit Rigidbody(GameObject* parent, const glm::ivec2 boundaries, const glm::ivec2 sizePlayer);
+		explicit Rigidbody(GameObject* parent, const glm::ivec2 boundaries, const glm::ivec2 sizePlayer, int playerIndex, int gamemode, bool useSecondController = false);
 
 		virtual ~Rigidbody() override = default;
 		Rigidbody(const Rigidbody& other) = delete;
@@ -21,7 +21,7 @@ namespace Monke
 
 		virtual void Update() override;
 
-		//bool CanJump() { return m_pTransform. }
+		bool CanJump() const { return m_Velocity.y == 0; }
 
 		void AddVelocityY(const float y) { m_Velocity.y += y; }
 

@@ -123,5 +123,24 @@ namespace Monke
 		const float m_JumpSpeed{};
 	};
 
+	class BubbleShootCommand final : public Command
+	{
+	public:
+
+		explicit BubbleShootCommand(GameObject* object):m_pObject(object) {}
+		virtual ~BubbleShootCommand() override = default;
+
+		virtual void Execute() override;
+
+		BubbleShootCommand(const BubbleShootCommand&) = delete;
+		BubbleShootCommand(BubbleShootCommand&&) = delete;
+		BubbleShootCommand& operator= (const BubbleShootCommand&) = delete;
+		BubbleShootCommand& operator= (const BubbleShootCommand&&) = delete;
+
+	private:
+
+		GameObject* m_pObject{};
+	};
+
 }
 

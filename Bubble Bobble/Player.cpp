@@ -11,21 +11,36 @@
 
 namespace Monke
 {
-	Player::Player(GameObject* pParent, int playerIndex)
+	Player::Player(GameObject* pParent, const PlayerControlInfo& infoControls)
 	:BaseComponent(pParent)
 	{
-		const auto pTexture = ResourceManager::Get().LoadTexture("Player/Player" + std::to_string(playerIndex) + "_Walk.png");
+		const int index = infoControls.playerIndex;
+		const bool secondController = infoControls.secondController;
+		const int gamemode = infoControls.gamemode;
+
+		const auto pTexture = ResourceManager::Get().LoadTexture("Player/Player" + std::to_string(index) + "_Walk.png");
 
 		GetOwner()->AddComponent<AnimationTexture>(pTexture, 4, 1, 8);
-		GetOwner()->AddComponent<Rigidbody>(glm::vec2(48, 622), glm::vec2(48, 48));
+		GetOwner()->AddComponent<Rigidbody>(glm::vec2(48, 622), glm::vec2(48, 48), index, gamemode, secondController);
 
-		if(playerIndex == 1)
+		if(index == 1)
 		{
 			InputManager::Get().AddCommand<MoveCommand>(SDLK_w, SDLK_d, SDLK_s, SDLK_a, std::make_unique<MoveCommand>(GetOwner(), 150.f));
+
+			InputManager::Get().AddCommand<BubbleShootCommand>(SDLK_LSHIFT,InputManager::InputType::OnRelease , std::make_unique<BubbleShootCommand>(GetOwner()));
+
+			if(secondController || gamemode == 1)
+			{
+				InputManager::Get().AddCommand<MoveCommand>(0, Gamepad::GamepadButton::DPad_Up, Gamepad::GamepadButton::Dpad_Right, Gamepad::GamepadButton::DPad_Down, Gamepad::GamepadButton::DPad_Left, std::make_unique<MoveCommand>(GetOwner(), 150.f));
+				InputManager::Get().AddCommand<BubbleShootCommand>(0, Gamepad::GamepadButton::Button_West, InputManager::InputType::OnRelease, std::make_unique<BubbleShootCommand>(GetOwner()));
+			}
 		}
 		else
 		{
-			InputManager::Get().AddCommand<MoveCommand>(0, Gamepad::GamepadButton::DPad_Up, Gamepad::GamepadButton::Dpad_Right, Gamepad::GamepadButton::DPad_Down, Gamepad::GamepadButton::DPad_Left, std::make_unique<MoveCommand>(GetOwner(), 150.f));
+			const unsigned int controllerIdx = secondController ? 1 : 0;
+
+			InputManager::Get().AddCommand<MoveCommand>(controllerIdx, Gamepad::GamepadButton::DPad_Up, Gamepad::GamepadButton::Dpad_Right, Gamepad::GamepadButton::DPad_Down, Gamepad::GamepadButton::DPad_Left, std::make_unique<MoveCommand>(GetOwner(), 150.f));
+			InputManager::Get().AddCommand<BubbleShootCommand>(controllerIdx, Gamepad::GamepadButton::Button_West, InputManager::InputType::OnRelease, std::make_unique<BubbleShootCommand>(GetOwner()));
 		}
 	}
 }

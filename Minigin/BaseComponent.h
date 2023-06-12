@@ -32,7 +32,7 @@ namespace Monke
 
 		virtual void OnGUI() {}
 
-		void Destroy() { m_IsMarkedDead = true; }
+		void Destroy() { m_IsMarkedDead = true; std::cout << "marked\n"; }
 
 		bool IsMarkedDead() const { return m_IsMarkedDead; }
 

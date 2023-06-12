@@ -22,6 +22,8 @@ namespace Monke
 	private:
 
 		AnimationTexture* m_pLogo{};
+
+		//bool m_UseSecondController{};
 	};
 }
 

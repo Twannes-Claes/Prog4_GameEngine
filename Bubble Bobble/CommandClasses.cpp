@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+#include "Bubble.h"
 #include "GameObject.h"
 #include "HealthComponent.h"
 #include "InputManager.h"
@@ -77,7 +78,19 @@ namespace Monke
 
 	void JumpCommand::Execute()
 	{
-		m_pRigid->AddVelocityY(m_JumpSpeed);
+		if(m_pRigid->CanJump())
+		{
+			m_pRigid->AddVelocityY(m_JumpSpeed);
+		}
+	}
+
+	void BubbleShootCommand::Execute()
+	{
+		const auto newOBject = m_pObject->AddCreateChild();
+
+		newOBject->AddComponent<Bubble>(m_pObject->GetTransform()->GetWorldPosition());
+
+		newOBject->SetParent(nullptr);
 	}
 }
 

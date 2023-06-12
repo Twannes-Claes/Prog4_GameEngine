@@ -7,7 +7,21 @@ namespace Monke
 	{
 	public:
 
-		Player(GameObject* pParent, int);
+		struct PlayerControlInfo
+		{
+			PlayerControlInfo(int index, int currentGamemode, bool useSecondController)
+			{
+				playerIndex = index;
+				gamemode = currentGamemode;
+				secondController = useSecondController;
+			}
+
+			int playerIndex{};
+			int gamemode{};
+			bool secondController{};
+		};
+
+		Player(GameObject* pParent, const PlayerControlInfo& infoControls);
 
 		virtual ~Player() override = default;
 		Player(const Player& other) = delete;

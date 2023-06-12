@@ -11,7 +11,7 @@ namespace Monke
 	{
 	public:
 
-		explicit Level(GameObject* parent, int levelID, int gamemode);
+		explicit Level(GameObject* parent, int levelID, int gamemode, bool useTwoControllers = false);
 
 		virtual ~Level() override = default;
 		Level(const Level& other) = delete;

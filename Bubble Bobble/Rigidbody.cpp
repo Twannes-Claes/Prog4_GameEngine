@@ -7,20 +7,34 @@
 #include "Transform.h"
 #include "SDL_keycode.h"
 
-Monke::Rigidbody::Rigidbody(GameObject* pParent, const glm::ivec2 boundaries, const glm::ivec2 sizePlayer)
+Monke::Rigidbody::Rigidbody(GameObject* pParent, const glm::ivec2 boundaries, const glm::ivec2 sizePlayer, int playerIndex, int gamemode, bool useSecondController)
 :BaseComponent(pParent),
 m_Boundaries(boundaries),
 m_SizePlayer(sizePlayer)
 {
 	m_pTransform = GetOwner()->GetTransform();
 
-	InputManager::Get().AddCommand(SDLK_SPACE, InputManager::InputType::OnRelease, std::make_unique<JumpCommand>(-220.f, this));
+	if(playerIndex == 1)
+	{
+		InputManager::Get().AddCommand(SDLK_SPACE, InputManager::InputType::OnRelease, std::make_unique<JumpCommand>(-220.f, this));
+
+		if(useSecondController || gamemode == 1)
+		{
+			InputManager::Get().AddCommand(0,Gamepad::GamepadButton::Button_South, InputManager::InputType::OnRelease, std::make_unique<JumpCommand>(-220.f, this));
+		}
+	}
+	else
+	{
+		const unsigned int controllerIdx = useSecondController ? 1 : 0;
+
+		InputManager::Get().AddCommand(controllerIdx, Gamepad::GamepadButton::Button_South, InputManager::InputType::OnRelease, std::make_unique<JumpCommand>(-220.f, this));
+	}
 }
 
 void Monke::Rigidbody::Update()
 {
 
-	std::cout << m_pTransform->GetWorldPosition().x << " | " << m_pTransform->GetWorldPosition().y << '\n';
+	//std::cout << m_pTransform->GetWorldPosition().x << " | " << m_pTransform->GetWorldPosition().y << '\n';
 
 	glm::vec2 pos = m_pTransform->GetWorldPosition();
 

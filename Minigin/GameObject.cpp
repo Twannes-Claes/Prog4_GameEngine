@@ -23,6 +23,11 @@ namespace Monke
 			m_pComponents[i]->Update();
 		}
 
+		for (int i{}; i < static_cast<int>(m_pChildren.size()); ++i)
+		{
+			m_pChildren[i]->Update();
+		}
+
 		CleanUpVector(m_pComponents);
 	}
 
@@ -33,6 +38,11 @@ namespace Monke
 		for (const auto& pComponent : m_pComponents)
 		{
 			pComponent->Render();
+		}
+
+		for (const auto& pChild : m_pChildren)
+		{
+			pChild->Render();
 		}
 
 	}

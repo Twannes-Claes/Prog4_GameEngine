@@ -38,6 +38,9 @@
     <ClCompile Include="Rigidbody.cpp">
       <Filter>Game Files\Components</Filter>
     </ClCompile>
+    <ClCompile Include="Bubble.cpp">
+      <Filter>Game Files\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Tile.h">
@@ -56,6 +59,9 @@
       <Filter>Game Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="Rigidbody.h">
+      <Filter>Game Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Bubble.h">
       <Filter>Game Files\Components</Filter>
     </ClInclude>
   </ItemGroup>

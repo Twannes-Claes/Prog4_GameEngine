@@ -38,5 +38,9 @@ namespace Monke
 		const auto pFPS=  GetOwner()->AddCreateChild();
 		pFPS->GetTransform()->SetPosition(-120, -15);
 		pFPS->AddComponent<FPS>(ResourceManager::Get().LoadFont("Fonts/Lingua.otf", 15), SDL_Color(255, 255, 0, 255));
+
+		//const auto pEnable
+		//
+		//InputManager::Get().AddCommand(SDLK_TAB, InputManager::InputType::OnRelease, std::make_unique<SwitchSceneCommand>(0, 3));
 	}
 }
