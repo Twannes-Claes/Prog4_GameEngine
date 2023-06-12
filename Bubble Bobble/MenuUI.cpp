@@ -10,12 +10,16 @@
 #include "CommandClasses.h"
 #include "FPS.h"
 #include "InputManager.h"
+#include "ServiceLocator.h"
 #include "Texture.h"
 
 namespace Monke
 {
 	MenuUI::MenuUI(GameObject* pParent) :BaseComponent(pParent)
 	{
+		ServiceLocator::GetSoundSystem().ResumeAll();
+		ServiceLocator::GetSoundSystem().LoadSound(100, "Sounds/Music.mp3");
+
 		GetOwner()->GetTransform()->SetPosition(125, 25);
 
 		m_pLogo = GetOwner()->AddComponent<AnimationTexture>(ResourceManager::Get().LoadTexture("HUD/Logo.png"), 6, 1, 6);
@@ -25,6 +29,8 @@ namespace Monke
 		textGamemode->GetTransform()->SetPosition(60, 550);
 
 		textGamemode->AddComponent<Texture>(ResourceManager::Get().LoadTexture("HUD/Gamemodes.png"));
+
+		InputManager::Get().AddCommand(SDLK_m, InputManager::InputType::OnRelease, std::make_unique<MuteCommand>());
 
 		InputManager::Get().AddCommand(SDLK_LEFT, InputManager::InputType::OnRelease, std::make_unique<SwitchSceneCommand>(0, 1));
 		InputManager::Get().AddCommand(SDLK_UP, InputManager::InputType::OnRelease, std::make_unique<SwitchSceneCommand>(0, 2));
@@ -42,5 +48,6 @@ namespace Monke
 		//const auto pEnable
 		//
 		//InputManager::Get().AddCommand(SDLK_TAB, InputManager::InputType::OnRelease, std::make_unique<SwitchSceneCommand>(0, 3));
+		ServiceLocator::GetSoundSystem().Play(100, "Sounds/Music.mp3", 0.1f);
 	}
 }

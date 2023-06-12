@@ -25,13 +25,15 @@ namespace Monke
 		virtual void LoadSound(const SoundID id ,const std::string& path) override;
 
 		virtual void Stop(const SoundID ) override {};
-		virtual void StopAll() override{};
+		virtual void StopAll() override;
 
 		virtual void Pause(const SoundID ) override{};
-		virtual void PauseAll() override{};
+		virtual void PauseAll() override;
 
 		virtual void Resume(const SoundID ) override{};
-		virtual void ResumeAll() override{};
+		virtual void ResumeAll() override;
+
+		void Mute(bool mute);
 
 	private:
 

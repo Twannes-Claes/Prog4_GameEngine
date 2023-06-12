@@ -48,6 +48,8 @@ namespace Monke
 		}
 		else
 		{
+			pLivesObj->GetTransform()->SetPosition(650, 720);
+
 			const unsigned int controllerIdx = secondController ? 1 : 0;
 
 			InputManager::Get().AddCommand<MoveCommand>(controllerIdx, Gamepad::GamepadButton::DPad_Up, Gamepad::GamepadButton::Dpad_Right, Gamepad::GamepadButton::DPad_Down, Gamepad::GamepadButton::DPad_Left, std::make_unique<MoveCommand>(GetOwner(), 150.f));

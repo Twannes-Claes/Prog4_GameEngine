@@ -24,6 +24,8 @@ namespace Monke
 
 		virtual void Resume(const SoundID id) = 0;
 		virtual void ResumeAll() = 0;
+
+		virtual void Mute(bool mute) = 0;
 	};
 
 	class DefaultAudioSystem final : public AudioSystem
@@ -45,5 +47,7 @@ namespace Monke
 
 		virtual void Resume(const SoundID) override {}
 		virtual void ResumeAll() override {}
+
+		virtual void Mute(bool) override{};
 	};
 }

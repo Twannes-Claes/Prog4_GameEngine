@@ -41,6 +41,12 @@
     <ClCompile Include="Bubble.cpp">
       <Filter>Game Files\Components</Filter>
     </ClCompile>
+    <ClCompile Include="LivesDisplay.cpp">
+      <Filter>Game Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthComponent.cpp">
+      <Filter>Game Files\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Tile.h">
@@ -62,6 +68,12 @@
       <Filter>Game Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="Bubble.h">
+      <Filter>Game Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="LivesDisplay.h">
+      <Filter>Game Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthComponent.h">
       <Filter>Game Files\Components</Filter>
     </ClInclude>
   </ItemGroup>

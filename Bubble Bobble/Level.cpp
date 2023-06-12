@@ -115,12 +115,13 @@ Monke::Level::Level(GameObject* parent, int levelID, int gamemode, bool useTwoCo
 		InputManager::Get().AddCommand(0, Gamepad::GamepadButton::Button_East, InputManager::InputType::OnRelease, std::make_unique<SwitchSceneCommand>(3, gamemode));
 
 
-
 		if(useTwoControllers)
 		{
 			InputManager::Get().AddCommand(1, Gamepad::GamepadButton::Button_North, InputManager::InputType::OnRelease, std::make_unique<SwitchSceneCommand>(levelID, gamemode));
 			InputManager::Get().AddCommand(1, Gamepad::GamepadButton::Button_East, InputManager::InputType::OnRelease, std::make_unique<SwitchSceneCommand>(3, gamemode));
 		}
+
+		InputManager::Get().AddCommand(SDLK_m, InputManager::InputType::OnRelease, std::make_unique<MuteCommand>());
 
 		//FPS object
 		const auto pFPS = GetOwner()->AddCreateChild();

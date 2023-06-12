@@ -15,6 +15,7 @@
 #include "Level.h"
 #include "MenuUI.h"
 #include "Rigidbody.h"
+#include "ServiceLocator.h"
 
 namespace Monke
 {
@@ -60,10 +61,12 @@ namespace Monke
 		
 		if (newLevelID > 3)
 		{
+			ServiceLocator::GetSoundSystem().StopAll();
 			const auto scene = SceneManager::Get().AddCreateScene("MainMenu");
 
 			const auto pLevelLoader{ scene->MakeGameObject() };
 			pLevelLoader->AddComponent<MenuUI>();
+
 			return;
 		}
 
@@ -86,11 +89,22 @@ namespace Monke
 
 	void BubbleShootCommand::Execute()
 	{
+		if (m_pHealth->IsDead()) return;;
+
 		const auto newOBject = m_pObject->AddCreateChild();
 
 		newOBject->AddComponent<Bubble>(m_pObject->GetTransform()->GetWorldPosition(), m_pHealth);
 
 		newOBject->SetParent(nullptr);
+
+		ServiceLocator::GetSoundSystem().Play(3, "Sounds/Shoot.wav", 0.5f);
+	}
+
+	void MuteCommand::Execute()
+	{
+		m_Mute = !m_Mute;
+
+		ServiceLocator::GetSoundSystem().Mute(m_Mute);
 	}
 }
 

@@ -108,6 +108,48 @@ namespace Monke
 		//std::cout << "public Load sound with path: " << path << '\n';
 	}
 
+	void SDL_Audio::StopAll()
+	{
+		std::lock_guard lock{ m_Mutex };
+
+		AudioEvent temp{ stop_all, 0, 0, ""};
+
+		m_SoundQueue.emplace(temp);
+		m_Condition.notify_one();
+	}
+
+	void SDL_Audio::ResumeAll()
+	{
+		std::lock_guard lock{ m_Mutex };
+
+		AudioEvent temp{ resume_all, 0, 0, "" };
+
+		m_SoundQueue.emplace(temp);
+		m_Condition.notify_one();
+	}
+
+	void SDL_Audio::PauseAll()
+	{
+		std::lock_guard lock{ m_Mutex };
+
+		AudioEvent temp{ pause_all, 0, 0, "" };
+
+		m_SoundQueue.emplace(temp);
+		m_Condition.notify_one();
+	}
+
+	void SDL_Audio::Mute(bool mute)
+	{
+		if(mute)
+		{
+			PauseAll();
+		}
+		else
+		{
+			ResumeAll();
+		}
+	}
+
 	void SDL_Audio::Run()
 	{
 		// gets stopen token
@@ -225,6 +267,23 @@ namespace Monke
 					//std::cout << "Already Loaded sound with path: " << event.path << '\n';
 				}
 				break;
+
+				case stop_all:
+				{
+					Mix_HaltChannel(-1);
+				}
+				break;
+
+				case resume_all:
+				{
+					Mix_Resume(-1);
+				}
+				break;
+
+				case pause_all:
+				{
+					Mix_Pause(-1);
+				}
 
 				default:
 				break;

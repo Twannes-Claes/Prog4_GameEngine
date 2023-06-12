@@ -144,5 +144,24 @@ namespace Monke
 		HealthComponent* m_pHealth{};
 	};
 
+	class MuteCommand final : public Command
+	{
+	public:
+
+		MuteCommand() = default;
+		virtual ~MuteCommand() override = default;
+
+		virtual void Execute() override;
+
+		MuteCommand(const MuteCommand&) = delete;
+		MuteCommand(MuteCommand&&) = delete;
+		MuteCommand& operator= (const MuteCommand&) = delete;
+		MuteCommand& operator= (const MuteCommand&&) = delete;
+
+	private:
+
+		bool m_Mute{};
+	};
+
 }
 

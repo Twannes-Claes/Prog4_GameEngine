@@ -175,6 +175,8 @@ xcopy "$(SolutionDir)3rdParty\SDL2_Mixer\lib\x64\*.dll" "$(OutputPath)"  /R /Y</
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="HealthComponent.cpp" />
+    <ClCompile Include="LivesDisplay.cpp" />
     <ClCompile Include="Bubble.cpp" />
     <ClCompile Include="CommandClasses.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -185,6 +187,8 @@ xcopy "$(SolutionDir)3rdParty\SDL2_Mixer\lib\x64\*.dll" "$(OutputPath)"  /R /Y</
     <ClCompile Include="Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="HealthComponent.h" />
+    <ClInclude Include="LivesDisplay.h" />
     <ClInclude Include="Bubble.h" />
     <ClInclude Include="CommandClasses.h" />
     <ClInclude Include="Level.h" />
